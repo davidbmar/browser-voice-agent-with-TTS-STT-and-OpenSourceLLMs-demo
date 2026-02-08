@@ -40,15 +40,18 @@ export class AudioListener {
   private paused = false;
   private callbacks: AudioListenerCallbacks;
 
-  // Diagnostic counters for debugging device-specific issues
-  private _diag = {
-    getUserMediaStatus: "not-started" as string,
-    recognitionResultCount: 0,
-    recognitionEndCount: 0,
-    recognitionErrorCount: 0,
-    lastRecognitionError: "",
-    recognitionStartCount: 0,
-  };
+  // Diagnostic event log for debugging device-specific issues
+  private _diagLog: string[] = [];
+  private _diagMaxEntries = 30;
+
+  private _log(msg: string) {
+    const ts = new Date();
+    const time = `${ts.getMinutes().toString().padStart(2, "0")}:${ts.getSeconds().toString().padStart(2, "0")}.${ts.getMilliseconds().toString().padStart(3, "0")}`;
+    this._diagLog.push(`[${time}] ${msg}`);
+    if (this._diagLog.length > this._diagMaxEntries) {
+      this._diagLog.shift();
+    }
+  }
 
   constructor(callbacks: AudioListenerCallbacks = {}) {
     this.callbacks = callbacks;
@@ -85,7 +88,6 @@ export class AudioListener {
     this.recognition.lang = "en-US";
 
     this.recognition.onresult = (event: SpeechRecognitionEvent) => {
-      this._diag.recognitionResultCount++;
       let interim = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
@@ -93,19 +95,20 @@ export class AudioListener {
         const confidence = result[0].confidence;
 
         if (result.isFinal) {
+          this._log(`FINAL: "${transcript.trim()}" (conf=${confidence.toFixed(2)})`);
           this.callbacks.onFinalTranscript?.(transcript.trim(), confidence);
         } else {
           interim += transcript;
         }
       }
       if (interim) {
+        this._log(`INTERIM: "${interim.slice(0, 40)}"`);
         this.callbacks.onInterimTranscript?.(interim);
       }
     };
 
     this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      this._diag.recognitionErrorCount++;
-      this._diag.lastRecognitionError = event.error;
+      this._log(`ERROR: ${event.error} (msg=${event.message || "none"})`);
       // Suppress common non-fatal errors
       if (event.error !== "aborted" && event.error !== "no-speech") {
         this.callbacks.onError?.(`Speech recognition error: ${event.error}`);
@@ -114,20 +117,31 @@ export class AudioListener {
 
     // Auto-restart: browsers kill recognition after ~60s of silence
     this.recognition.onend = () => {
-      this._diag.recognitionEndCount++;
+      this._log(`ONEND (active=${this.active}, paused=${this.paused})`);
       if (this.active && !this.paused) {
         try {
           this.recognition?.start();
-          this._diag.recognitionStartCount++;
-        } catch (_e) { /* already started */ }
+          this._log("RESTART ok");
+        } catch (e) {
+          this._log(`RESTART fail: ${e instanceof Error ? e.message : String(e)}`);
+        }
       }
     };
 
+    // These events exist on SpeechRecognition but aren't in all TS typings
+    const rec = this.recognition as unknown as Record<string, unknown>;
+    rec.onaudiostart = () => { this._log("AUDIO_START (mic capturing)"); };
+    rec.onaudioend = () => { this._log("AUDIO_END (mic stopped)"); };
+    rec.onspeechstart = () => { this._log("SPEECH_START (voice detected)"); };
+    rec.onspeechend = () => { this._log("SPEECH_END (voice stopped)"); };
+
+    this._log("recognition.start() calling...");
     try {
       this.recognition.start();
-      this._diag.recognitionStartCount++;
+      this._log("recognition.start() ok");
       this.callbacks.onStateChange?.("started");
-    } catch (_err) {
+    } catch (err) {
+      this._log(`recognition.start() FAILED: ${err instanceof Error ? err.message : String(err)}`);
       this.callbacks.onError?.("Failed to start speech recognition.");
       this.active = false;
       return;
@@ -138,21 +152,23 @@ export class AudioListener {
     // was in gesture context. If Android needs mic permission first, the onend
     // auto-restart handler will naturally re-start recognition once it times out,
     // and by then getUserMedia permission is already granted.
+    this._log("getUserMedia requesting...");
     try {
-      this._diag.getUserMediaStatus = "requesting";
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this._diag.getUserMediaStatus = "granted";
+      this._log(`getUserMedia granted (${stream.getAudioTracks().length} tracks)`);
       this.mediaStream = stream;
 
       this.audioContext = new AudioContext();
+      this._log(`AudioContext created (state=${this.audioContext.state})`);
       this.analyser = this.audioContext.createAnalyser();
       const source = this.audioContext.createMediaStreamSource(stream);
       source.connect(this.analyser);
       this.analyser.fftSize = 256;
 
       this.startLevelMonitoring();
+      this._log("Level monitoring started");
     } catch (err) {
-      this._diag.getUserMediaStatus = `failed: ${err instanceof Error ? err.message : "unknown"}`;
+      this._log(`getUserMedia FAILED: ${err instanceof Error ? err.message : "unknown"}`);
       // Audio level monitoring is optional — recognition still works without it
       this.callbacks.onError?.(
         `Microphone level monitoring unavailable: ${err instanceof Error ? err.message : "unknown"}`
@@ -220,13 +236,9 @@ export class AudioListener {
       : "no stream";
 
     return {
-      getUserMedia: this._diag.getUserMediaStatus,
       audioContext: this.audioContext?.state ?? "none",
       streamTracks: trackStates,
-      recResults: String(this._diag.recognitionResultCount),
-      recEnds: String(this._diag.recognitionEndCount),
-      recErrors: `${this._diag.recognitionErrorCount}${this._diag.lastRecognitionError ? ` (${this._diag.lastRecognitionError})` : ""}`,
-      recStarts: String(this._diag.recognitionStartCount),
+      eventLog: this._diagLog.join("\n"),
     };
   }
 
