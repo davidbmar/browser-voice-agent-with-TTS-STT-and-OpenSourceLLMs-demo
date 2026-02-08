@@ -148,31 +148,34 @@ export class AudioListener {
     }
 
     // --- Set up AudioContext for level monitoring (async, after recognition started) ---
-    // NOTE: We do NOT restart recognition after getUserMedia. The initial start()
-    // was in gesture context. If Android needs mic permission first, the onend
-    // auto-restart handler will naturally re-start recognition once it times out,
-    // and by then getUserMedia permission is already granted.
-    this._log("getUserMedia requesting...");
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this._log(`getUserMedia granted (${stream.getAudioTracks().length} tracks)`);
-      this.mediaStream = stream;
+    // IMPORTANT: On Android, getUserMedia can steal the mic from SpeechRecognition,
+    // causing recognition to receive silence. Skip audio level monitoring on Android.
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      this._log("Android detected — skipping getUserMedia (mic contention fix)");
+    } else {
+      this._log("getUserMedia requesting...");
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this._log(`getUserMedia granted (${stream.getAudioTracks().length} tracks)`);
+        this.mediaStream = stream;
 
-      this.audioContext = new AudioContext();
-      this._log(`AudioContext created (state=${this.audioContext.state})`);
-      this.analyser = this.audioContext.createAnalyser();
-      const source = this.audioContext.createMediaStreamSource(stream);
-      source.connect(this.analyser);
-      this.analyser.fftSize = 256;
+        this.audioContext = new AudioContext();
+        this._log(`AudioContext created (state=${this.audioContext.state})`);
+        this.analyser = this.audioContext.createAnalyser();
+        const source = this.audioContext.createMediaStreamSource(stream);
+        source.connect(this.analyser);
+        this.analyser.fftSize = 256;
 
-      this.startLevelMonitoring();
-      this._log("Level monitoring started");
-    } catch (err) {
-      this._log(`getUserMedia FAILED: ${err instanceof Error ? err.message : "unknown"}`);
-      // Audio level monitoring is optional — recognition still works without it
-      this.callbacks.onError?.(
-        `Microphone level monitoring unavailable: ${err instanceof Error ? err.message : "unknown"}`
-      );
+        this.startLevelMonitoring();
+        this._log("Level monitoring started");
+      } catch (err) {
+        this._log(`getUserMedia FAILED: ${err instanceof Error ? err.message : "unknown"}`);
+        // Audio level monitoring is optional — recognition still works without it
+        this.callbacks.onError?.(
+          `Microphone level monitoring unavailable: ${err instanceof Error ? err.message : "unknown"}`
+        );
+      }
     }
   }
 
