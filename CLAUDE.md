@@ -80,6 +80,21 @@ grep -r "decision topic" docs/project-memory/adr/
 ls docs/project-memory/sessions/S-2026-02-08*
 ```
 
+**Use the keyword index (FAST):**
+```bash
+# Search by keyword (instant lookup)
+cat docs/project-memory/.index/keywords.json | jq '.audio'
+# Returns: ["S-2026-02-08-1400-listener-ui-mute"]
+
+# Get session metadata
+cat docs/project-memory/.index/metadata.json | jq '.[] | select(.sessionId == "S-2026-02-08-1400-listener-ui-mute")'
+```
+
+**Rebuild index:**
+```bash
+npm run build-index
+```
+
 #### 6. Semantic Search (AI-Powered)
 
 When users ask questions using **concepts** rather than exact keywords, you must do semantic search:

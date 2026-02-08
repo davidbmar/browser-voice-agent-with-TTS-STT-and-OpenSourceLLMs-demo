@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build-index": "tsx scripts/build-index.ts"
   },
   "dependencies": {
     "@diffusionstudio/vits-web": "^1.0.3",
@@ -44,6 +45,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",

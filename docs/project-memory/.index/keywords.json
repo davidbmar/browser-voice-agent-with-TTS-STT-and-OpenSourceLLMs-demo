@@ -1,0 +1,919 @@
+{
+  "bootstrap": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "project": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "memory": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "system": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "every": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "coding": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "session": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "decision": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "searchable": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "citations": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "starting": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "new": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "repo": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "need": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "way": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "track": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "code": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "changed": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "decided": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "find": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "context": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "any": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "commit": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "created": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "docs": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "project-memory": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "structure": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "adr": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "templates": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "example": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "file": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "tracking": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "template": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "requiring": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "ids": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "documented": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "format": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "s-yyyy-mm-dd-hhmm-": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "slug": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "established": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "message": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "sessionid": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "description": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "chose": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "because": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "sortable": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "time": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "human": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "readable": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "unique": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "enough": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "concurrent": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "sessions": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "easy": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "grep": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "commits": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "prefix": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "requirement": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "include": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "makes": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "git": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "log": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "links": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "enables": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "tracing": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "reasoning": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "add": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "visibility": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "into": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "listener": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "pause": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "resume": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "make": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "all": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "panels": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "collapsible": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "audio": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "mute": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "toggle": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "build": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "number": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "comprehensive": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "test": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "suite": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "after": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "implementing": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "always-on": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "pipeline": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "didn": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "show": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "paused": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "echo": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "cancellation": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "stage": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "diagram": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "showed": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "listening": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "sequential": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "actually": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "parallel": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "some": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "couldn": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "collapsed": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "there": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "output": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "infrastructure": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "existed": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "during": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "speak": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "unavoidable": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "made": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "visible": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "rather": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "than": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "eliminated": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "used": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "vits": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "silence": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "volume": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "skip": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "preserve": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "timing": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "two-row": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "separates": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "concerns": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "processing": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "migrate": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "traceable": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "browser_question_loop": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "active": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "voice": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "agent": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "application": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "ongoing": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "development": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "decisions": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "future": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "changes": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "explainable": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "copied": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "directory": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "examples": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "claude": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "instructions": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "github": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "pull_request_template": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "updated": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "readme": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "section": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "document": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "s-2026-02-08-1430-migrate-project-memory": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "keep": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "existing": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "screenshots": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "already": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "lives": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "alongside": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "workflow": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "additive": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "continues": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "normally": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "now": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "documentation": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "collapse": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "consecutive": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "interim": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "speech": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "events": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "single": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "row": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "panel": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "reduce": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "noise": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "shows": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "individual": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "event": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "separate": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "creating": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "15-20": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "lines": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "sentence": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "users": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "want": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "cleaner": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "view": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "interims": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "showing": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "range": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "count": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "src": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "lib": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "format-time": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "added": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "formattimerange": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "startms": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "endms": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "function": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "components": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "trace": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "speech-event-panel": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "tsx": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "grouping": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "types": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "logic": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "render": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "__tests__": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "tests": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "ui-only": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "rendering": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "layer": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "speecheventlog": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "unchanged": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "mmm-ss": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "mmm": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "ranges": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "100ms": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "timestamp": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "otherwise": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "parentheses": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "end": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "text": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "fix": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "premature": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "turn-end": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "detection": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "causes": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "clipped": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "just": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "first": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "word": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "only": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "captures": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "silence-based": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "turn": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "updatevadfromlevel": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "loop-controller": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "406-420": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "fires": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "synthetic": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "turn_end": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "silencedurationms": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "silencethresholdms": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "1500ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "default": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "signal_detect": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "however": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "accumulates": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "long": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "silences": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "between": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "utterances": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "never": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "reset": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "arrives": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "via": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "speechrecognition": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "results": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "fire": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "within": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "200ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "using": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "whatever": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "partial": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "available": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "evidence": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "final": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "213ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "hardcoded": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "confidence": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "full": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "later": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "micro_response": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "gets": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "queued": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "discarded": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "stale": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "10s": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "old": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "counter": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "transition": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "signal": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "detect": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "modifying": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "most": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "targeted": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "problem": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "data": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "persists": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "window": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ]
+}
