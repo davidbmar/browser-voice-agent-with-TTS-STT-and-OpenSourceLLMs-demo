@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build-index": "tsx scripts/build-index.ts"
+    "build-index": "tsx scripts/build-index.ts",
+    "search": "tsx scripts/search-memory.ts"
   },
   "dependencies": {
     "@diffusionstudio/vits-web": "^1.0.3",
