@@ -7,14 +7,14 @@
  *  - Voice-only: mic Start/Stop controls at bottom
  */
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import type { LoopState, LoopEvent, LoopHistoryEntry } from "@/lib/loop-types.ts";
 import { MODEL_CATALOG } from "@/lib/loop-types.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
 import { Progress } from "@/components/ui/progress.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
-import { Bug, Mic, Square, Loader2, Brain, MessageCircle, User, X } from "lucide-react";
+import { Bug, Mic, Square, Loader2, Brain, MessageCircle, User, X, Info } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 
 interface MobileLayoutProps {
@@ -70,9 +70,42 @@ function HistoryBubble({ entry }: { entry: LoopHistoryEntry }) {
   );
 }
 
+function DebugPanel({ state }: { state: LoopState }) {
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  const hasSpeechRec = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const hasWebGPU = !!navigator.gpu;
+  const hasSpeechSynth = typeof speechSynthesis !== "undefined";
+
+  return (
+    <div className="p-3 rounded-lg bg-muted/50 border border-border text-[11px] font-mono space-y-1.5">
+      <div className="font-semibold text-xs text-foreground mb-2">Debug Info</div>
+      <div><span className="text-muted-foreground">Stage:</span> {state.stage}</div>
+      <div><span className="text-muted-foreground">Running:</span> {state.isRunning ? "yes" : "no"}</div>
+      <div><span className="text-muted-foreground">Audio Level:</span> {state.vad.audioLevel.toFixed(0)}</div>
+      <div><span className="text-muted-foreground">VAD Speaking:</span> {state.vad.isSpeaking ? "yes" : "no"}</div>
+      <div><span className="text-muted-foreground">Silence:</span> {state.vad.silenceDurationMs}ms</div>
+      <div><span className="text-muted-foreground">Interim:</span> "{state.interimTranscript || "(none)"}"</div>
+      <div><span className="text-muted-foreground">Final:</span> "{state.finalTranscript || "(none)"}"</div>
+      <div><span className="text-muted-foreground">Model:</span> {state.modelConfig.modelId || "(none)"} {state.modelConfig.isLoaded ? "(loaded)" : ""}</div>
+      <div><span className="text-muted-foreground">Error:</span> {state.error || "(none)"}</div>
+      <div className="border-t border-border pt-1.5 mt-1.5">
+        <div className="font-semibold text-xs text-foreground mb-1">Device</div>
+        <div><span className="text-muted-foreground">Platform:</span> {isIOS ? "iOS" : isAndroid ? "Android" : "Desktop"}</div>
+        <div><span className="text-muted-foreground">WebGPU:</span> {hasWebGPU ? "yes" : "no"}</div>
+        <div><span className="text-muted-foreground">SpeechRecognition:</span> {hasSpeechRec ? "yes" : "no"}</div>
+        <div><span className="text-muted-foreground">SpeechSynthesis:</span> {hasSpeechSynth ? "yes" : "no"}</div>
+        <div className="break-all"><span className="text-muted-foreground">UA:</span> {ua.slice(0, 120)}</div>
+      </div>
+    </div>
+  );
+}
+
 export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId, onModelLoad, onModelUnload }: MobileLayoutProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const [showDebug, setShowDebug] = useState(false);
 
   // Auto-scroll to bottom when new content arrives
   useEffect(() => {
@@ -89,8 +122,8 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
       {/* --- Compact header --- */}
       <header className="shrink-0 border-b bg-card/50 px-3 py-2">
         <div className="flex items-center justify-between gap-2">
-          {/* Left: branding + stage */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Left: branding + stage + debug */}
+          <div className="flex items-center gap-1.5 shrink-0">
             <Bug className="h-4 w-4 text-primary" />
             <span className={cn(
               "text-[10px] px-2 py-0.5 rounded-full font-medium",
@@ -98,6 +131,14 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
             )}>
               {STAGE_LABELS[state.stage] || state.stage}
             </span>
+            <Button
+              size="icon"
+              variant="ghost"
+              className={cn("h-7 w-7 shrink-0", showDebug && "bg-muted")}
+              onClick={() => setShowDebug(!showDebug)}
+            >
+              <Info className="h-3.5 w-3.5" />
+            </Button>
           </div>
 
           {/* Right: model selector */}
@@ -145,6 +186,9 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-4">
         {/* Capability banner */}
         <CapabilityBanner />
+
+        {/* Debug panel (toggled via info icon) */}
+        {showDebug && <DebugPanel state={state} />}
 
         {/* Error */}
         {state.error && (

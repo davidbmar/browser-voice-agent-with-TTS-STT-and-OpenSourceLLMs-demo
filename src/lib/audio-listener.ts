@@ -49,7 +49,13 @@ export class AudioListener {
     return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
   }
 
-  /** Start listening: initializes mic, AudioContext, and SpeechRecognition. */
+  /** Start listening: initializes SpeechRecognition and mic AudioContext.
+   *
+   * IMPORTANT: SpeechRecognition.start() must be called synchronously from
+   * the user gesture (tap/click) — if we await getUserMedia first, Android
+   * Chrome loses the gesture context and blocks recognition with "not-allowed".
+   * So we start recognition FIRST, then set up AudioContext in the background.
+   */
   async start(): Promise<void> {
     if (this.active) return;
 
@@ -61,27 +67,7 @@ export class AudioListener {
     this.active = true;
     this.paused = false;
 
-    // --- Set up AudioContext for level monitoring ---
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.mediaStream = stream;
-
-      this.audioContext = new AudioContext();
-      this.analyser = this.audioContext.createAnalyser();
-      const source = this.audioContext.createMediaStreamSource(stream);
-      source.connect(this.analyser);
-      this.analyser.fftSize = 256;
-
-      this.startLevelMonitoring();
-    } catch (err) {
-      this.callbacks.onError?.(
-        `Microphone access denied: ${err instanceof Error ? err.message : "unknown"}`
-      );
-      this.active = false;
-      return;
-    }
-
-    // --- Set up SpeechRecognition ---
+    // --- Set up SpeechRecognition FIRST (synchronous, in user gesture context) ---
     const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
     this.recognition = new SpeechRecognitionCtor();
     this.recognition.continuous = true;
@@ -126,6 +112,40 @@ export class AudioListener {
     } catch (_err) {
       this.callbacks.onError?.("Failed to start speech recognition.");
       this.active = false;
+      return;
+    }
+
+    // --- Set up AudioContext for level monitoring (async, after recognition started) ---
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.mediaStream = stream;
+
+      this.audioContext = new AudioContext();
+      this.analyser = this.audioContext.createAnalyser();
+      const source = this.audioContext.createMediaStreamSource(stream);
+      source.connect(this.analyser);
+      this.analyser.fftSize = 256;
+
+      this.startLevelMonitoring();
+
+      // On some Android devices, recognition needs mic permission from getUserMedia
+      // to actually capture audio. Restart recognition now that permission is granted.
+      if (this.active && !this.paused && this.recognition) {
+        try {
+          this.recognition.stop();
+        } catch (_e) { /* ignore */ }
+        // Small delay to let stop() complete before restarting
+        setTimeout(() => {
+          if (this.active && !this.paused && this.recognition) {
+            try { this.recognition.start(); } catch (_e) { /* ignore */ }
+          }
+        }, 100);
+      }
+    } catch (err) {
+      // Audio level monitoring is optional — recognition still works without it
+      this.callbacks.onError?.(
+        `Microphone level monitoring unavailable: ${err instanceof Error ? err.message : "unknown"}`
+      );
     }
   }
 
