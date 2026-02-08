@@ -43,7 +43,7 @@ None. Ready to test with a commit.
 ## Links
 
 Commits:
-- (Will be added after commit is created)
+- `fe10763` [S-2026-02-08-1430-migrate-project-memory] Add traceable project memory system
 
 PRs:
 - (Will be linked when PR created)
