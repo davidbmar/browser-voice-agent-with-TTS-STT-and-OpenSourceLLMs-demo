@@ -301,10 +301,10 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
             variant={state.isRunning ? "outline" : "default"}
             className="flex-1 h-10 text-sm gap-1.5"
             onClick={() => dispatch({ type: "MIC_START" })}
-            disabled={state.stage !== "IDLE"}
+            disabled={state.stage !== "IDLE" || !state.modelConfig.isLoaded}
           >
             <Mic className="h-4 w-4" />
-            Start
+            {isLoadingModel ? "Loading..." : "Start"}
           </Button>
           <Button
             size="sm"
