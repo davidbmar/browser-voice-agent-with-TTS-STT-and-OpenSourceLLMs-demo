@@ -76,6 +76,38 @@ Open **http://localhost:5173** in Chrome. The app auto-loads the Qwen3 0.6B mode
 
 ---
 
+## 📝 Project Memory System
+
+This repo uses a **Traceable Project Memory** system to make every coding session and decision searchable with citations.
+
+### Important Files
+
+- **`CLAUDE.md`** — Instructions for AI assistants on how to use the Project Memory system
+- **`docs/project-memory/`** — Session logs, ADRs, runbooks, architecture docs
+
+### How It Works
+
+Every coding session gets a Session ID: `S-YYYY-MM-DD-HHMM-<slug>`
+
+Every commit must include the Session ID: `[SessionID] description`
+
+Example:
+```bash
+git commit -m "[S-2026-02-08-1500-add-auth] Add JWT authentication"
+```
+
+### Getting Started with Project Memory
+
+1. Read `docs/project-memory/index.md` for full documentation
+2. Copy `docs/project-memory/sessions/_template.md` to start a new session
+3. Make commits with Session ID prefixes
+4. Update session docs with changes and decisions
+5. Create ADRs for significant architectural decisions
+
+**When working with AI assistants (Claude, etc):** They automatically read `CLAUDE.md` and will enforce the Project Memory system for you.
+
+---
+
 ## Deploy to AWS
 
 The included `deploy.sh` script handles S3 + CloudFront deployment with proper COOP/COEP headers (required for SharedArrayBuffer):
