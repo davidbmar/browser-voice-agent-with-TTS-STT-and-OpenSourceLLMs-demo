@@ -80,6 +80,43 @@ grep -r "decision topic" docs/project-memory/adr/
 ls docs/project-memory/sessions/S-2026-02-08*
 ```
 
+#### 6. Semantic Search (AI-Powered)
+
+When users ask questions using **concepts** rather than exact keywords, you must do semantic search:
+
+**User asks:** "Show me anything about mobile support"
+
+**You should:**
+1. Use Grep to read ALL session docs: `grep -r "" docs/project-memory/sessions/S-*.md`
+2. Use Grep to read ALL ADRs: `grep -r "" docs/project-memory/adr/*.md`
+3. Analyze content using your understanding to find matches
+4. Match related concepts:
+   - "mobile" → iPhone, responsive, viewport, touch, iOS
+   - "authentication" → login, JWT, OAuth, auth, credentials
+   - "performance" → optimization, speed, latency, memory
+5. Return results with **explanation** of why they match
+
+**Example:**
+
+User: "What did we do about mobile?"
+
+```bash
+# 1. Read all sessions
+grep -r "" docs/project-memory/sessions/S-*.md
+
+# 2. Find S-2026-02-08-1430-migrate-project-memory
+# 3. Notice it mentions "iPhone Chrome" and "responsive"
+# 4. Return: "Found session S-2026-02-08-1430 because it discusses
+#    iPhone Chrome optimizations and responsive design, which
+#    relates to mobile support"
+```
+
+**Semantic search rules:**
+- Always explain WHY results match (don't just keyword match)
+- Find synonyms and related concepts
+- Cross-reference between sessions, ADRs, and commits
+- If no exact keyword matches, read files and understand semantically
+
 ### Your Workflow
 
 1. **Start of work:** Create or identify Session ID

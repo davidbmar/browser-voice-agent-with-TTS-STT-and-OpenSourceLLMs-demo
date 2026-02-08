@@ -57,9 +57,40 @@ Create an Architecture Decision Record when you:
 
 Not every session needs an ADR. ADRs are for decisions that matter across the codebase.
 
+## Searching Project Memory
+
+### Keyword Search
+
+```bash
+# Find sessions by keyword
+grep -r "authentication" docs/project-memory/sessions/
+
+# Find commits by Session ID
+git log --all --grep="S-2026-02-08-1430"
+
+# Find sessions by date
+ls docs/project-memory/sessions/S-2026-02-08*
+```
+
+### Semantic Search (AI-Powered)
+
+Ask Claude conceptual questions, not just keywords:
+- "Show me anything about audio problems" → finds speech clipping bugs
+- "What testing work was done?" → finds vitest setup sessions
+- "What UI improvements were made?" → finds collapsible panels work
+
+Claude reads all files and understands concepts:
+- "authentication" = "login" = "JWT" = "OAuth"
+- "audio bugs" = "speech clipping" = "silence detection issues"
+- "performance" = "optimization" = "speed" = "latency"
+
+See `examples/semantic-search-demo.md` for real examples.
+
 ## Directory Structure
 
 - `sessions/` - Individual coding session logs
 - `adr/` - Architecture Decision Records
 - `runbooks/` - Operational procedures
 - `architecture/` - System design docs and diagrams
+- `tools/` - Helper scripts and documentation
+- `examples/` - Real-world usage examples
