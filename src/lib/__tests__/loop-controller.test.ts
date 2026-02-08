@@ -385,6 +385,20 @@ describe("LoopController", () => {
     expect(ctrl.getState().vad.isSpeaking).toBe(true);
   });
 
+  it("silence turn-end does not fire while SpeechRecognition still produces interim text", () => {
+    ctrl.dispatch({ type: "MIC_START" });
+    // Enter SIGNAL_DETECT with speech
+    ctrl.dispatch({ type: "AUDIO_FRAME", audioLevel: 50, interimText: "you are" });
+    expect(ctrl.getState().stage).toBe("SIGNAL_DETECT");
+    // Even if audio level drops low, as long as interim text keeps arriving,
+    // the silence-based turn-end should NOT fire (SR silence check)
+    ctrl.dispatch({ type: "AUDIO_FRAME", audioLevel: 0, interimText: "you are an LLM" });
+    ctrl.dispatch({ type: "AUDIO_FRAME", audioLevel: 0, interimText: "you are an LLM what" });
+    // Should still be in SIGNAL_DETECT, not have fired TURN_END
+    expect(ctrl.getState().stage).toBe("SIGNAL_DETECT");
+    expect(ctrl.getState().interimTranscript).toBe("you are an LLM what");
+  });
+
   // -----------------------------------------------------------------------
   // Listener paused state
   // -----------------------------------------------------------------------

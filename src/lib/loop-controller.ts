@@ -126,6 +126,7 @@ export class LoopController {
   private searchProvider: SearchProvider = new MockSearchProvider();
   private pendingTurns: Array<{ finalText: string; confidence: number; receivedAt: number }> = [];
   private static readonly MAX_PENDING_TURNS = 3;
+  private lastInterimTextAt = 0;
 
   constructor() {
     this.trace = new DecisionTrace();
@@ -251,6 +252,7 @@ export class LoopController {
         // Always update VAD metrics (parallel listener pipeline)
         this.state.vad.audioLevel = event.audioLevel;
         if (event.interimText) {
+          this.lastInterimTextAt = Date.now();
           this.speechLog.add("interim", event.interimText, 0, stage);
         }
 
@@ -376,6 +378,7 @@ export class LoopController {
     this.clearSilenceTimer();
     this.clearFeedbackTimer();
     this.pendingTurns = [];
+    this.lastInterimTextAt = 0;
     this.state = {
       ...DEFAULT_LOOP_STATE,
       modelConfig: { ...this.state.modelConfig },
@@ -409,15 +412,20 @@ export class LoopController {
       }
 
       // Silence-based turn end detection
+      // Require silence from BOTH audio level AND SpeechRecognition.
+      // SR can detect speech even when audio level is below our threshold,
+      // so don't fire turn-end while SR is still producing interim text.
+      const srSilenceMs = now - this.lastInterimTextAt;
       if (
         this.state.stage === "SIGNAL_DETECT" &&
         this.state.interimTranscript &&
-        this.state.vad.silenceDurationMs >= bias.silenceThresholdMs
+        this.state.vad.silenceDurationMs >= bias.silenceThresholdMs &&
+        srSilenceMs >= bias.silenceThresholdMs
       ) {
         this.trace.add(
           this.state.stage,
           "silence_turn_end",
-          `silence_ms=${this.state.vad.silenceDurationMs} >= ${bias.silenceThresholdMs} => turn_end`
+          `audio_silence=${this.state.vad.silenceDurationMs}ms, sr_silence=${srSilenceMs}ms >= ${bias.silenceThresholdMs} => turn_end`
         );
         this.dispatch({
           type: "TURN_END",
