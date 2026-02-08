@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
 import { Progress } from "@/components/ui/progress.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
-import { Bug, Mic, Square, Loader2, Brain, MessageCircle, User, X, Info } from "lucide-react";
+import { Bug, Mic, Square, Loader2, Brain, MessageCircle, User, X, Info, Search } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 
 interface MobileLayoutProps {
@@ -243,8 +243,16 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
           </div>
         )}
 
+        {/* Search indicator */}
+        {isProcessing && state.lastSearchQuery && !state.lastResponse && (
+          <div className="flex gap-2 items-center text-cyan-400">
+            <Search className="h-4 w-4 animate-pulse" />
+            <span className="text-xs">Searching: "{state.lastSearchQuery}"</span>
+          </div>
+        )}
+
         {/* Processing indicator */}
-        {isProcessing && !state.lastResponse && (
+        {isProcessing && !state.lastResponse && !state.lastSearchQuery && (
           <div className="flex gap-2 items-center text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" />
             <span className="text-xs">{STAGE_LABELS[state.stage]}</span>

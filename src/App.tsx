@@ -20,6 +20,7 @@ import { HistoryTimeline } from "@/components/history/history-timeline.tsx";
 import { DocsButton } from "@/components/docs/docs-button.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
 import { MobileLayout } from "@/components/layout/mobile-layout.tsx";
+import { SearchResultsPanel } from "@/components/search/search-results-panel.tsx";
 import { useLoop } from "@/hooks/use-loop.ts";
 import { useMobile } from "@/hooks/use-mobile.ts";
 import { Bug } from "lucide-react";
@@ -33,6 +34,7 @@ function App() {
     unloadModel,
     setClassifyWithLLM,
     setResponseWithLLM,
+    setSearchEnabled,
     setBias,
     controller,
   } = useLoop();
@@ -151,9 +153,11 @@ function App() {
             <ModelToggle
               classifyWithLLM={state.modelConfig.classifyWithLLM}
               responseWithLLM={state.modelConfig.responseWithLLM}
+              searchEnabled={state.modelConfig.searchEnabled}
               isModelLoaded={state.modelConfig.isLoaded}
               onClassifyChange={setClassifyWithLLM}
               onResponseChange={setResponseWithLLM}
+              onSearchChange={setSearchEnabled}
             />
           </div>
 
@@ -179,6 +183,7 @@ function App() {
         <>
           <InternalStatePanel state={state} />
           <PromptsPanel state={state} />
+          {state.modelConfig.searchEnabled && <SearchResultsPanel state={state} />}
           <DecisionTracePanel entries={traceEntries} />
           <BiasSliders bias={state.bias} onChange={setBias} />
         </>

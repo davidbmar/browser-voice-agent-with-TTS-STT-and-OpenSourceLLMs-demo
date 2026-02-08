@@ -27,7 +27,11 @@ import { TTSSpeaker } from "./tts-speaker.ts";
 import { LLMEngine } from "./llm-engine.ts";
 import { DecisionTrace } from "./decision-trace.ts";
 import { BiasStore } from "./bias-store.ts";
-import { buildClassifyPrompt, buildMicroResponsePrompt, parseThinkTags } from "./prompt-templates.ts";
+import { buildClassifyPrompt, buildMicroResponsePrompt, buildSearchAugmentedResponsePrompt, parseThinkTags } from "./prompt-templates.ts";
+import type { SearchProvider } from "./search-provider.ts";
+import { MockSearchProvider } from "./search-provider.ts";
+import { detectSearchNeed } from "./search-need-detector.ts";
+import { formatSearchResults } from "./search-result-formatter.ts";
 
 // ---------------------------------------------------------------------------
 // Rule-based fallbacks (used when LLM is not loaded or fails)
@@ -117,6 +121,7 @@ export class LoopController {
   private silenceStartTime = 0;
   private feedbackTimer: ReturnType<typeof setTimeout> | null = null;
   private iterationStartTime = 0;
+  private searchProvider: SearchProvider = new MockSearchProvider();
 
   constructor() {
     this.trace = new DecisionTrace();
@@ -452,14 +457,54 @@ export class LoopController {
     const maxWords = Math.max(20, 60 + Math.round(bias.verbosity * 30));
 
     if (this.state.modelConfig.responseWithLLM && this.llmEngine.isLoaded()) {
-      // LLM response — stream tokens and push sentences to TTS as they complete
-      const prompt = buildMicroResponsePrompt(
-        finalTranscript,
-        classification.intent,
-        classification.confidence,
-        maxWords,
-        classification.needsClarification
-      );
+      // --- Search augmentation (opt-in) ---
+      let searchResultsBlock = "";
+      if (this.state.modelConfig.searchEnabled) {
+        const searchNeed = detectSearchNeed(
+          finalTranscript,
+          classification.intent,
+          classification.confidence,
+        );
+
+        if (searchNeed.needsSearch) {
+          this.trace.add("MICRO_RESPONSE", "search_start",
+            `Query: "${searchNeed.searchQuery}" (${searchNeed.reason})`);
+          this.notifyListeners();
+
+          try {
+            const searchResponse = await this.searchProvider.search(searchNeed.searchQuery, 3);
+
+            this.state.lastSearchQuery = searchNeed.searchQuery;
+            this.state.lastSearchResults = searchResponse.results.map(r => ({
+              title: r.title, snippet: r.snippet,
+            }));
+            this.state.lastSearchDurationMs = searchResponse.durationMs;
+            this.state.lastSearchProvider = searchResponse.provider;
+            this.notifyListeners();
+
+            searchResultsBlock = formatSearchResults(searchResponse.results);
+
+            this.trace.add("MICRO_RESPONSE", "search_done",
+              `${searchResponse.results.length} results in ${searchResponse.durationMs}ms (${searchResponse.provider})`);
+          } catch (err) {
+            this.trace.add("MICRO_RESPONSE", "search_error",
+              `Search failed: ${err instanceof Error ? err.message : "unknown"}`);
+          }
+        } else {
+          this.trace.add("MICRO_RESPONSE", "search_skip", searchNeed.reason);
+        }
+      }
+
+      // Build prompt — use search-augmented template if we have results
+      const prompt = searchResultsBlock
+        ? buildSearchAugmentedResponsePrompt(
+            finalTranscript, classification.intent, classification.confidence,
+            maxWords, classification.needsClarification, searchResultsBlock,
+          )
+        : buildMicroResponsePrompt(
+            finalTranscript, classification.intent, classification.confidence,
+            maxWords, classification.needsClarification,
+          );
       this.state.filledResponsePrompt = prompt;
       this.state.responseRawOutput = "";
       this.notifyListeners();
@@ -668,6 +713,10 @@ export class LoopController {
     this.state.classifyRawOutput = "";
     this.state.responseRawOutput = "";
     this.state.currentStageTimings = {};
+    this.state.lastSearchQuery = "";
+    this.state.lastSearchResults = [];
+    this.state.lastSearchDurationMs = 0;
+    this.state.lastSearchProvider = "";
     this.iterationStartTime = Date.now();
 
     // Loop back to LISTENING if mic is active, otherwise IDLE
@@ -691,6 +740,8 @@ export class LoopController {
       biasSnapshot: this.biasStore.get(),
       modelUsed: this.llmEngine.getModelId(),
       timestamp: Date.now(),
+      searchQuery: this.state.lastSearchQuery || null,
+      searchResultCount: this.state.lastSearchResults?.length || 0,
     };
     this.state.history = [...this.state.history, entry];
     this.trace.add("UPDATE_BIAS", "history_commit", `Loop #${entry.id} committed (${entry.totalDurationMs}ms)`);
@@ -734,5 +785,15 @@ export class LoopController {
 
   getLLMEngine(): LLMEngine {
     return this.llmEngine;
+  }
+
+  setSearchEnabled(on: boolean) {
+    this.state.modelConfig.searchEnabled = on;
+    this.notifyListeners();
+  }
+
+  setSearchProvider(provider: SearchProvider) {
+    this.searchProvider = provider;
+    this.trace.add(this.state.stage, "search_provider_set", `Provider: ${provider.name}`);
   }
 }

@@ -57,6 +57,7 @@ export const DEFAULT_BIAS: BiasValues = {
 export interface ModelConfig {
   classifyWithLLM: boolean;
   responseWithLLM: boolean;
+  searchEnabled: boolean;
   modelId: string | null;
   modelBId: string | null;
   isLoaded: boolean;
@@ -67,6 +68,7 @@ export interface ModelConfig {
 export const DEFAULT_MODEL_CONFIG: ModelConfig = {
   classifyWithLLM: false,
   responseWithLLM: true,
+  searchEnabled: false,
   modelId: null,
   modelBId: null,
   isLoaded: false,
@@ -89,6 +91,8 @@ export interface LoopHistoryEntry {
   biasSnapshot: BiasValues;
   modelUsed: string | null;
   timestamp: number;
+  searchQuery: string | null;
+  searchResultCount: number;
 }
 
 export interface LoopState {
@@ -114,6 +118,10 @@ export interface LoopState {
   responseRawOutput: string;
   error: string | null;
   audioDiagnostics: Record<string, string>;
+  lastSearchQuery: string;
+  lastSearchResults: Array<{ title: string; snippet: string }>;
+  lastSearchDurationMs: number;
+  lastSearchProvider: string;
 }
 
 export const DEFAULT_LOOP_STATE: LoopState = {
@@ -139,6 +147,10 @@ export const DEFAULT_LOOP_STATE: LoopState = {
   responseRawOutput: "",
   error: null,
   audioDiagnostics: {},
+  lastSearchQuery: "",
+  lastSearchResults: [],
+  lastSearchDurationMs: 0,
+  lastSearchProvider: "",
 };
 
 // Events

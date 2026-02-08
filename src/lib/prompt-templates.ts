@@ -60,6 +60,19 @@ export function parseThinkTags(text: string): { thinking: string; response: stri
   return { thinking, response };
 }
 
+/** Response prompt with web search results injected (RAG-style). */
+export const SEARCH_AUGMENTED_RESPONSE_TEMPLATE = `You are a helpful voice assistant. Give a clear, complete, and conversational response in up to {{maxWords}} words.
+
+User said: "{{transcript}}"
+Intent: {{intent}}
+Confidence: {{confidence}}
+{{clarificationNote}}
+
+{{searchResults}}
+
+Use the search results above to inform your answer. Cite the information naturally — do not list URLs.
+Respond naturally as if speaking aloud. Give a complete answer — do not cut off mid-sentence.`;
+
 /** Build a filled classification prompt. */
 export function buildClassifyPrompt(transcript: string, confidence: number): string {
   return fillTemplate(CLASSIFY_TEMPLATE, { transcript, confidence });
@@ -84,5 +97,29 @@ export function buildMicroResponsePrompt(
     confidence,
     maxWords,
     clarificationNote,
+  });
+}
+
+/** Build a search-augmented response prompt with web results injected. */
+export function buildSearchAugmentedResponsePrompt(
+  transcript: string,
+  intent: string,
+  confidence: number,
+  maxWords: number,
+  needsClarification: boolean,
+  searchResultsBlock: string,
+): string {
+  const clarificationNote = needsClarification
+    ? "The user's intent is unclear. Ask a clarifying question."
+    : intent === "acknowledgement"
+    ? "The user is acknowledging. Give a brief acknowledgement back."
+    : "";
+  return fillTemplate(SEARCH_AUGMENTED_RESPONSE_TEMPLATE, {
+    transcript,
+    intent,
+    confidence,
+    maxWords,
+    clarificationNote,
+    searchResults: searchResultsBlock,
   });
 }

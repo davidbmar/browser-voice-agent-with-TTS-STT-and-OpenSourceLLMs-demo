@@ -68,6 +68,12 @@ export function useLoop() {
     [controller]
   );
 
+  // Search toggle
+  const setSearchEnabled = useCallback(
+    (on: boolean) => controller.setSearchEnabled(on),
+    [controller]
+  );
+
   return {
     state,
     traceEntries,
@@ -77,6 +83,7 @@ export function useLoop() {
     setClassifyWithLLM,
     setResponseWithLLM,
     setBias,
+    setSearchEnabled,
     controller,
   };
 }
