@@ -40,6 +40,16 @@ export class AudioListener {
   private paused = false;
   private callbacks: AudioListenerCallbacks;
 
+  // Diagnostic counters for debugging device-specific issues
+  private _diag = {
+    getUserMediaStatus: "not-started" as string,
+    recognitionResultCount: 0,
+    recognitionEndCount: 0,
+    recognitionErrorCount: 0,
+    lastRecognitionError: "",
+    recognitionStartCount: 0,
+  };
+
   constructor(callbacks: AudioListenerCallbacks = {}) {
     this.callbacks = callbacks;
   }
@@ -75,6 +85,7 @@ export class AudioListener {
     this.recognition.lang = "en-US";
 
     this.recognition.onresult = (event: SpeechRecognitionEvent) => {
+      this._diag.recognitionResultCount++;
       let interim = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
@@ -93,6 +104,8 @@ export class AudioListener {
     };
 
     this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      this._diag.recognitionErrorCount++;
+      this._diag.lastRecognitionError = event.error;
       // Suppress common non-fatal errors
       if (event.error !== "aborted" && event.error !== "no-speech") {
         this.callbacks.onError?.(`Speech recognition error: ${event.error}`);
@@ -101,13 +114,18 @@ export class AudioListener {
 
     // Auto-restart: browsers kill recognition after ~60s of silence
     this.recognition.onend = () => {
+      this._diag.recognitionEndCount++;
       if (this.active && !this.paused) {
-        try { this.recognition?.start(); } catch (_e) { /* already started */ }
+        try {
+          this.recognition?.start();
+          this._diag.recognitionStartCount++;
+        } catch (_e) { /* already started */ }
       }
     };
 
     try {
       this.recognition.start();
+      this._diag.recognitionStartCount++;
       this.callbacks.onStateChange?.("started");
     } catch (_err) {
       this.callbacks.onError?.("Failed to start speech recognition.");
@@ -116,8 +134,14 @@ export class AudioListener {
     }
 
     // --- Set up AudioContext for level monitoring (async, after recognition started) ---
+    // NOTE: We do NOT restart recognition after getUserMedia. The initial start()
+    // was in gesture context. If Android needs mic permission first, the onend
+    // auto-restart handler will naturally re-start recognition once it times out,
+    // and by then getUserMedia permission is already granted.
     try {
+      this._diag.getUserMediaStatus = "requesting";
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this._diag.getUserMediaStatus = "granted";
       this.mediaStream = stream;
 
       this.audioContext = new AudioContext();
@@ -127,21 +151,8 @@ export class AudioListener {
       this.analyser.fftSize = 256;
 
       this.startLevelMonitoring();
-
-      // On some Android devices, recognition needs mic permission from getUserMedia
-      // to actually capture audio. Restart recognition now that permission is granted.
-      if (this.active && !this.paused && this.recognition) {
-        try {
-          this.recognition.stop();
-        } catch (_e) { /* ignore */ }
-        // Small delay to let stop() complete before restarting
-        setTimeout(() => {
-          if (this.active && !this.paused && this.recognition) {
-            try { this.recognition.start(); } catch (_e) { /* ignore */ }
-          }
-        }, 100);
-      }
     } catch (err) {
+      this._diag.getUserMediaStatus = `failed: ${err instanceof Error ? err.message : "unknown"}`;
       // Audio level monitoring is optional — recognition still works without it
       this.callbacks.onError?.(
         `Microphone level monitoring unavailable: ${err instanceof Error ? err.message : "unknown"}`
@@ -201,6 +212,23 @@ export class AudioListener {
 
   isActive(): boolean { return this.active; }
   isPaused(): boolean { return this.paused; }
+
+  /** Return diagnostic info for the debug panel. */
+  getDiagnostics(): Record<string, string> {
+    const trackStates = this.mediaStream
+      ? this.mediaStream.getAudioTracks().map(t => `${t.label}:${t.readyState}${t.muted ? "(muted)" : ""}${t.enabled ? "" : "(disabled)"}`).join(", ")
+      : "no stream";
+
+    return {
+      getUserMedia: this._diag.getUserMediaStatus,
+      audioContext: this.audioContext?.state ?? "none",
+      streamTracks: trackStates,
+      recResults: String(this._diag.recognitionResultCount),
+      recEnds: String(this._diag.recognitionEndCount),
+      recErrors: `${this._diag.recognitionErrorCount}${this._diag.lastRecognitionError ? ` (${this._diag.lastRecognitionError})` : ""}`,
+      recStarts: String(this._diag.recognitionStartCount),
+    };
+  }
 
   // --- Audio level monitoring via AnalyserNode ---
 

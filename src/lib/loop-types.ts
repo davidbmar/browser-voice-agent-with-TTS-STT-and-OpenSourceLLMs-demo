@@ -113,6 +113,7 @@ export interface LoopState {
   classifyRawOutput: string;
   responseRawOutput: string;
   error: string | null;
+  audioDiagnostics: Record<string, string>;
 }
 
 export const DEFAULT_LOOP_STATE: LoopState = {
@@ -137,6 +138,7 @@ export const DEFAULT_LOOP_STATE: LoopState = {
   classifyRawOutput: "",
   responseRawOutput: "",
   error: null,
+  audioDiagnostics: {},
 };
 
 // Events

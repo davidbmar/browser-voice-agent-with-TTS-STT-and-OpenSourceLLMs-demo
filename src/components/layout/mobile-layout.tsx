@@ -74,6 +74,7 @@ function DebugPanel({ state }: { state: LoopState }) {
   const ua = navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const isAndroid = /Android/i.test(ua);
+  const diag = state.audioDiagnostics || {};
   const hasSpeechRec = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
   const hasWebGPU = !!navigator.gpu;
   const hasSpeechSynth = typeof speechSynthesis !== "undefined";
@@ -90,6 +91,16 @@ function DebugPanel({ state }: { state: LoopState }) {
       <div><span className="text-muted-foreground">Final:</span> "{state.finalTranscript || "(none)"}"</div>
       <div><span className="text-muted-foreground">Model:</span> {state.modelConfig.modelId || "(none)"} {state.modelConfig.isLoaded ? "(loaded)" : ""}</div>
       <div><span className="text-muted-foreground">Error:</span> {state.error || "(none)"}</div>
+      <div className="border-t border-border pt-1.5 mt-1.5">
+        <div className="font-semibold text-xs text-foreground mb-1">Recognition</div>
+        <div><span className="text-muted-foreground">getUserMedia:</span> {diag.getUserMedia || "n/a"}</div>
+        <div><span className="text-muted-foreground">AudioContext:</span> {diag.audioContext || "n/a"}</div>
+        <div className="break-all"><span className="text-muted-foreground">Tracks:</span> {diag.streamTracks || "n/a"}</div>
+        <div><span className="text-muted-foreground">Rec starts:</span> {diag.recStarts || "0"}</div>
+        <div><span className="text-muted-foreground">Rec results:</span> {diag.recResults || "0"}</div>
+        <div><span className="text-muted-foreground">Rec ends:</span> {diag.recEnds || "0"}</div>
+        <div><span className="text-muted-foreground">Rec errors:</span> {diag.recErrors || "0"}</div>
+      </div>
       <div className="border-t border-border pt-1.5 mt-1.5">
         <div className="font-semibold text-xs text-foreground mb-1">Device</div>
         <div><span className="text-muted-foreground">Platform:</span> {isIOS ? "iOS" : isAndroid ? "Android" : "Desktop"}</div>

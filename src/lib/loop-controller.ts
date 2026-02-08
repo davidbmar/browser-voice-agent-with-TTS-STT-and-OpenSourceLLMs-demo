@@ -186,6 +186,7 @@ export class LoopController {
 
   private notifyListeners() {
     this.state.bias = this.biasStore.get();
+    this.state.audioDiagnostics = this.listener.getDiagnostics();
     this.snapshot = { ...this.state };
     for (const l of this.stateListeners) l();
   }
