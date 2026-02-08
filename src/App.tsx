@@ -13,6 +13,7 @@ import { InternalStatePanel } from "@/components/state/internal-state-panel.tsx"
 import { BiasSliders } from "@/components/state/bias-sliders.tsx";
 import { PromptsPanel } from "@/components/prompts/prompts-panel.tsx";
 import { DecisionTracePanel } from "@/components/trace/decision-trace-panel.tsx";
+import { SpeechEventPanel } from "@/components/trace/speech-event-panel.tsx";
 import { ModelSelector } from "@/components/model/model-selector.tsx";
 import { ModelToggle } from "@/components/model/model-toggle.tsx";
 import { ModelABPanel } from "@/components/model/model-ab-panel.tsx";
@@ -35,6 +36,7 @@ function App() {
     setClassifyWithLLM,
     setResponseWithLLM,
     setSearchEnabled,
+    setAudioMuted,
     setBias,
     controller,
   } = useLoop();
@@ -113,6 +115,7 @@ function App() {
               onUnload={handleUnload}
             />
             <DocsButton />
+            <span className="text-[10px] text-muted-foreground/50 font-mono">{__BUILD_NUMBER__}</span>
           </div>
         </div>
       }
@@ -129,6 +132,8 @@ function App() {
             <StageDiagram
               currentStage={state.stage}
               stageEnteredAt={state.stageEnteredAt}
+              listenerPaused={state.listenerPaused}
+              isRunning={state.isRunning}
             />
           </div>
 
@@ -154,10 +159,12 @@ function App() {
               classifyWithLLM={state.modelConfig.classifyWithLLM}
               responseWithLLM={state.modelConfig.responseWithLLM}
               searchEnabled={state.modelConfig.searchEnabled}
+              audioMuted={state.audioMuted}
               isModelLoaded={state.modelConfig.isLoaded}
               onClassifyChange={setClassifyWithLLM}
               onResponseChange={setResponseWithLLM}
               onSearchChange={setSearchEnabled}
+              onAudioMuteChange={setAudioMuted}
             />
           </div>
 
@@ -185,6 +192,7 @@ function App() {
           <PromptsPanel state={state} />
           {state.modelConfig.searchEnabled && <SearchResultsPanel state={state} />}
           <DecisionTracePanel entries={traceEntries} />
+          <SpeechEventPanel speechLog={controller.speechLog} pendingTurnCount={state.pendingTurnCount} />
           <BiasSliders bias={state.bias} onChange={setBias} />
         </>
       }

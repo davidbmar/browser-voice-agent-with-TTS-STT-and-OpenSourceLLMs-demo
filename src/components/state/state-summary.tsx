@@ -21,6 +21,8 @@ export function StateSummary({ state }: StateSummaryProps) {
         <div className="font-mono text-primary font-bold">{state.stage}</div>
         <Field label="Loop count" value={state.loopCount} />
         <Field label="Running" value={state.isRunning ? "yes" : "no"} />
+        <Field label="Listener" value={state.listenerPaused ? "paused (echo cancel)" : state.isRunning ? "active" : "off"} />
+        <Field label="Audio" value={state.audioMuted ? "muted" : "on"} />
       </div>
 
       <div className="space-y-1">

@@ -77,6 +77,16 @@ check_prerequisites() {
   log "Prerequisites OK (AWS CLI, jq, npm, credentials)"
 }
 
+# --- Test gate ---
+run_tests() {
+  log "Running test suite..."
+  if ! npm run test 2>&1; then
+    err "DEPLOY BLOCKED: Tests failed. Fix the failures and try again."
+    exit 1
+  fi
+  log "All tests passed"
+}
+
 # --- Build ---
 build_app() {
   log "Building production bundle..."
@@ -309,6 +319,8 @@ main() {
   echo ""
 
   check_prerequisites
+
+  run_tests
 
   if [ "$SETUP_MODE" = true ]; then
     build_app

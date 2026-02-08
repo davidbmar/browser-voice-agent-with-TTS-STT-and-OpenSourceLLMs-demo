@@ -4,20 +4,24 @@ interface ModelToggleProps {
   classifyWithLLM: boolean;
   responseWithLLM: boolean;
   searchEnabled: boolean;
+  audioMuted: boolean;
   isModelLoaded: boolean;
   onClassifyChange: (on: boolean) => void;
   onResponseChange: (on: boolean) => void;
   onSearchChange: (on: boolean) => void;
+  onAudioMuteChange: (muted: boolean) => void;
 }
 
 export function ModelToggle({
   classifyWithLLM,
   responseWithLLM,
   searchEnabled,
+  audioMuted,
   isModelLoaded,
   onClassifyChange,
   onResponseChange,
   onSearchChange,
+  onAudioMuteChange,
 }: ModelToggleProps) {
   return (
     <div className="space-y-2">
@@ -57,6 +61,18 @@ export function ModelToggle({
             checked={searchEnabled}
             onCheckedChange={onSearchChange}
             disabled={!isModelLoaded}
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <label className="text-xs text-muted-foreground">Audio Output</label>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-mono text-muted-foreground">
+            {audioMuted ? "MUTED" : "ON"}
+          </span>
+          <Switch
+            checked={!audioMuted}
+            onCheckedChange={(on) => onAudioMuteChange(!on)}
           />
         </div>
       </div>

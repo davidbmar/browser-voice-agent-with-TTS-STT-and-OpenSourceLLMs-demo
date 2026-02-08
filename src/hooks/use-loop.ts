@@ -74,6 +74,12 @@ export function useLoop() {
     [controller]
   );
 
+  // Audio mute toggle
+  const setAudioMuted = useCallback(
+    (muted: boolean) => controller.setAudioMuted(muted),
+    [controller]
+  );
+
   return {
     state,
     traceEntries,
@@ -84,6 +90,7 @@ export function useLoop() {
     setResponseWithLLM,
     setBias,
     setSearchEnabled,
+    setAudioMuted,
     controller,
   };
 }

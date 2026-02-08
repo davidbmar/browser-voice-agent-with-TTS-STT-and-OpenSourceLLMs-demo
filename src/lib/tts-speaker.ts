@@ -47,6 +47,7 @@ export class TTSSpeaker {
   private finished = false;       // LLM done feeding sentences
   private volume = 0.8;
   private speed = 1.0;
+  private muted = false;
   private activeGenerations = 0;
   private maxConcurrent: number;
   private playbackResolve: (() => void) | null = null;
@@ -86,7 +87,16 @@ export class TTSSpeaker {
 
   setVolume(vol: number) {
     this.volume = vol;
-    if (this.currentAudio) this.currentAudio.volume = vol;
+    if (this.currentAudio) this.currentAudio.volume = this.muted ? 0 : vol;
+  }
+
+  setMuted(muted: boolean) {
+    this.muted = muted;
+    if (this.currentAudio) this.currentAudio.volume = muted ? 0 : this.volume;
+  }
+
+  isMuted(): boolean {
+    return this.muted;
   }
 
   setSpeed(spd: number) {
@@ -308,10 +318,16 @@ export class TTSSpeaker {
     if (!chunk || this.aborted) return;
 
     try {
-      const blob = await tts.predict({
-        text: chunk.text,
-        voiceId: chunk.voice as Parameters<typeof tts.predict>[0]["voiceId"],
-      });
+      // Race VITS generation against a timeout to prevent hanging
+      const blob = await Promise.race([
+        tts.predict({
+          text: chunk.text,
+          voiceId: chunk.voice as Parameters<typeof tts.predict>[0]["voiceId"],
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("TTS generation timed out")), 10000)
+        ),
+      ]);
       if (this.aborted) return;
       chunk.audio = blob;
       chunk.status = "ready";
@@ -322,30 +338,27 @@ export class TTSSpeaker {
       // Wake up playback loop
       if (this.playbackResolve) this.playbackResolve();
     } catch (err) {
-      // On first failure, switch to native TTS for all future calls
-      if (!this.nativeTTSChecked && this.isMobile) {
-        console.warn("VITS TTS failed, switching to native SpeechSynthesis:", err);
+      console.warn("VITS TTS failed for chunk, falling back to native SpeechSynthesis:", err);
+
+      // Fall back to native SpeechSynthesis for this chunk
+      chunk.status = "done";
+      this.speakNativeChunk(chunk.text, chunk.volume, chunk.speed);
+
+      // On first failure, switch all future chunks to native TTS too
+      if (!this.nativeTTSChecked) {
         this.useNativeTTS = true;
         this.nativeTTSChecked = true;
 
-        // Speak all remaining chunks via native TTS
-        for (let i = index; i < this.chunks.length; i++) {
+        // Speak all remaining pending chunks via native TTS
+        for (let i = index + 1; i < this.chunks.length; i++) {
           if (this.chunks[i].status === "pending" || this.chunks[i].status === "generating") {
             this.chunks[i].status = "done";
             this.speakNativeChunk(this.chunks[i].text, this.chunks[i].volume, this.chunks[i].speed);
           }
         }
         this.finished = true;
-        if (this.playbackResolve) this.playbackResolve();
-        return;
       }
 
-      chunk.status = "error";
-      if (!this.aborted) {
-        this.callbacks.onError?.(
-          `TTS error: ${err instanceof Error ? err.message : "unknown"}`
-        );
-      }
       if (this.playbackResolve) this.playbackResolve();
     }
   }
@@ -362,7 +375,7 @@ export class TTSSpeaker {
       if (this.playbackIndex < this.chunks.length) {
         const chunk = this.chunks[this.playbackIndex];
 
-        if (chunk.status === "error") {
+        if (chunk.status === "error" || chunk.status === "done") {
           this.playbackIndex++;
           continue;
         }
@@ -408,7 +421,7 @@ export class TTSSpeaker {
 
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
-      audio.volume = volume;
+      audio.volume = this.muted ? 0 : volume;
       audio.playbackRate = speed;
       this.currentAudio = audio;
 
@@ -450,7 +463,7 @@ export class TTSSpeaker {
       this.callbacks.onSpeakStart?.();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.volume = this.volume;
+      utterance.volume = this.muted ? 0 : this.volume;
       utterance.rate = this.speed;
       utterance.lang = "en-US";
 
@@ -473,7 +486,7 @@ export class TTSSpeaker {
     if (typeof speechSynthesis === "undefined") return;
 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.volume = volume;
+    utterance.volume = this.muted ? 0 : volume;
     utterance.rate = speed;
     utterance.lang = "en-US";
     speechSynthesis.speak(utterance);

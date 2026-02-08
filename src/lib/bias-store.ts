@@ -56,6 +56,10 @@ export class BiasStore {
       case "correction":
         this.values.confidenceFloor = Math.max(0.3, this.values.confidenceFloor - 0.05);
         break;
+      case "follow_up":
+        // User engaged with a follow-up — positive signal, slight verbosity boost
+        this.values.verbosity = Math.min(1, this.values.verbosity + 0.05);
+        break;
     }
     this.notify();
   }

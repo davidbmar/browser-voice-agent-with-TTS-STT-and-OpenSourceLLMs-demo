@@ -5,12 +5,14 @@ import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 import type { TraceEntry } from "@/lib/loop-types.ts";
+import { formatTimestamp, formatTimezoneLabel, type TimezoneMode } from "@/lib/format-time.ts";
 
 interface DecisionTracePanelProps {
   entries: TraceEntry[];
+  timezone?: TimezoneMode;
 }
 
-export function DecisionTracePanel({ entries }: DecisionTracePanelProps) {
+export function DecisionTracePanel({ entries, timezone = "utc" }: DecisionTracePanelProps) {
   const [open, setOpen] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +27,7 @@ export function DecisionTracePanel({ entries }: DecisionTracePanelProps) {
           <CollapsibleTrigger className="flex items-center justify-between w-full">
             <CardTitle>Decision Trace</CardTitle>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">{entries.length} entries</span>
+              <span className="text-xs text-muted-foreground">{entries.length} entries ({formatTimezoneLabel(timezone)})</span>
               <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
             </div>
           </CollapsibleTrigger>
@@ -40,7 +42,7 @@ export function DecisionTracePanel({ entries }: DecisionTracePanelProps) {
                 {entries.map((entry, i) => (
                   <div key={i} className="flex gap-2 text-muted-foreground hover:text-foreground transition-colors">
                     <span className="shrink-0 text-muted-foreground/60">
-                      {new Date(entry.timestamp).toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                      {formatTimestamp(entry.timestamp, timezone)}
                     </span>
                     <span className="shrink-0 text-primary w-16 text-right">{entry.stage}</span>
                     <span className="text-foreground">{entry.detail}</span>

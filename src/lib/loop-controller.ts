@@ -32,6 +32,7 @@ import type { SearchProvider } from "./search-provider.ts";
 import { MockSearchProvider } from "./search-provider.ts";
 import { detectSearchNeed } from "./search-need-detector.ts";
 import { formatSearchResults } from "./search-result-formatter.ts";
+import { SpeechEventLog } from "./speech-event-log.ts";
 
 // ---------------------------------------------------------------------------
 // Rule-based fallbacks (used when LLM is not loaded or fails)
@@ -113,6 +114,7 @@ export class LoopController {
   private llmEngine: LLMEngine;
   readonly trace: DecisionTrace;
   readonly biasStore: BiasStore;
+  readonly speechLog: SpeechEventLog;
   private stateListeners: Set<() => void> = new Set();
   private sentenceBuffer = "";
   private silenceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -122,10 +124,13 @@ export class LoopController {
   private feedbackTimer: ReturnType<typeof setTimeout> | null = null;
   private iterationStartTime = 0;
   private searchProvider: SearchProvider = new MockSearchProvider();
+  private pendingTurns: Array<{ finalText: string; confidence: number; receivedAt: number }> = [];
+  private static readonly MAX_PENDING_TURNS = 3;
 
   constructor() {
     this.trace = new DecisionTrace();
     this.biasStore = new BiasStore();
+    this.speechLog = new SpeechEventLog();
 
     // Integration point: Browser-Text-to-Speech-TTS-Realtime — listener init
     // See: https://github.com/davidbmar/Browser-Text-to-Speech-TTS-Realtime
@@ -142,6 +147,10 @@ export class LoopController {
       },
       onError: (err) => {
         this.state.error = err;
+        this.notifyListeners();
+      },
+      onStateChange: (s) => {
+        this.state.listenerPaused = (s === "paused");
         this.notifyListeners();
       },
     });
@@ -192,6 +201,8 @@ export class LoopController {
   private notifyListeners() {
     this.state.bias = this.biasStore.get();
     this.state.audioDiagnostics = this.listener.getDiagnostics();
+    this.state.listenerPaused = this.listener.isPaused();
+    this.state.audioMuted = this.speaker.isMuted();
     this.snapshot = { ...this.state };
     for (const l of this.stateListeners) l();
   }
@@ -237,29 +248,59 @@ export class LoopController {
         return;
 
       case "AUDIO_FRAME":
+        // Always update VAD metrics (parallel listener pipeline)
+        this.state.vad.audioLevel = event.audioLevel;
+        if (event.interimText) {
+          this.speechLog.add("interim", event.interimText, 0, stage);
+        }
+
         if (stage === "LISTENING") {
           this.state.interimTranscript = event.interimText;
-          this.state.vad.audioLevel = event.audioLevel;
           if (event.interimText) {
+            // Reset silence counter so stale silence from between utterances
+            // doesn't immediately trigger turn-end detection in SIGNAL_DETECT
+            this.silenceStartTime = 0;
+            this.state.vad.silenceDurationMs = 0;
+            this.state.vad.isSpeaking = true;
+            this.speechStartTime = Date.now();
             this.setStage("SIGNAL_DETECT");
           }
           this.notifyListeners();
         } else if (stage === "SIGNAL_DETECT") {
           this.state.interimTranscript = event.interimText;
-          this.state.vad.audioLevel = event.audioLevel;
+          this.notifyListeners();
+        } else if (stage === "FEEDBACK_OBSERVE") {
+          if (event.interimText) {
+            this.trace.add(stage, "speech_during_feedback", `User speaking: "${event.interimText.slice(0, 40)}"`);
+          }
+          this.notifyListeners();
+        } else {
+          // CLASSIFY, MICRO_RESPONSE, SPEAK, UPDATE_BIAS — VAD updated above, notify UI
           this.notifyListeners();
         }
         return;
 
       case "TURN_END":
+        this.speechLog.add("final", event.finalText, event.confidence, stage);
         if (stage === "SIGNAL_DETECT" || stage === "LISTENING") {
+          // Normal path: process immediately
           this.clearSilenceTimer();
           this.state.finalTranscript = event.finalText;
           this.state.transcriptConfidence = event.confidence;
           this.trace.add(stage, "turn_end", `Final: "${event.finalText}" conf=${event.confidence.toFixed(2)}`);
           this.setStage("CLASSIFY");
           this.runClassify();
+        } else if (stage === "FEEDBACK_OBSERVE") {
+          // User spoke during feedback — treat as active reaction + queue turn
+          this.clearFeedbackTimer();
+          this.trace.add(stage, "speech_reaction", `User spoke during feedback: "${event.finalText.slice(0, 40)}"`);
+          this.dispatch({ type: "REACTION_DETECTED", reactionType: "follow_up" });
+          this.queueTurn(event.finalText, event.confidence, "feedback_speech");
+        } else if (stage === "CLASSIFY" || stage === "MICRO_RESPONSE" || stage === "UPDATE_BIAS" || stage === "SPEAK") {
+          // FSM is busy — queue for later
+          this.queueTurn(event.finalText, event.confidence, `busy_${stage.toLowerCase()}`);
         }
+        // IDLE: drop (mic not started)
         return;
 
       case "SIMULATE_INPUT":
@@ -323,6 +364,7 @@ export class LoopController {
       case "HANDOFF_COMPLETE":
         if (stage === "HANDOFF_REASON") {
           this.setStage("LISTENING");
+          this.drainPendingTurn();
         }
         return;
     }
@@ -333,12 +375,14 @@ export class LoopController {
     this.speaker.stop();
     this.clearSilenceTimer();
     this.clearFeedbackTimer();
+    this.pendingTurns = [];
     this.state = {
       ...DEFAULT_LOOP_STATE,
       modelConfig: { ...this.state.modelConfig },
       bias: this.biasStore.get(),
     };
     this.trace.clear();
+    this.speechLog.clear();
     this.notifyListeners();
   }
 
@@ -695,6 +739,56 @@ export class LoopController {
     }
   }
 
+  private queueTurn(finalText: string, confidence: number, reason: string) {
+    if (this.pendingTurns.length >= LoopController.MAX_PENDING_TURNS) {
+      const dropped = this.pendingTurns.shift()!;
+      this.trace.add(this.state.stage, "turn_dropped",
+        `Queue full, dropped oldest: "${dropped.finalText.slice(0, 30)}"`);
+    }
+    const receivedAt = Date.now();
+    this.pendingTurns.push({ finalText, confidence, receivedAt });
+    this.state.pendingTurnCount = this.pendingTurns.length;
+    this.speechLog.add("queued", finalText, confidence, this.state.stage);
+    this.trace.add(this.state.stage, "turn_queued",
+      `Queued: "${finalText.slice(0, 40)}" (reason=${reason}, queue=${this.pendingTurns.length})`);
+    this.notifyListeners();
+  }
+
+  private drainPendingTurn() {
+    if (this.pendingTurns.length === 0) return;
+
+    const next = this.pendingTurns.shift()!;
+    this.state.pendingTurnCount = this.pendingTurns.length;
+    const staleness = Date.now() - next.receivedAt;
+    this.trace.add("LISTENING", "turn_dequeued",
+      `Processing queued turn: "${next.finalText.slice(0, 40)}" (stale=${staleness}ms, remaining=${this.pendingTurns.length})`);
+
+    // Discard stale turns (>10s old)
+    if (staleness > 10000) {
+      this.speechLog.add("stale_discarded", next.finalText, next.confidence, "LISTENING");
+      this.trace.add("LISTENING", "turn_stale",
+        `Discarded stale turn: "${next.finalText.slice(0, 40)}" (${staleness}ms old)`);
+      this.drainPendingTurn();
+      return;
+    }
+
+    const processedAt = Date.now();
+    this.speechLog.add("dequeued", next.finalText, next.confidence, "LISTENING", {
+      processedAt,
+      queueDurationMs: processedAt - next.receivedAt,
+    });
+
+    // Process as a normal turn
+    this.state.finalTranscript = next.finalText;
+    this.state.transcriptConfidence = next.confidence;
+    this.state.interimTranscript = "";
+    this.iterationStartTime = Date.now();
+    this.trace.add("LISTENING", "turn_end",
+      `Final (from queue): "${next.finalText}" conf=${next.confidence.toFixed(2)}`);
+    this.setStage("CLASSIFY");
+    this.runClassify();
+  }
+
   private runUpdateBias(reactionType: string) {
     this.biasStore.updateFromReaction(reactionType);
     this.trace.add("UPDATE_BIAS", "bias_updated", `Reaction: ${reactionType}, new bias: ${JSON.stringify(this.biasStore.get())}`);
@@ -722,8 +816,11 @@ export class LoopController {
     // Loop back to LISTENING if mic is active, otherwise IDLE
     if (this.listener.isActive()) {
       this.setStage("LISTENING");
+      this.drainPendingTurn();
     } else {
       this.state.isRunning = false;
+      this.pendingTurns = [];
+      this.state.pendingTurnCount = 0;
       this.setStage("IDLE");
     }
   }
@@ -789,6 +886,12 @@ export class LoopController {
 
   setSearchEnabled(on: boolean) {
     this.state.modelConfig.searchEnabled = on;
+    this.notifyListeners();
+  }
+
+  setAudioMuted(muted: boolean) {
+    this.speaker.setMuted(muted);
+    this.state.audioMuted = muted;
     this.notifyListeners();
   }
 

@@ -20,6 +20,15 @@ export const STAGES_IN_ORDER: Stage[] = [
   "UPDATE_BIAS",
 ];
 
+/** Processing pipeline stages shown in row 2 of the stage diagram. */
+export const PIPELINE_STAGES: Stage[] = [
+  "CLASSIFY",
+  "MICRO_RESPONSE",
+  "SPEAK",
+  "FEEDBACK_OBSERVE",
+  "UPDATE_BIAS",
+];
+
 export interface VADMetrics {
   audioLevel: number;
   isSpeaking: boolean;
@@ -122,6 +131,9 @@ export interface LoopState {
   lastSearchResults: Array<{ title: string; snippet: string }>;
   lastSearchDurationMs: number;
   lastSearchProvider: string;
+  pendingTurnCount: number;
+  listenerPaused: boolean;
+  audioMuted: boolean;
 }
 
 export const DEFAULT_LOOP_STATE: LoopState = {
@@ -151,6 +163,9 @@ export const DEFAULT_LOOP_STATE: LoopState = {
   lastSearchResults: [],
   lastSearchDurationMs: 0,
   lastSearchProvider: "",
+  pendingTurnCount: 0,
+  listenerPaused: false,
+  audioMuted: false,
 };
 
 // Events
@@ -173,6 +188,17 @@ export interface TraceEntry {
   event: string;
   detail: string;
   data?: Record<string, unknown>;
+}
+
+export interface SpeechEvent {
+  id: number;
+  type: "interim" | "final" | "queued" | "dequeued" | "stale_discarded";
+  text: string;
+  confidence: number;
+  timestampMs: number;
+  fsmStage: Stage;
+  processedAt?: number;
+  queueDurationMs?: number;
 }
 
 export interface ModelCatalogEntry {
