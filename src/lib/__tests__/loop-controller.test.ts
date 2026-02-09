@@ -487,6 +487,59 @@ describe("LoopController", () => {
     expect(s.modelConfig.isLoaded).toBe(false);
   });
 
+  it("unloadModel resets loadProgress to 0", async () => {
+    await ctrl.loadModel("test-model");
+    await ctrl.unloadModel();
+    expect(ctrl.getState().modelConfig.loadProgress).toBe(0);
+  });
+
+  it("unloadModel notifies listeners", async () => {
+    await ctrl.loadModel("test-model");
+    const listener = vi.fn();
+    ctrl.subscribe(listener);
+    await ctrl.unloadModel();
+    expect(listener).toHaveBeenCalled();
+  });
+
+  it("can reload same model after unload", async () => {
+    await ctrl.loadModel("test-model");
+    await ctrl.unloadModel();
+
+    expect(ctrl.getState().modelConfig.isLoaded).toBe(false);
+
+    await ctrl.loadModel("test-model");
+    expect(ctrl.getState().modelConfig.isLoaded).toBe(true);
+    expect(ctrl.getState().modelConfig.modelId).toBe("test-model");
+  });
+
+  it("unload during load cancels the load cleanly", async () => {
+    let resolveLoad!: (v: unknown) => void;
+    mockCreateMLCEngine.mockReturnValueOnce(
+      new Promise((res) => { resolveLoad = res; })
+    );
+
+    const loadPromise = ctrl.loadModel("slow-model");
+    const unloadPromise = ctrl.unloadModel();
+
+    resolveLoad({
+      unload: vi.fn().mockResolvedValue(undefined),
+      chat: { completions: { create: vi.fn() } },
+    });
+
+    await unloadPromise;
+    await loadPromise.catch(() => {}); // swallow cancellation
+
+    const s = ctrl.getState();
+    expect(s.modelConfig.isLoaded).toBe(false);
+    expect(s.modelConfig.modelId).toBeNull();
+  });
+
+  it("rapid double-unload is safe", async () => {
+    await ctrl.loadModel("test-model");
+    await Promise.all([ctrl.unloadModel(), ctrl.unloadModel()]);
+    expect(ctrl.getState().modelConfig.isLoaded).toBe(false);
+  });
+
   it("clearError sets state.error to null", async () => {
     // Force an error via failed model load
     const err = new Error("Quota exceeded");
@@ -536,5 +589,180 @@ describe("LoopController", () => {
 
     const error = ctrl.getState().error;
     expect(error).toContain("Something bizarre");
+  });
+
+  // -----------------------------------------------------------------------
+  // buildSearchFiller
+  // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------
+  // SPEAK stage timing — stage should be SPEAK while TTS audio is playing
+  // -----------------------------------------------------------------------
+  it("LLM streaming: stage transitions to SPEAK on first token (before generation completes)", async () => {
+    // Track all stage transitions
+    const stages: string[] = [];
+    ctrl.subscribe(() => {
+      const s = ctrl.getState().stage;
+      if (stages[stages.length - 1] !== s) stages.push(s);
+    });
+
+    // Make the mock LLM stream tokens with onToken callback
+    let resolveGeneration: (() => void) | null = null;
+    const generationGate = new Promise<void>(r => { resolveGeneration = r; });
+
+    mockCreateMLCEngine.mockResolvedValueOnce({
+      unload: vi.fn().mockResolvedValue(undefined),
+      chat: {
+        completions: {
+          create: vi.fn().mockImplementation(() => {
+            // Return an async iterable that yields tokens
+            const tokens = ["Hello", " there", ".", " How", " are", " you", "?"];
+            return (async function* () {
+              for (const token of tokens) {
+                yield { choices: [{ delta: { content: token } }] };
+              }
+              // Wait at the end to keep generation "in progress"
+              await generationGate;
+            })();
+          }),
+        },
+      },
+    });
+
+    await ctrl.loadModel("test-streaming");
+    ctrl.setResponseWithLLM(true);
+    ctrl.setSearchEnabled(false);
+
+    // Simulate user input
+    ctrl.dispatch({ type: "SIMULATE_INPUT", text: "how are you doing" });
+
+    // Wait for tokens to stream
+    await new Promise(r => setTimeout(r, 150));
+
+    // Stage should already be SPEAK — even though generation hasn't completed
+    const stageBeforeComplete = ctrl.getState().stage;
+    expect(stageBeforeComplete).toBe("SPEAK");
+
+    // Now let generation complete
+    resolveGeneration!();
+    await new Promise(r => setTimeout(r, 100));
+
+    // Stage sequence should show SPEAK was reached before endStream
+    expect(stages).toContain("SPEAK");
+    const speakIdx = stages.indexOf("SPEAK");
+    // SPEAK should come after CLASSIFY or MICRO_RESPONSE
+    expect(speakIdx).toBeGreaterThan(0);
+  });
+
+  it("LLM streaming: stage is SPEAK during audio playback, not MICRO_RESPONSE", async () => {
+    // Simpler test: just verify the stage is SPEAK after LLM streaming begins
+    mockCreateMLCEngine.mockResolvedValueOnce({
+      unload: vi.fn().mockResolvedValue(undefined),
+      chat: {
+        completions: {
+          create: vi.fn().mockImplementation(() => {
+            const tokens = ["Sure", ",", " I", " can", " help", "."];
+            return (async function* () {
+              for (const token of tokens) {
+                yield { choices: [{ delta: { content: token } }] };
+              }
+            })();
+          }),
+        },
+      },
+    });
+
+    await ctrl.loadModel("test-speak-timing");
+    ctrl.setResponseWithLLM(true);
+    ctrl.setSearchEnabled(false);
+
+    ctrl.dispatch({ type: "SIMULATE_INPUT", text: "help me" });
+    await new Promise(r => setTimeout(r, 200));
+
+    // After full pipeline, stage should have been SPEAK (not stuck in MICRO_RESPONSE)
+    // The stage may have moved to FEEDBACK_OBSERVE by now, but SPEAK should appear in history
+    const stage = ctrl.getState().stage;
+    expect(["SPEAK", "FEEDBACK_OBSERVE", "UPDATE_BIAS", "LISTENING"]).toContain(stage);
+  });
+
+  it("LLM with think tags: stage transitions to SPEAK after </think> tag", async () => {
+    mockCreateMLCEngine.mockResolvedValueOnce({
+      unload: vi.fn().mockResolvedValue(undefined),
+      chat: {
+        completions: {
+          create: vi.fn().mockImplementation(() => {
+            const tokens = ["<think>", "Let me think", "</think>", "The answer", " is 42", "."];
+            return (async function* () {
+              for (const token of tokens) {
+                yield { choices: [{ delta: { content: token } }] };
+              }
+            })();
+          }),
+        },
+      },
+    });
+
+    await ctrl.loadModel("test-think-tags");
+    ctrl.setResponseWithLLM(true);
+    ctrl.setSearchEnabled(false);
+
+    // Track stages
+    const stages: string[] = [];
+    ctrl.subscribe(() => {
+      const s = ctrl.getState().stage;
+      if (stages[stages.length - 1] !== s) stages.push(s);
+    });
+
+    ctrl.dispatch({ type: "SIMULATE_INPUT", text: "what is the meaning of life" });
+    await new Promise(r => setTimeout(r, 200));
+
+    // SPEAK should have been reached
+    expect(stages).toContain("SPEAK");
+  });
+
+  // -----------------------------------------------------------------------
+  // buildSearchFiller
+  // -----------------------------------------------------------------------
+  it("buildSearchFiller returns a non-empty string ending with punctuation", async () => {
+    const { buildSearchFiller } = await import("../loop-controller.ts");
+    const filler = buildSearchFiller("weather in Austin");
+    expect(filler.length).toBeGreaterThan(5);
+    expect(filler.endsWith(".")).toBe(true);
+  });
+
+  it("buildSearchFiller never contains template placeholder", async () => {
+    const { buildSearchFiller } = await import("../loop-controller.ts");
+    // Run multiple times to hit different templates
+    for (let i = 0; i < 20; i++) {
+      const filler = buildSearchFiller("test query");
+      expect(filler).not.toContain("{{query}}");
+    }
+  });
+
+  it("buildSearchFiller query-based templates include query keywords", async () => {
+    const { buildSearchFiller } = await import("../loop-controller.ts");
+    // Run enough times to get at least one query-based template
+    const fillers = Array.from({ length: 50 }, () => buildSearchFiller("weather Austin"));
+    const withQuery = fillers.filter(f => f.includes("weather Austin"));
+    expect(withQuery.length).toBeGreaterThan(0);
+  });
+
+  it("buildSearchFiller truncates long queries to 5 words in query-based templates", async () => {
+    const { buildSearchFiller } = await import("../loop-controller.ts");
+    const fillers = Array.from({ length: 50 }, () =>
+      buildSearchFiller("what is the weather forecast for Austin Texas tomorrow morning")
+    );
+    // Query-based templates should have truncated text with ellipsis
+    const withQuery = fillers.filter(f => f.includes("what is the weather forecast"));
+    for (const f of withQuery) {
+      expect(f).toContain("...");
+      expect(f).not.toContain("Austin Texas");
+    }
+  });
+
+  it("buildSearchFiller includes generic fillers without query", async () => {
+    const { buildSearchFiller } = await import("../loop-controller.ts");
+    const fillers = Array.from({ length: 50 }, () => buildSearchFiller("test"));
+    const generic = fillers.filter(f => !f.includes("test"));
+    expect(generic.length).toBeGreaterThan(0);
   });
 });

@@ -226,6 +226,144 @@ describe("LLMEngine", () => {
     await expect(engine.unloadModel()).resolves.toBeUndefined();
   });
 
+  it("unload resets isLoading to false", async () => {
+    await engine.loadModel("model-a");
+    expect(engine.isLoading()).toBe(false);
+    await engine.unloadModel();
+    expect(engine.isLoading()).toBe(false);
+  });
+
+  it("unload notifies completion (no hanging promises)", async () => {
+    await engine.loadModel("model-a");
+    const p = engine.unloadModel();
+    await expect(p).resolves.toBeUndefined();
+  });
+
+  // -----------------------------------------------------------------------
+  // load → unload → reload (same model)
+  // -----------------------------------------------------------------------
+  it("can reload the same model after unload", async () => {
+    await engine.loadModel("model-a");
+    expect(engine.isLoaded()).toBe(true);
+
+    await engine.unloadModel();
+    expect(engine.isLoaded()).toBe(false);
+
+    await engine.loadModel("model-a");
+    expect(engine.isLoaded()).toBe(true);
+    expect(engine.getModelId()).toBe("model-a");
+  });
+
+  it("can reload a different model after unload", async () => {
+    await engine.loadModel("model-a");
+    await engine.unloadModel();
+    await engine.loadModel("model-b");
+
+    expect(engine.isLoaded()).toBe(true);
+    expect(engine.getModelId()).toBe("model-b");
+  });
+
+  // -----------------------------------------------------------------------
+  // Concurrent load/unload (race condition tests)
+  // -----------------------------------------------------------------------
+  it("unload during load cancels the load", async () => {
+    // Make CreateMLCEngine take time so we can unload mid-flight
+    let resolveLoad!: (v: ReturnType<typeof makeMockEngine>) => void;
+    mockCreateMLCEngine.mockReturnValue(
+      new Promise((res) => { resolveLoad = res; })
+    );
+
+    const loadPromise = engine.loadModel("slow-model");
+    // Immediately unload while load is in-flight
+    const unloadPromise = engine.unloadModel();
+
+    // Resolve the engine creation (but unload already bumped generation)
+    resolveLoad(makeMockEngine());
+
+    await unloadPromise;
+    await expect(loadPromise).rejects.toThrow("Model load cancelled");
+
+    expect(engine.isLoaded()).toBe(false);
+    expect(engine.isLoading()).toBe(false);
+    expect(engine.getModelId()).toBeNull();
+  });
+
+  it("load after unload-during-load succeeds cleanly", async () => {
+    // First load hangs
+    let resolveFirst!: (v: ReturnType<typeof makeMockEngine>) => void;
+    mockCreateMLCEngine.mockReturnValueOnce(
+      new Promise((res) => { resolveFirst = res; })
+    );
+
+    const loadPromise = engine.loadModel("slow-model");
+    const unloadPromise = engine.unloadModel();
+
+    // Queue a second load behind the unload
+    mockCreateMLCEngine.mockResolvedValueOnce(makeMockEngine());
+    const reloadPromise = engine.loadModel("fast-model");
+
+    // Let the first load finish (it'll be cancelled)
+    resolveFirst(makeMockEngine());
+
+    await expect(loadPromise).rejects.toThrow("Model load cancelled");
+    await unloadPromise;
+    await reloadPromise;
+
+    expect(engine.isLoaded()).toBe(true);
+    expect(engine.getModelId()).toBe("fast-model");
+  });
+
+  it("rapid double-unload is safe", async () => {
+    await engine.loadModel("model-a");
+
+    const p1 = engine.unloadModel();
+    const p2 = engine.unloadModel();
+    await p1;
+    await p2;
+
+    expect(engine.isLoaded()).toBe(false);
+  });
+
+  it("rapid load-load serializes correctly (last model wins)", async () => {
+    // Both loads succeed instantly
+    const engineA = makeMockEngine();
+    const engineB = makeMockEngine();
+    mockCreateMLCEngine
+      .mockResolvedValueOnce(engineA)
+      .mockResolvedValueOnce(engineB);
+
+    const p1 = engine.loadModel("model-a");
+    const p2 = engine.loadModel("model-b");
+    await p1;
+    await p2;
+
+    // model-b should be the final loaded model
+    expect(engine.getModelId()).toBe("model-b");
+    expect(engine.isLoaded()).toBe(true);
+    // model-a's engine should have been unloaded when switching to model-b
+    expect(engineA.unload).toHaveBeenCalled();
+  });
+
+  it("unload clears loading flag even if called mid-load", async () => {
+    let resolveLoad!: (v: ReturnType<typeof makeMockEngine>) => void;
+    mockCreateMLCEngine.mockReturnValue(
+      new Promise((res) => { resolveLoad = res; })
+    );
+
+    const loadPromise = engine.loadModel("slow-model");
+    // Load has started, isLoading should be true after the engine creation begins
+    // but we need to let the microtask run
+    await new Promise((r) => setTimeout(r, 0));
+
+    const unloadPromise = engine.unloadModel();
+    resolveLoad(makeMockEngine());
+
+    await unloadPromise;
+    await loadPromise.catch(() => {}); // swallow cancellation error
+
+    expect(engine.isLoading()).toBe(false);
+  });
+
   // -----------------------------------------------------------------------
   // generate
   // -----------------------------------------------------------------------

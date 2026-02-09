@@ -38,6 +38,11 @@ export class LLMEngine {
   private currentModelId: string | null = null;
   private loading = false;
   private callbacks: LLMEngineCallbacks;
+  /** Serializes load/unload operations so they never overlap. */
+  private opQueue: Promise<void> = Promise.resolve();
+  /** Cancellation token for the current/pending load. Set synchronously in loadModel,
+   *  cancelled synchronously in unloadModel, checked at each await in doLoad. */
+  private loadToken: { cancelled: boolean } | null = null;
 
   constructor(callbacks: LLMEngineCallbacks = {}) {
     this.callbacks = callbacks;
@@ -55,12 +60,46 @@ export class LLMEngine {
    * Unloads any previously loaded model first.
    *
    * If loading fails due to cache/quota errors, clears all storage and retries once.
+   * Serialized: concurrent load/unload calls are queued so they never overlap.
    */
   async loadModel(modelId: string): Promise<void> {
+    // Create a cancellation token synchronously (before any microtask scheduling)
+    const token = { cancelled: false };
+    this.loadToken = token;
+    // Queue behind any in-flight operation
+    const op = this.opQueue.then(() => this.doLoad(modelId, token));
+    this.opQueue = op.catch(() => {}); // swallow for queue chaining
+    return op;
+  }
+
+  /**
+   * Unload the current model and free WebGPU resources.
+   * Serialized: waits for any in-flight load to settle first.
+   * Cancels pending/in-flight loads so they reject with "Model load cancelled".
+   */
+  async unloadModel(): Promise<void> {
+    // Cancel any pending or in-flight load synchronously
+    if (this.loadToken) {
+      this.loadToken.cancelled = true;
+      this.loadToken = null;
+    }
+    const op = this.opQueue.then(() => this.doUnload());
+    this.opQueue = op.catch(() => {});
+    return op;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Serialized implementations
+  // ---------------------------------------------------------------------------
+
+  private async doLoad(modelId: string, token: { cancelled: boolean }): Promise<void> {
+    if (token.cancelled) throw new Error("Model load cancelled");
     if (this.currentModelId === modelId && this.engine) return;
 
     const previousModelId = this.currentModelId;
-    await this.unloadModel();
+    await this.doUnload();
+
+    if (token.cancelled) throw new Error("Model load cancelled");
 
     // Free Cache Storage from previous model to make room for the new one
     if (previousModelId && previousModelId !== modelId) {
@@ -71,7 +110,24 @@ export class LLMEngine {
 
     try {
       await this.createEngine(modelId);
+
+      // Check cancellation after the slow async createEngine
+      if (token.cancelled) {
+        // Unload was requested while we were loading — tear down what we just created
+        if (this.engine) {
+          try { await this.engine.unload(); } catch (_e) { /* ignore */ }
+          this.engine = null;
+          this.currentModelId = null;
+          this.loading = false;
+        }
+        throw new Error("Model load cancelled");
+      }
     } catch (firstErr) {
+      // If cancelled, propagate immediately
+      if (firstErr instanceof Error && firstErr.message === "Model load cancelled") {
+        this.loading = false;
+        throw firstErr;
+      }
       // On cache/quota errors, nuke ALL storage and retry once
       if (firstErr instanceof Error && /cache|quota/i.test(firstErr.message)) {
         console.warn("[LLMEngine] Load failed with cache/quota error, clearing all storage and retrying:", firstErr.message);
@@ -95,8 +151,8 @@ export class LLMEngine {
     }
   }
 
-  /** Unload the current model and free WebGPU resources. */
-  async unloadModel(): Promise<void> {
+  private async doUnload(): Promise<void> {
+    this.loading = false;
     if (this.engine) {
       try { await this.engine.unload(); } catch (_e) { /* ignore */ }
       this.engine = null;

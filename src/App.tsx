@@ -6,6 +6,7 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { generateDingBlob, generateHappyJingleBlob } from "@/lib/ding-tone.ts";
 import { AppLayout } from "@/components/layout/app-layout.tsx";
 import { StageDiagram } from "@/components/loop/stage-diagram.tsx";
 import { LoopControls } from "@/components/loop/loop-controls.tsx";
@@ -22,12 +23,14 @@ import { DocsButton } from "@/components/docs/docs-button.tsx";
 import { ChangelogButton } from "@/components/changelog/changelog-button.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
 import { MobileLayout } from "@/components/layout/mobile-layout.tsx";
+import { ModelBrowser } from "@/components/model/model-browser.tsx";
 import { SearchResultsPanel } from "@/components/search/search-results-panel.tsx";
 import { SearchQuotaPanel } from "@/components/search/search-quota-panel.tsx";
 import { ProxySearchProvider } from "@/lib/proxy-search-provider.ts";
 import { useLoop } from "@/hooks/use-loop.ts";
 import { useMobile } from "@/hooks/use-mobile.ts";
-import { Bug } from "lucide-react";
+import { Bug, Layers, Mic } from "lucide-react";
+import { Button } from "@/components/ui/button.tsx";
 
 function App() {
   const {
@@ -40,6 +43,7 @@ function App() {
     setResponseWithLLM,
     setSearchEnabled,
     setAudioMuted,
+    setSpeakMonologue,
     setBias,
     controller,
   } = useLoop();
@@ -49,6 +53,8 @@ function App() {
   const [pendingModelId, setPendingModelId] = useState<string | null>(DEFAULT_MODEL);
   const [isLoadingModel, setIsLoadingModel] = useState(false);
   const autoLoadAttempted = useRef(false);
+  const isMobile = useMobile();
+  const [mobileTapped, setMobileTapped] = useState(false);
 
   // Wire in real search provider if proxy URL is configured
   useEffect(() => {
@@ -66,6 +72,77 @@ function App() {
     setIsLoadingModel(true);
     loadModel(DEFAULT_MODEL).finally(() => setIsLoadingModel(false));
   }, [loadModel]);
+
+  // --- Mobile boot greeting ---
+  const bootGreetingDone = useRef(false);
+  const dingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Greeting + ding interval — triggered by user tap (required for iOS audio unlock)
+  useEffect(() => {
+    if (!mobileTapped || bootGreetingDone.current) return;
+    bootGreetingDone.current = true;
+
+    function sayNative(text: string): Promise<void> {
+      return new Promise((resolve) => {
+        if (typeof speechSynthesis === "undefined") { resolve(); return; }
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1.0;
+        utter.lang = "en-US";
+        utter.onend = () => resolve();
+        utter.onerror = () => resolve();
+        speechSynthesis.speak(utter);
+      });
+    }
+
+    async function boot() {
+      await sayNative("Well, hello there! How are you doing?");
+      await sayNative("On first boot I have to load an LLM model so give me a second please.");
+
+      // Start ding interval while model loads
+      let blob: Blob | null = null;
+      try { blob = await generateDingBlob(); } catch {}
+
+      dingIntervalRef.current = setInterval(() => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        audio.volume = 0.3;
+        audio.play().catch(() => {});
+        audio.onended = () => URL.revokeObjectURL(url);
+      }, 2000);
+    }
+
+    boot();
+  }, [mobileTapped]);
+
+  // Clear ding + play happy jingle + say "ready" when model loads
+  useEffect(() => {
+    if (!mobileTapped || !state.modelConfig.isLoaded) return;
+    if (!dingIntervalRef.current) return;
+
+    clearInterval(dingIntervalRef.current);
+    dingIntervalRef.current = null;
+
+    // Play happy jingle then say "ready"
+    (async () => {
+      try {
+        const jingleBlob = await generateHappyJingleBlob();
+        const url = URL.createObjectURL(jingleBlob);
+        const audio = new Audio(url);
+        audio.volume = 0.5;
+        await audio.play().catch(() => {});
+        audio.onended = () => URL.revokeObjectURL(url);
+        // Wait for jingle to finish before speaking
+        await new Promise((r) => setTimeout(r, 900));
+      } catch {}
+
+      if (typeof speechSynthesis !== "undefined") {
+        const utter = new SpeechSynthesisUtterance("Ok ready, how can I help you?");
+        utter.lang = "en-US";
+        speechSynthesis.speak(utter);
+      }
+    })();
+  }, [mobileTapped, state.modelConfig.isLoaded]);
 
   const handleModelLoad = useCallback(async (modelId: string) => {
     setPendingModelId(modelId);
@@ -89,7 +166,7 @@ function App() {
   }, [controller]);
 
   const effectiveModelId = state.modelConfig.modelId || pendingModelId;
-  const isMobile = useMobile();
+  const [view, setView] = useState<"main" | "models">("main");
 
   // --- BroadcastChannel: LLM service for other windows (Changelog Q&A) ---
   useEffect(() => {
@@ -191,8 +268,43 @@ When answering:
     return sessions.join('\n');
   }
 
-  // --- Mobile: simplified chat view ---
+  // --- Model browser (full-screen page) ---
+  if (view === "models") {
+    return (
+      <ModelBrowser
+        selectedModelId={effectiveModelId}
+        isLoaded={state.modelConfig.isLoaded}
+        isLoading={isLoadingModel}
+        loadProgress={state.modelConfig.loadProgress}
+        onLoad={handleModelLoad}
+        onUnload={handleUnload}
+        onBack={() => setView("main")}
+      />
+    );
+  }
+
+  // --- Mobile: tap-to-start splash (unlocks iOS audio) then chat view ---
   if (isMobile) {
+    if (!mobileTapped) {
+      return (
+        <div
+          className="flex flex-col items-center justify-center bg-background text-foreground gap-6"
+          style={{ height: "100dvh" }}
+          onClick={() => setMobileTapped(true)}
+        >
+          <Bug className="h-16 w-16 text-primary animate-pulse" />
+          <h1 className="text-2xl font-bold">Bug Loop</h1>
+          <p className="text-sm text-muted-foreground">Voice Agent</p>
+          <div className="mt-4 flex flex-col items-center gap-2">
+            <div className="h-14 w-14 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
+              <Mic className="h-7 w-7 text-primary" />
+            </div>
+            <p className="text-xs text-muted-foreground">Tap anywhere to start</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <MobileLayout
         state={state}
@@ -228,6 +340,10 @@ When answering:
               onLoad={handleModelLoad}
               onUnload={handleUnload}
             />
+            <Button size="sm" variant="outline" className="h-8 gap-1.5 text-xs" onClick={() => setView("models")}>
+              <Layers className="h-3.5 w-3.5" />
+              Models
+            </Button>
             <DocsButton />
             <ChangelogButton />
             <span className="text-[10px] text-muted-foreground/50 font-mono">{__BUILD_NUMBER__}</span>
@@ -274,11 +390,13 @@ When answering:
               classifyWithLLM={state.modelConfig.classifyWithLLM}
               responseWithLLM={state.modelConfig.responseWithLLM}
               searchEnabled={state.modelConfig.searchEnabled}
+              speakMonologue={state.modelConfig.speakMonologue}
               audioMuted={state.audioMuted}
               isModelLoaded={state.modelConfig.isLoaded}
               onClassifyChange={setClassifyWithLLM}
               onResponseChange={setResponseWithLLM}
               onSearchChange={setSearchEnabled}
+              onSpeakMonologueChange={setSpeakMonologue}
               onAudioMuteChange={setAudioMuted}
             />
           </div>
