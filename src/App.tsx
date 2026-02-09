@@ -80,6 +80,98 @@ function App() {
   const effectiveModelId = state.modelConfig.modelId || pendingModelId;
   const isMobile = useMobile();
 
+  // --- BroadcastChannel: LLM service for other windows (Changelog Q&A) ---
+  useEffect(() => {
+    const channel = new BroadcastChannel('llm-service');
+
+    channel.addEventListener('message', async (e) => {
+      const { id, type, query, sessionIds } = e.data;
+
+      if (type === 'ask') {
+        // Check if LLM is loaded
+        const llmEngine = controller.getLLMEngine();
+        if (!state.modelConfig.isLoaded || !llmEngine.isLoaded()) {
+          channel.postMessage({
+            id,
+            type: 'error',
+            error: 'No LLM loaded. Please load a model first.'
+          });
+          return;
+        }
+
+        try {
+          // Read full session content from disk
+          const sessionContent = await readSessionFiles(sessionIds);
+
+          if (!sessionContent.trim()) {
+            channel.postMessage({
+              id,
+              type: 'error',
+              error: 'Could not read session files. They may not exist or failed to load.'
+            });
+            return;
+          }
+
+          // Build context with actual session content
+          const systemPrompt = `You are a helpful assistant answering questions about a software project's history.
+
+Here are the relevant sessions:
+
+${sessionContent}
+
+When answering:
+- Cite specific Session IDs (e.g., "In session S-2026-02-08-1400...")
+- Quote relevant parts from the sessions
+- Be concise but accurate`;
+
+          // Generate response
+          const answerText = await llmEngine.generate({
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: query }
+            ],
+            maxTokens: 256,
+            temperature: 0.7
+          });
+
+          // Send answer back
+          channel.postMessage({
+            id,
+            type: 'answer',
+            text: answerText
+          });
+        } catch (error) {
+          channel.postMessage({
+            id,
+            type: 'error',
+            error: error instanceof Error ? error.message : 'Unknown error occurred'
+          });
+        }
+      }
+    });
+
+    return () => channel.close();
+  }, [state.modelConfig.isLoaded, controller]);
+
+  // Helper to read session files from disk
+  async function readSessionFiles(sessionIds: string[]): Promise<string> {
+    const sessions = [];
+
+    for (const sessionId of sessionIds) {
+      try {
+        const response = await fetch(`/docs/project-memory/sessions/${sessionId}.md`);
+        if (response.ok) {
+          const content = await response.text();
+          sessions.push(`## ${sessionId}\n\n${content}\n\n---\n`);
+        }
+      } catch (err) {
+        console.warn(`Failed to read session ${sessionId}`, err);
+      }
+    }
+
+    return sessions.join('\n');
+  }
+
   // --- Mobile: simplified chat view ---
   if (isMobile) {
     return (

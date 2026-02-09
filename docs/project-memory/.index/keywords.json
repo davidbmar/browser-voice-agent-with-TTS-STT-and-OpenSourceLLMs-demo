@@ -9,7 +9,8 @@
   ],
   "memory": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "system": [
     "S-2026-02-08-1400-bootstrap-memory",
@@ -17,7 +18,8 @@
   ],
   "every": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "coding": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -42,7 +44,9 @@
   ],
   "new": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "repo": [
     "S-2026-02-08-1400-bootstrap-memory",
@@ -73,7 +77,8 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "context": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "any": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -148,10 +153,13 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "chose": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "because": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "sortable": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -200,7 +208,8 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "makes": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "git": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -223,7 +232,9 @@
   "add": [
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "visibility": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -248,7 +259,8 @@
   ],
   "all": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "panels": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -278,14 +290,16 @@
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-1430-migrate-project-memory",
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "suite": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "after": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "implementing": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -313,7 +327,8 @@
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "stage": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "diagram": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -323,7 +338,8 @@
   ],
   "listening": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "sequential": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -358,7 +374,8 @@
   ],
   "during": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "speak": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -503,10 +520,13 @@
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "already": [
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "lives": [
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "alongside": [
     "S-2026-02-08-1430-migrate-project-memory"
@@ -524,7 +544,8 @@
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "now": [
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "documentation": [
     "S-2026-02-08-1430-migrate-project-memory"
@@ -564,7 +585,8 @@
     "S-2026-02-08-1500-collapse-interims"
   ],
   "shows": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "individual": [
     "S-2026-02-08-1500-collapse-interims"
@@ -589,7 +611,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "users": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "want": [
     "S-2026-02-08-1500-collapse-interims"
@@ -614,17 +637,22 @@
   ],
   "src": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "lib": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "format-time": [
     "S-2026-02-08-1500-collapse-interims"
   ],
   "added": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "formattimerange": [
     "S-2026-02-08-1500-collapse-interims"
@@ -639,7 +667,8 @@
     "S-2026-02-08-1500-collapse-interims"
   ],
   "components": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "trace": [
     "S-2026-02-08-1500-collapse-interims"
@@ -648,7 +677,9 @@
     "S-2026-02-08-1500-collapse-interims"
   ],
   "tsx": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "grouping": [
     "S-2026-02-08-1500-collapse-interims"
@@ -664,10 +695,12 @@
   ],
   "__tests__": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "tests": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "ui-only": [
     "S-2026-02-08-1500-collapse-interims"
@@ -713,7 +746,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "fix": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "premature": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -740,7 +774,9 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "only": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "captures": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -755,7 +791,9 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "loop-controller": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "406-420": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -806,7 +844,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "reset": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "arrives": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -839,7 +878,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "available": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "evidence": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -857,7 +897,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "full": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "later": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -881,13 +922,15 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "old": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "counter": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "transition": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "signal": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -915,5 +958,471 @@
   ],
   "window": [
     "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "model": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "switching": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "failure": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "caused": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "browser": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "cache": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "storage": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "being": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "previous": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "weights": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "models": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "one": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "loaded": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "user": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "sees": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "load": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "failed": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "execute": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "unexpected": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "internal": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "error": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "unloadmodel": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "frees": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "gpu": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "doesn": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "clear": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "webllm": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "stores": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "downloaded": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "download": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "then": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "fails": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "due": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "insufficient": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "space": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "llm-engine": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "call": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "deletemodelallinfoincache": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "previousmodelid": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "before": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "loading": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "wrap": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "llmengine": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "loadmodel": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "try": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "catch": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "modelconfig": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "state": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "app": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "pendingmodelid": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "cleanup": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "best-effort": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "ignored": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "main": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "still": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "succeed": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "deleted": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "different": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "not": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "reload": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "same": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "graceful": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "handling": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "failures": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "quota": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "exceeded": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "generation": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "tokenizer": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "wasm": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "crash": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "pre-flight": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "check": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "auto-unload": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "fatal": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "errors": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "user-friendly": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "messages": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "dismissal": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "see": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "raw": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "strings": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "like": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "cannot": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "pass": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "object": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "pointer": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "type": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "leaves": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "engine": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "broken": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "isloaded": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "returns": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "true": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "exists": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "estimatestorage": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "static": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "method": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "disposed": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "generate": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "clearerror": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "public": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "friendlyerror": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "private": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "helper": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "translating": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "network": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "onerror": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "callbacks": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "use": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "entry": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "clears": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "model-selector": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "estimation": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "hook": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "low": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "badge": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "exceeding": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "display": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "dismiss": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "button": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "calling": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "controller": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "non-fatal": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "unavailable": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "notifies": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "passthrough": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "null": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "out": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "modelid": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "directly": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "async": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "unload": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "since": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "corrupted": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "return": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "false": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "immediately": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "fsm": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "falls": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "back": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "rule-based": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "translation": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "about": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "actions": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "reports": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "avoid": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "clearing": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "too": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "aggressively": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "recovery": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ]
 }

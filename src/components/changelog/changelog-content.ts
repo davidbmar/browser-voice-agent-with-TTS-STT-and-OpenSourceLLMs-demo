@@ -6,6 +6,7 @@
  */
 
 import metadata from '../../../docs/project-memory/.index/metadata.json';
+import keywordIndex from '../../../docs/project-memory/.index/keywords.json';
 
 interface SessionMetadata {
   sessionId: string;
@@ -76,6 +77,76 @@ export function getChangelogHTML(): string {
       padding: 2rem 3rem;
       max-width: 960px;
       margin: 0 auto;
+    }
+    .qa-box {
+      background: hsl(217.2 32.6% 8%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .qa-box h3 {
+      font-size: 1.1rem;
+      color: hsl(142 76% 50%);
+      margin-bottom: 1rem;
+    }
+    .qa-input-wrapper {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    #qaInput {
+      flex: 1;
+      background: hsl(217.2 32.6% 10%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 6px;
+      padding: 0.75rem;
+      color: hsl(210 40% 90%);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #qaInput:focus {
+      border-color: hsl(142 76% 40%);
+    }
+    #qaInput::placeholder {
+      color: hsl(215 20.2% 55%);
+    }
+    #askButton {
+      background: hsl(142 76% 36%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    #askButton:hover:not(:disabled) {
+      background: hsl(142 76% 42%);
+    }
+    #askButton:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .qa-status {
+      font-size: 0.85rem;
+      color: hsl(215 20.2% 65.1%);
+      margin-bottom: 0.75rem;
+      min-height: 1.2em;
+    }
+    .qa-answer {
+      background: hsl(217.2 32.6% 10%);
+      border-left: 3px solid hsl(142 76% 40%);
+      padding: 1rem;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      display: none;
+    }
+    .qa-answer.visible {
+      display: block;
     }
     h1 {
       font-size: 2rem;
@@ -213,6 +284,21 @@ export function getChangelogHTML(): string {
   <h1>📖 Project Memory Changelog</h1>
   <p class="subtitle">A timeline of all coding sessions and decisions</p>
 
+  <div class="qa-box">
+    <h3>💬 Ask Questions</h3>
+    <div class="qa-input-wrapper">
+      <input
+        type="text"
+        id="qaInput"
+        placeholder="Ask about project history... (e.g., 'Why did we add audio mute?')"
+        autocomplete="off"
+      />
+      <button id="askButton">Ask</button>
+    </div>
+    <div class="qa-status" id="qaStatus"></div>
+    <div class="qa-answer" id="qaAnswer"></div>
+  </div>
+
   <div class="search-box">
     <div class="search-input-wrapper">
       <span class="search-icon">🔍</span>
@@ -290,6 +376,113 @@ export function getChangelogHTML(): string {
       if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
         e.preventDefault();
         searchInput.focus();
+      }
+    });
+
+    // --- Q&A with LLM via BroadcastChannel ---
+    const qaInput = document.getElementById('qaInput');
+    const askButton = document.getElementById('askButton');
+    const qaAnswer = document.getElementById('qaAnswer');
+    const qaStatus = document.getElementById('qaStatus');
+
+    const channel = new BroadcastChannel('llm-service');
+    const keywordIndex = ${JSON.stringify(keywordIndex)};
+    const metadataList = ${JSON.stringify(metadata)};
+
+    // Search for relevant sessions using keyword index
+    function searchRelevantSessions(query) {
+      const queryWords = query.toLowerCase().split(/\\s+/);
+      const sessionMatches = new Map();
+
+      // Find sessions matching query words
+      for (const word of queryWords) {
+        if (keywordIndex[word]) {
+          for (const sessionId of keywordIndex[word]) {
+            sessionMatches.set(
+              sessionId,
+              (sessionMatches.get(sessionId) || 0) + 1
+            );
+          }
+        }
+      }
+
+      // Sort by match count (most relevant first)
+      return Array.from(sessionMatches.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5) // Top 5 most relevant
+        .map(([sessionId]) => sessionId);
+    }
+
+    askButton.addEventListener('click', async () => {
+      const query = qaInput.value.trim();
+      if (!query) return;
+
+      const id = Math.random().toString(36).substring(7);
+
+      // Disable button during processing
+      askButton.disabled = true;
+      qaAnswer.classList.remove('visible');
+      qaAnswer.textContent = '';
+
+      // Step 1: Search for relevant sessions
+      qaStatus.textContent = '🔍 Searching for relevant sessions...';
+
+      const relevantSessions = searchRelevantSessions(query);
+
+      if (relevantSessions.length === 0) {
+        qaStatus.textContent = '❌ No relevant sessions found';
+        qaAnswer.textContent = 'Try different keywords or check the search box below to browse all sessions.';
+        qaAnswer.classList.add('visible');
+        askButton.disabled = false;
+        return;
+      }
+
+      // Step 2: Ask LLM with relevant session IDs
+      qaStatus.textContent = \`🤔 Analyzing \${relevantSessions.length} session(s) with LLM...\`;
+
+      // Set timeout (30 seconds for LLM)
+      const timeout = setTimeout(() => {
+        qaStatus.textContent = '⏱️ Timeout - make sure main app is open with model loaded';
+        qaAnswer.textContent = 'The main app must be running with an LLM loaded to answer questions.';
+        qaAnswer.classList.add('visible');
+        askButton.disabled = false;
+        channel.removeEventListener('message', handler);
+      }, 30000);
+
+      // Listen for response
+      const handler = (e) => {
+        if (e.data.id === id) {
+          clearTimeout(timeout);
+          channel.removeEventListener('message', handler);
+          askButton.disabled = false;
+
+          if (e.data.type === 'answer') {
+            qaStatus.textContent = \`✅ Answer (based on \${relevantSessions.length} session(s)):\`;
+            qaAnswer.textContent = e.data.text;
+            qaAnswer.classList.add('visible');
+          } else if (e.data.type === 'error') {
+            qaStatus.textContent = '❌ Error:';
+            qaAnswer.textContent = e.data.error;
+            qaAnswer.classList.add('visible');
+          }
+        }
+      };
+
+      channel.addEventListener('message', handler);
+
+      // Send question with relevant session IDs
+      channel.postMessage({
+        id,
+        type: 'ask',
+        query,
+        sessionIds: relevantSessions
+      });
+    });
+
+    // Allow Enter key to submit question
+    qaInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !askButton.disabled) {
+        askButton.click();
       }
     });
   </script>
