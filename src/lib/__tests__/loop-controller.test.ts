@@ -457,14 +457,14 @@ describe("LoopController", () => {
     expect(s.modelConfig.loadProgress).toBe(0);
   });
 
-  it("loadModel failure sets state.error", async () => {
+  it("loadModel failure sets state.error with friendly message", async () => {
     const err = new Error("Quota exceeded");
     // Fail both first attempt and retry
     mockCreateMLCEngine.mockRejectedValueOnce(err).mockRejectedValueOnce(err);
     await expect(ctrl.loadModel("quota-model")).rejects.toThrow();
 
     const s = ctrl.getState();
-    expect(s.error).toContain("Model load failed");
+    expect(s.error).toContain("Storage full");
   });
 
   it("loadModel notifies listeners on failure", async () => {
@@ -485,5 +485,56 @@ describe("LoopController", () => {
     const s = ctrl.getState();
     expect(s.modelConfig.modelId).toBeNull();
     expect(s.modelConfig.isLoaded).toBe(false);
+  });
+
+  it("clearError sets state.error to null", async () => {
+    // Force an error via failed model load
+    const err = new Error("Quota exceeded");
+    mockCreateMLCEngine.mockRejectedValueOnce(err).mockRejectedValueOnce(err);
+    await expect(ctrl.loadModel("fail")).rejects.toThrow();
+    expect(ctrl.getState().error).toBeTruthy();
+
+    ctrl.clearError();
+    expect(ctrl.getState().error).toBeNull();
+  });
+
+  it("clearError notifies listeners", async () => {
+    const err = new Error("Quota exceeded");
+    mockCreateMLCEngine.mockRejectedValueOnce(err).mockRejectedValueOnce(err);
+    await expect(ctrl.loadModel("fail")).rejects.toThrow();
+
+    const listener = vi.fn();
+    ctrl.subscribe(listener);
+    ctrl.clearError();
+    expect(listener).toHaveBeenCalled();
+  });
+
+  it("friendlyError translates quota errors to user-friendly message", async () => {
+    const err = new Error("Quota exceeded");
+    mockCreateMLCEngine.mockRejectedValueOnce(err).mockRejectedValueOnce(err);
+    await expect(ctrl.loadModel("fail")).rejects.toThrow();
+
+    const error = ctrl.getState().error;
+    expect(error).toContain("Storage full");
+  });
+
+  it("friendlyError translates tokenizer errors to user-friendly message", async () => {
+    const tokErr = new Error("Cannot pass deleted object as a pointer of type Tokenizer*");
+    mockCreateMLCEngine.mockRejectedValueOnce(tokErr);
+    await expect(ctrl.loadModel("tok-fail")).rejects.toThrow();
+
+    const error = ctrl.getState().error;
+    // The LLMEngine.loadModel formats as "Model load failed: Cannot pass deleted object..."
+    // Then friendlyError matches /tokenizer|deleted object/i and translates it
+    expect(error).toContain("Model crashed");
+  });
+
+  it("friendlyError passes through unknown errors unchanged", async () => {
+    const err = new Error("Something bizarre");
+    mockCreateMLCEngine.mockRejectedValueOnce(err);
+    await expect(ctrl.loadModel("bizarre")).rejects.toThrow();
+
+    const error = ctrl.getState().error;
+    expect(error).toContain("Something bizarre");
   });
 });
