@@ -74,14 +74,10 @@ function App() {
   }, [loadModel]);
 
   // --- Mobile boot greeting ---
-  const bootGreetingDone = useRef(false);
   const dingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Greeting + ding interval — triggered by user tap (required for iOS audio unlock)
-  useEffect(() => {
-    if (!mobileTapped || bootGreetingDone.current) return;
-    bootGreetingDone.current = true;
-
+  /** Must be called synchronously from a click handler (iOS requires user gesture call stack). */
+  function startBootGreeting() {
     function sayNative(text: string): Promise<void> {
       return new Promise((resolve) => {
         if (typeof speechSynthesis === "undefined") { resolve(); return; }
@@ -94,26 +90,34 @@ function App() {
       });
     }
 
-    async function boot() {
-      await sayNative("Well, hello there! How are you doing?");
-      await sayNative("On first boot I have to load an LLM model so give me a second please.");
+    // Queue first utterance synchronously in the tap call stack — this unlocks iOS audio
+    if (typeof speechSynthesis !== "undefined") {
+      const first = new SpeechSynthesisUtterance("Well, hello there! How are you doing?");
+      first.rate = 1.0;
+      first.lang = "en-US";
+      speechSynthesis.speak(first);
 
-      // Start ding interval while model loads
-      let blob: Blob | null = null;
-      try { blob = await generateDingBlob(); } catch {}
+      // Chain the rest after the first utterance finishes
+      first.onend = () => {
+        (async () => {
+          await sayNative("On first boot I have to load an LLM model so give me a second please.");
 
-      dingIntervalRef.current = setInterval(() => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const audio = new Audio(url);
-        audio.volume = 0.3;
-        audio.play().catch(() => {});
-        audio.onended = () => URL.revokeObjectURL(url);
-      }, 2000);
+          // Start ding interval while model loads
+          let blob: Blob | null = null;
+          try { blob = await generateDingBlob(); } catch {}
+
+          dingIntervalRef.current = setInterval(() => {
+            if (!blob) return;
+            const url = URL.createObjectURL(blob);
+            const audio = new Audio(url);
+            audio.volume = 0.3;
+            audio.play().catch(() => {});
+            audio.onended = () => URL.revokeObjectURL(url);
+          }, 2000);
+        })();
+      };
     }
-
-    boot();
-  }, [mobileTapped]);
+  }
 
   // Clear ding + play happy jingle + say "ready" when model loads
   useEffect(() => {
@@ -290,7 +294,7 @@ When answering:
         <div
           className="flex flex-col items-center justify-center bg-background text-foreground gap-6"
           style={{ height: "100dvh" }}
-          onClick={() => setMobileTapped(true)}
+          onClick={() => { startBootGreeting(); setMobileTapped(true); }}
         >
           <Bug className="h-16 w-16 text-primary animate-pulse" />
           <h1 className="text-2xl font-bold">Bug Loop</h1>
