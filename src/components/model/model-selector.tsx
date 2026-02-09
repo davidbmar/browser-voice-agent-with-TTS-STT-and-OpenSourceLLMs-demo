@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
 import { Progress } from "@/components/ui/progress.tsx";
 import { MODEL_CATALOG } from "@/lib/loop-types.ts";
+import { LLMEngine } from "@/lib/llm-engine.ts";
 import { X, Loader2 } from "lucide-react";
 
 interface ModelSelectorProps {
@@ -28,6 +30,12 @@ export function ModelSelector({
   onLoad,
   onUnload,
 }: ModelSelectorProps) {
+  const [storageGB, setStorageGB] = useState<number | null>(null);
+
+  useEffect(() => {
+    LLMEngine.estimateStorage().then((s) => setStorageGB(s?.availableGB ?? null));
+  }, []);
+
   return (
     <div className="flex items-center gap-2">
       <Select value={selectedModelId || ""} onValueChange={onLoad}>
@@ -44,6 +52,9 @@ export function ModelSelector({
                 </span>
                 {m.tags.includes("new") && (
                   <span className="text-[9px] bg-primary/20 text-primary px-1 rounded">new</span>
+                )}
+                {storageGB !== null && m.vramGB > storageGB && (
+                  <span className="text-[9px] text-red-400">low storage</span>
                 )}
               </div>
             </SelectItem>

@@ -19,6 +19,7 @@ import { ModelToggle } from "@/components/model/model-toggle.tsx";
 import { ModelABPanel } from "@/components/model/model-ab-panel.tsx";
 import { HistoryTimeline } from "@/components/history/history-timeline.tsx";
 import { DocsButton } from "@/components/docs/docs-button.tsx";
+import { ChangelogButton } from "@/components/changelog/changelog-button.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
 import { MobileLayout } from "@/components/layout/mobile-layout.tsx";
 import { SearchResultsPanel } from "@/components/search/search-results-panel.tsx";
@@ -60,6 +61,8 @@ function App() {
     setIsLoadingModel(true);
     try {
       await loadModel(modelId);
+    } catch (_err) {
+      setPendingModelId(null);
     } finally {
       setIsLoadingModel(false);
     }
@@ -115,6 +118,7 @@ function App() {
               onUnload={handleUnload}
             />
             <DocsButton />
+            <ChangelogButton />
             <span className="text-[10px] text-muted-foreground/50 font-mono">{__BUILD_NUMBER__}</span>
           </div>
         </div>
@@ -179,8 +183,9 @@ function App() {
           {/* Error display */}
           {state.error && (
             <div className="border-t pt-4">
-              <div className="p-2 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-xs">
-                {state.error}
+              <div className="p-2 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-xs flex justify-between items-start gap-2">
+                <span>{state.error}</span>
+                <button onClick={() => controller.clearError()} className="shrink-0 text-destructive/60 hover:text-destructive text-sm leading-none">&times;</button>
               </div>
             </div>
           )}

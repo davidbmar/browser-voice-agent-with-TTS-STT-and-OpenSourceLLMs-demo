@@ -27,9 +27,18 @@ vi.mock("@diffusionstudio/vits-web", () => ({
   predict: vi.fn().mockResolvedValue(new Blob(["audio"])),
 }));
 
+const mockCreateMLCEngine = vi.fn().mockResolvedValue({
+  unload: vi.fn().mockResolvedValue(undefined),
+  chat: { completions: { create: vi.fn() } },
+});
+
 vi.mock("@mlc-ai/web-llm", () => ({
-  CreateMLCEngine: vi.fn(),
+  CreateMLCEngine: (...args: unknown[]) => mockCreateMLCEngine(...args),
+  deleteModelAllInfoInCache: vi.fn().mockResolvedValue(undefined),
 }));
+
+vi.stubGlobal("caches", { keys: vi.fn().mockResolvedValue([]), delete: vi.fn().mockResolvedValue(true) });
+vi.stubGlobal("indexedDB", { deleteDatabase: vi.fn().mockReturnValue({ set onsuccess(fn: (() => void) | null) { if (fn) setTimeout(fn, 0); }, set onerror(_fn: (() => void) | null) {}, set onblocked(_fn: (() => void) | null) {} }) });
 
 // Now import the controller (after mocks are set up)
 import { LoopController } from "../loop-controller.ts";
@@ -414,5 +423,67 @@ describe("LoopController", () => {
     expect(ctrl.getState().audioMuted).toBe(true);
     ctrl.setAudioMuted(false);
     expect(ctrl.getState().audioMuted).toBe(false);
+  });
+
+  // -----------------------------------------------------------------------
+  // Model loading integration tests
+  // -----------------------------------------------------------------------
+  it("loadModel updates state.modelConfig.modelId", async () => {
+    await ctrl.loadModel("test-model");
+    const s = ctrl.getState();
+    expect(s.modelConfig.modelId).toBe("test-model");
+    expect(s.modelConfig.isLoaded).toBe(true);
+  });
+
+  it("loadModel sets isLoaded=false during loading", async () => {
+    const states: boolean[] = [];
+    ctrl.subscribe(() => {
+      states.push(ctrl.getState().modelConfig.isLoaded);
+    });
+    await ctrl.loadModel("test-model");
+    // First notification should have isLoaded=false (loading started)
+    expect(states[0]).toBe(false);
+    // Last notification should have isLoaded=true (loading completed)
+    expect(states[states.length - 1]).toBe(true);
+  });
+
+  it("loadModel resets state on failure", async () => {
+    mockCreateMLCEngine.mockRejectedValueOnce(new Error("WebGPU device lost"));
+    await expect(ctrl.loadModel("bad-model")).rejects.toThrow("WebGPU device lost");
+
+    const s = ctrl.getState();
+    expect(s.modelConfig.modelId).toBeNull();
+    expect(s.modelConfig.isLoaded).toBe(false);
+    expect(s.modelConfig.loadProgress).toBe(0);
+  });
+
+  it("loadModel failure sets state.error", async () => {
+    const err = new Error("Quota exceeded");
+    // Fail both first attempt and retry
+    mockCreateMLCEngine.mockRejectedValueOnce(err).mockRejectedValueOnce(err);
+    await expect(ctrl.loadModel("quota-model")).rejects.toThrow();
+
+    const s = ctrl.getState();
+    expect(s.error).toContain("Model load failed");
+  });
+
+  it("loadModel notifies listeners on failure", async () => {
+    mockCreateMLCEngine.mockRejectedValueOnce(new Error("fail"));
+    const listener = vi.fn();
+    ctrl.subscribe(listener);
+
+    await expect(ctrl.loadModel("fail-model")).rejects.toThrow();
+
+    // Called at least twice: once for loading start, once for error reset
+    expect(listener.mock.calls.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("unloadModel resets modelConfig", async () => {
+    await ctrl.loadModel("test-model");
+    await ctrl.unloadModel();
+
+    const s = ctrl.getState();
+    expect(s.modelConfig.modelId).toBeNull();
+    expect(s.modelConfig.isLoaded).toBe(false);
   });
 });

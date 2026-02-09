@@ -147,7 +147,7 @@ export class LoopController {
         this.updateVADFromLevel(level);
       },
       onError: (err) => {
-        this.state.error = err;
+        this.state.error = this.friendlyError(err);
         this.notifyListeners();
       },
       onStateChange: (s) => {
@@ -166,7 +166,7 @@ export class LoopController {
         this.dispatch({ type: "SPEAK_DONE" });
       },
       onError: (err) => {
-        this.state.error = err;
+        this.state.error = this.friendlyError(err);
         this.dispatch({ type: "SPEAK_DONE" });
       },
     });
@@ -184,7 +184,7 @@ export class LoopController {
         this.notifyListeners();
       },
       onError: (err) => {
-        this.state.error = err;
+        this.state.error = this.friendlyError(err);
         this.notifyListeners();
       },
     });
@@ -217,6 +217,7 @@ export class LoopController {
     }
     this.state.stage = newStage;
     this.state.stageEnteredAt = now;
+    if (newStage === "LISTENING") this.state.error = null;
     this.trace.add(newStage, "stage_enter", `Entered ${newStage}`);
     this.notifyListeners();
   }
@@ -858,7 +859,15 @@ export class LoopController {
     this.state.modelConfig.isLoaded = false;
     this.state.modelConfig.loadProgress = 0;
     this.notifyListeners();
-    await this.llmEngine.loadModel(modelId);
+    try {
+      await this.llmEngine.loadModel(modelId);
+    } catch (err) {
+      this.state.modelConfig.modelId = null;
+      this.state.modelConfig.isLoaded = false;
+      this.state.modelConfig.loadProgress = 0;
+      this.notifyListeners();
+      throw err;
+    }
   }
 
   async unloadModel(): Promise<void> {
@@ -906,5 +915,18 @@ export class LoopController {
   setSearchProvider(provider: SearchProvider) {
     this.searchProvider = provider;
     this.trace.add(this.state.stage, "search_provider_set", `Provider: ${provider.name}`);
+  }
+
+  clearError() {
+    this.state.error = null;
+    this.notifyListeners();
+  }
+
+  private friendlyError(raw: string): string {
+    if (/quota/i.test(raw)) return "Storage full \u2014 try a smaller model or clear site data in browser settings.";
+    if (/cache/i.test(raw)) return "Browser cache error \u2014 clearing cache and retrying...";
+    if (/tokenizer|deleted object/i.test(raw)) return "Model crashed \u2014 unloaded automatically. Please reload the model.";
+    if (/network|fetch/i.test(raw)) return "Network error \u2014 check your connection and try again.";
+    return raw;
   }
 }

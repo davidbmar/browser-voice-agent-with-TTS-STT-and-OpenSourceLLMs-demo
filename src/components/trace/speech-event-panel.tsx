@@ -131,14 +131,14 @@ export function SpeechEventPanel({ speechLog, pendingTurnCount }: SpeechEventPan
                   if (item.kind === "collapsed_interim") {
                     return (
                       <div key={`interim-${i}`} className="flex gap-1.5 text-muted-foreground hover:text-foreground transition-colors">
-                        <span className="shrink-0 text-muted-foreground/60">
+                        <span className="shrink-0 min-w-[7rem] text-muted-foreground/60">
                           {formatTimeRange(item.startMs, item.endMs, timezone)}
                         </span>
-                        <span className="shrink-0 w-10 text-right text-muted-foreground/80">{item.stage.slice(0, 6)}</span>
-                        <span className={cn("shrink-0 w-12", TYPE_COLORS.interim)}>
+                        <span className="shrink-0 min-w-[2.75rem] w-11 text-right text-muted-foreground/80">{item.stage.slice(0, 6)}</span>
+                        <span className={cn("shrink-0 min-w-[3.25rem] w-13", TYPE_COLORS.interim)}>
                           INTERIM
                         </span>
-                        <span className="text-foreground break-all">
+                        <span className="min-w-0 text-foreground break-words">
                           {item.text}
                           <span className="text-muted-foreground/60"> ({item.count})</span>
                         </span>
@@ -148,14 +148,14 @@ export function SpeechEventPanel({ speechLog, pendingTurnCount }: SpeechEventPan
                   const evt = item.event;
                   return (
                     <div key={evt.id} className="flex gap-1.5 text-muted-foreground hover:text-foreground transition-colors">
-                      <span className="shrink-0 text-muted-foreground/60">
+                      <span className="shrink-0 min-w-[7rem] text-muted-foreground/60">
                         {formatTimestamp(evt.timestampMs, timezone)}
                       </span>
-                      <span className="shrink-0 w-10 text-right text-muted-foreground/80">{evt.fsmStage.slice(0, 6)}</span>
-                      <span className={cn("shrink-0 w-12", TYPE_COLORS[evt.type])}>
+                      <span className="shrink-0 min-w-[2.75rem] w-11 text-right text-muted-foreground/80">{evt.fsmStage.slice(0, 6)}</span>
+                      <span className={cn("shrink-0 min-w-[3.25rem] w-13", TYPE_COLORS[evt.type])}>
                         {TYPE_LABELS[evt.type]}
                       </span>
-                      <span className="text-foreground break-all">
+                      <span className="min-w-0 text-foreground break-words">
                         {evt.text}
                         {evt.confidence > 0 && <span className="text-muted-foreground/60"> ({evt.confidence.toFixed(2)})</span>}
                         {evt.queueDurationMs != null && (

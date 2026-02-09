@@ -51,38 +51,47 @@ export class LLMEngine {
   getModelId(): string | null { return this.currentModelId; }
 
   /**
-   * Load a model by ID. Downloads weights on first call (cached in IndexedDB).
+   * Load a model by ID. Downloads weights on first call (cached in Cache Storage).
    * Unloads any previously loaded model first.
+   *
+   * If loading fails due to cache/quota errors, clears all storage and retries once.
    */
   async loadModel(modelId: string): Promise<void> {
     if (this.currentModelId === modelId && this.engine) return;
 
+    const previousModelId = this.currentModelId;
     await this.unloadModel();
+
+    // Free Cache Storage from previous model to make room for the new one
+    if (previousModelId && previousModelId !== modelId) {
+      await this.deleteModelCacheSafe(previousModelId);
+    }
+
     this.loading = true;
 
     try {
-      const { CreateMLCEngine } = await import("@mlc-ai/web-llm");
-
-      this.engine = await CreateMLCEngine(modelId, {
-        initProgressCallback: (report) => {
-          this.callbacks.onLoadProgress?.({
-            text: report.text,
-            progress: report.progress,
-          });
-        },
-      });
-
-      this.currentModelId = modelId;
-      this.loading = false;
-      this.callbacks.onLoadComplete?.();
-    } catch (err) {
+      await this.createEngine(modelId);
+    } catch (firstErr) {
+      // On cache/quota errors, nuke ALL storage and retry once
+      if (firstErr instanceof Error && /cache|quota/i.test(firstErr.message)) {
+        console.warn("[LLMEngine] Load failed with cache/quota error, clearing all storage and retrying:", firstErr.message);
+        try {
+          await this.clearAllStorage();
+          console.log("[LLMEngine] Storage cleared, retrying model load...");
+          await this.createEngine(modelId);
+          return; // retry succeeded
+        } catch (retryErr) {
+          console.error("[LLMEngine] Retry also failed:", retryErr instanceof Error ? retryErr.message : retryErr);
+          // fall through to error handling
+        }
+      }
       this.loading = false;
       this.engine = null;
       this.currentModelId = null;
       this.callbacks.onError?.(
-        `Model load failed: ${err instanceof Error ? err.message : "unknown"}`
+        `Model load failed: ${firstErr instanceof Error ? firstErr.message : "unknown"}`
       );
-      throw err;
+      throw firstErr;
     }
   }
 
@@ -126,8 +135,14 @@ export class LLMEngine {
       this.callbacks.onGenerateComplete?.(fullText, "");
       return fullText;
     } catch (err) {
-      const msg = `Generation error: ${err instanceof Error ? err.message : "unknown"}`;
-      this.callbacks.onError?.(msg);
+      const rawMsg = err instanceof Error ? err.message : "unknown";
+      // Fatal WASM errors mean the engine is unusable — auto-unload
+      if (/deleted object|Tokenizer|abort|disposed/i.test(rawMsg)) {
+        console.error("[LLMEngine] Fatal engine error, auto-unloading:", rawMsg);
+        this.engine = null;
+        this.currentModelId = null;
+      }
+      this.callbacks.onError?.(`Generation error: ${rawMsg}`);
       throw err;
     }
   }
@@ -144,5 +159,74 @@ export class LLMEngine {
       return { supported: false, info: "WebGPU not available in this browser" };
     }
     return { supported: true, info: "WebGPU available" };
+  }
+
+  /** Estimate available browser storage (Cache Storage + IndexedDB quota). */
+  static async estimateStorage(): Promise<{ availableGB: number; usedGB: number; quotaGB: number } | null> {
+    if (!navigator.storage?.estimate) return null;
+    const { usage = 0, quota = 0 } = await navigator.storage.estimate();
+    return {
+      usedGB: usage / 1e9,
+      quotaGB: quota / 1e9,
+      availableGB: (quota - usage) / 1e9,
+    };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Private helpers
+  // ---------------------------------------------------------------------------
+
+  /** Create engine and set instance fields on success. */
+  private async createEngine(modelId: string): Promise<void> {
+    const { CreateMLCEngine } = await import("@mlc-ai/web-llm");
+
+    this.engine = await CreateMLCEngine(modelId, {
+      initProgressCallback: (report) => {
+        this.callbacks.onLoadProgress?.({
+          text: report.text,
+          progress: report.progress,
+        });
+      },
+    });
+
+    this.currentModelId = modelId;
+    this.loading = false;
+    this.callbacks.onLoadComplete?.();
+  }
+
+  /** Delete a single model's cache via web-llm, ignoring errors. */
+  private async deleteModelCacheSafe(modelId: string): Promise<void> {
+    try {
+      const { deleteModelAllInfoInCache } = await import("@mlc-ai/web-llm");
+      await deleteModelAllInfoInCache(modelId);
+    } catch (_e) { /* best-effort */ }
+  }
+
+  /**
+   * Nuclear cache clear: delete ALL Cache Storage entries and ALL webllm
+   * IndexedDB databases. This frees the maximum amount of origin storage.
+   */
+  private async clearAllStorage(): Promise<void> {
+    // 1. Delete ALL Cache Storage entries (not just webllm-named ones)
+    try {
+      const names = await caches.keys();
+      console.log("[LLMEngine] Clearing Cache Storage entries:", names);
+      await Promise.all(names.map((n) => caches.delete(n)));
+    } catch (e) {
+      console.warn("[LLMEngine] Cache Storage clear failed:", e);
+    }
+
+    // 2. Delete webllm IndexedDB databases
+    const idbNames = ["webllm/model", "webllm/config", "webllm/wasm"];
+    for (const name of idbNames) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          const req = indexedDB.deleteDatabase(name);
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+          req.onblocked = () => resolve(); // still counts as cleared
+        });
+      } catch (_e) { /* best-effort */ }
+    }
   }
 }
