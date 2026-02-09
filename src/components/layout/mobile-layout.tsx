@@ -127,9 +127,11 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
   }, [state.stage, state.lastResponse, state.lastThinking, state.finalTranscript, state.interimTranscript, state.history.length]);
 
   const transcript = state.finalTranscript || state.interimTranscript;
-  const hasCurrentTurn = !!(transcript || state.lastThinking || state.lastResponse);
   const isProcessing = ["CLASSIFY", "MICRO_RESPONSE", "SPEAK", "SIGNAL_DETECT"].includes(state.stage);
-  const showEmptyState = !hasCurrentTurn && state.history.length === 0 && !state.error;
+  // Current turn elements only show while FSM is actively processing (not IDLE/LISTENING).
+  // Once the turn is committed to history, these stale fields should not render as duplicates.
+  const isActiveTurn = isProcessing || !!(transcript);
+  const showEmptyState = !isActiveTurn && state.history.length === 0 && !state.error;
 
   return (
     <div className="flex flex-col bg-background text-foreground" style={{ height: "100dvh" }}>
@@ -216,57 +218,60 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
           <HistoryBubble key={entry.id} entry={entry} />
         ))}
 
-        {/* --- Current turn (only while actively processing) --- */}
-
-        {/* User transcript */}
-        {transcript && (
-          <div className="flex gap-2 items-start">
-            <User className="h-4 w-4 mt-1 shrink-0 text-blue-400" />
-            <div>
-              <div className="rounded-lg bg-muted/50 px-3 py-2 text-sm max-w-[85%]">
-                {transcript}
-                {state.interimTranscript && !state.finalTranscript && (
-                  <span className="text-muted-foreground animate-pulse">...</span>
-                )}
+        {/* --- Current turn (only while FSM is actively processing, not after commit to history) --- */}
+        {isActiveTurn && (
+          <>
+            {/* User transcript */}
+            {transcript && (
+              <div className="flex gap-2 items-start">
+                <User className="h-4 w-4 mt-1 shrink-0 text-blue-400" />
+                <div>
+                  <div className="rounded-lg bg-muted/50 px-3 py-2 text-sm max-w-[85%]">
+                    {transcript}
+                    {state.interimTranscript && !state.finalTranscript && (
+                      <span className="text-muted-foreground animate-pulse">...</span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {/* Thinking / internal monologue */}
-        {state.lastThinking && (
-          <div className="flex gap-2 items-start">
-            <Brain className="h-4 w-4 mt-1 shrink-0 text-purple-400" />
-            <div className="rounded-lg bg-purple-500/10 border border-purple-500/20 px-3 py-2 text-sm italic text-muted-foreground max-w-[85%]">
-              {state.lastThinking}
-            </div>
-          </div>
-        )}
+            {/* Thinking / internal monologue */}
+            {isProcessing && state.lastThinking && (
+              <div className="flex gap-2 items-start">
+                <Brain className="h-4 w-4 mt-1 shrink-0 text-purple-400" />
+                <div className="rounded-lg bg-purple-500/10 border border-purple-500/20 px-3 py-2 text-sm italic text-muted-foreground max-w-[85%]">
+                  {state.lastThinking}
+                </div>
+              </div>
+            )}
 
-        {/* Search indicator */}
-        {isProcessing && state.lastSearchQuery && !state.lastResponse && (
-          <div className="flex gap-2 items-center text-cyan-400">
-            <Search className="h-4 w-4 animate-pulse" />
-            <span className="text-xs">Searching: "{state.lastSearchQuery}"</span>
-          </div>
-        )}
+            {/* Search indicator */}
+            {isProcessing && state.lastSearchQuery && !state.lastResponse && (
+              <div className="flex gap-2 items-center text-cyan-400">
+                <Search className="h-4 w-4 animate-pulse" />
+                <span className="text-xs">Searching: "{state.lastSearchQuery}"</span>
+              </div>
+            )}
 
-        {/* Processing indicator */}
-        {isProcessing && !state.lastResponse && !state.lastSearchQuery && (
-          <div className="flex gap-2 items-center text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-xs">{STAGE_LABELS[state.stage]}</span>
-          </div>
-        )}
+            {/* Processing indicator */}
+            {isProcessing && !state.lastResponse && !state.lastSearchQuery && (
+              <div className="flex gap-2 items-center text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-xs">{STAGE_LABELS[state.stage]}</span>
+              </div>
+            )}
 
-        {/* AI response (current turn) */}
-        {state.lastResponse && (
-          <div className="flex gap-2 items-start justify-end">
-            <div className="rounded-lg bg-primary/10 border border-primary/20 px-3 py-2 text-sm max-w-[85%]">
-              {state.lastResponse}
-            </div>
-            <MessageCircle className="h-4 w-4 mt-1 shrink-0 text-primary" />
-          </div>
+            {/* AI response (current turn) */}
+            {isProcessing && state.lastResponse && (
+              <div className="flex gap-2 items-start justify-end">
+                <div className="rounded-lg bg-primary/10 border border-primary/20 px-3 py-2 text-sm max-w-[85%]">
+                  {state.lastResponse}
+                </div>
+                <MessageCircle className="h-4 w-4 mt-1 shrink-0 text-primary" />
+              </div>
+            )}
+          </>
         )}
 
         {/* Empty state: instructions + start button */}
