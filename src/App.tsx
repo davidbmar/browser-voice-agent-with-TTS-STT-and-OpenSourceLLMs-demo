@@ -120,7 +120,12 @@ Here are the relevant sessions:
 ${sessionContent}
 
 When answering:
-- Cite specific Session IDs (e.g., "In session S-2026-02-08-1400...")
+- Format your response in **Markdown** for better readability
+- Use **headings** (##, ###) to organize different sections
+- Use **bullet points** for lists of changes or features
+- Use **code blocks** (\`\`\`) for code or file paths
+- Use **bold** for emphasis on important points
+- Cite specific Session IDs (e.g., "In session **S-2026-02-08-1400**...")
 - Quote relevant parts from the sessions
 - Be concise but accurate`;
 

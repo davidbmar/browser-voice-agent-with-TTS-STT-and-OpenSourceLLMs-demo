@@ -67,6 +67,7 @@ export function getChangelogHTML(): string {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Memory Changelog</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -141,12 +142,70 @@ export function getChangelogHTML(): string {
       border-left: 3px solid hsl(142 76% 40%);
       padding: 1rem;
       border-radius: 6px;
-      white-space: pre-wrap;
       line-height: 1.6;
       display: none;
     }
     .qa-answer.visible {
       display: block;
+    }
+    /* Markdown styling within qa-answer */
+    .qa-answer h1, .qa-answer h2, .qa-answer h3 {
+      color: hsl(142 76% 50%);
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+    }
+    .qa-answer h1 { font-size: 1.4em; }
+    .qa-answer h2 { font-size: 1.2em; }
+    .qa-answer h3 { font-size: 1.1em; }
+    .qa-answer p {
+      margin-bottom: 0.75em;
+    }
+    .qa-answer ul, .qa-answer ol {
+      margin-left: 1.5em;
+      margin-bottom: 0.75em;
+    }
+    .qa-answer li {
+      margin-bottom: 0.3em;
+    }
+    .qa-answer code {
+      background: hsl(217.2 32.6% 15%);
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      font-family: ui-monospace, monospace;
+      font-size: 0.9em;
+      color: hsl(142 76% 60%);
+    }
+    .qa-answer pre {
+      background: hsl(217.2 32.6% 8%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 6px;
+      padding: 0.75rem;
+      overflow-x: auto;
+      margin-bottom: 0.75em;
+    }
+    .qa-answer pre code {
+      background: transparent;
+      padding: 0;
+      color: hsl(210 40% 85%);
+    }
+    .qa-answer blockquote {
+      border-left: 3px solid hsl(217.2 32.6% 25%);
+      padding-left: 1em;
+      margin-left: 0;
+      margin-bottom: 0.75em;
+      color: hsl(215 20.2% 70%);
+    }
+    .qa-answer strong {
+      color: hsl(210 40% 95%);
+      font-weight: 600;
+    }
+    .qa-answer a {
+      color: hsl(142 76% 50%);
+      text-decoration: none;
+    }
+    .qa-answer a:hover {
+      text-decoration: underline;
     }
     h1 {
       font-size: 2rem;
@@ -458,7 +517,8 @@ export function getChangelogHTML(): string {
 
           if (e.data.type === 'answer') {
             qaStatus.textContent = \`✅ Answer (based on \${relevantSessions.length} session(s)):\`;
-            qaAnswer.textContent = e.data.text;
+            // Render markdown to HTML
+            qaAnswer.innerHTML = marked.parse(e.data.text);
             qaAnswer.classList.add('visible');
           } else if (e.data.type === 'error') {
             qaStatus.textContent = '❌ Error:';
