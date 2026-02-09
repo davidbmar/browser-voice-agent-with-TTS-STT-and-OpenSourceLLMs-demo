@@ -131,6 +131,7 @@ export interface LoopState {
   lastSearchResults: Array<{ title: string; snippet: string }>;
   lastSearchDurationMs: number;
   lastSearchProvider: string;
+  searchQuota: import("./proxy-search-provider.ts").SearchQuota | null;
   pendingTurnCount: number;
   listenerPaused: boolean;
   audioMuted: boolean;
@@ -163,6 +164,7 @@ export const DEFAULT_LOOP_STATE: LoopState = {
   lastSearchResults: [],
   lastSearchDurationMs: 0,
   lastSearchProvider: "",
+  searchQuota: null,
   pendingTurnCount: 0,
   listenerPaused: false,
   audioMuted: false,

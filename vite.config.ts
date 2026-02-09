@@ -8,6 +8,7 @@ const buildNumber = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 14);
 export default defineConfig({
   define: {
     __BUILD_NUMBER__: JSON.stringify(buildNumber),
+    __SEARCH_PROXY_URL__: JSON.stringify(process.env.SEARCH_PROXY_URL || ""),
   },
   plugins: [react(), tailwindcss()],
   resolve: {

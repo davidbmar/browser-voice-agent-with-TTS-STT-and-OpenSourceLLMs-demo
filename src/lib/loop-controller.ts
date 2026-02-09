@@ -533,6 +533,11 @@ export class LoopController {
             }));
             this.state.lastSearchDurationMs = searchResponse.durationMs;
             this.state.lastSearchProvider = searchResponse.provider;
+            // Pull quota from ProxySearchProvider if available
+            if ("getLastQuota" in this.searchProvider) {
+              const quota = (this.searchProvider as { getLastQuota: () => unknown }).getLastQuota();
+              if (quota) this.state.searchQuota = quota as import("./proxy-search-provider.ts").SearchQuota;
+            }
             this.notifyListeners();
 
             searchResultsBlock = formatSearchResults(searchResponse.results);

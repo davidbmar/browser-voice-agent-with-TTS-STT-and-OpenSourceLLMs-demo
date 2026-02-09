@@ -23,6 +23,8 @@ import { ChangelogButton } from "@/components/changelog/changelog-button.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
 import { MobileLayout } from "@/components/layout/mobile-layout.tsx";
 import { SearchResultsPanel } from "@/components/search/search-results-panel.tsx";
+import { SearchQuotaPanel } from "@/components/search/search-quota-panel.tsx";
+import { ProxySearchProvider } from "@/lib/proxy-search-provider.ts";
 import { useLoop } from "@/hooks/use-loop.ts";
 import { useMobile } from "@/hooks/use-mobile.ts";
 import { Bug } from "lucide-react";
@@ -47,6 +49,15 @@ function App() {
   const [pendingModelId, setPendingModelId] = useState<string | null>(DEFAULT_MODEL);
   const [isLoadingModel, setIsLoadingModel] = useState(false);
   const autoLoadAttempted = useRef(false);
+
+  // Wire in real search provider if proxy URL is configured
+  useEffect(() => {
+    if (typeof __SEARCH_PROXY_URL__ === "string" && __SEARCH_PROXY_URL__) {
+      const provider = new ProxySearchProvider(__SEARCH_PROXY_URL__);
+      controller.setSearchProvider(provider);
+      provider.fetchQuota(); // load initial quota
+    }
+  }, [controller]);
 
   // Auto-load default model on startup
   useEffect(() => {
@@ -296,6 +307,7 @@ When answering:
           <InternalStatePanel state={state} />
           <PromptsPanel state={state} />
           {state.modelConfig.searchEnabled && <SearchResultsPanel state={state} />}
+          {state.modelConfig.searchEnabled && <SearchQuotaPanel quota={state.searchQuota} />}
           <DecisionTracePanel entries={traceEntries} />
           <SpeechEventPanel speechLog={controller.speechLog} pendingTurnCount={state.pendingTurnCount} />
           <BiasSliders bias={state.bias} onChange={setBias} />

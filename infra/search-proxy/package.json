@@ -1,0 +1,15 @@
+{
+  "name": "search-proxy-lambda",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "package": "tsc && cd dist && zip -r ../search-proxy.zip ."
+  },
+  "devDependencies": {
+    "typescript": "~5.7.0",
+    "@types/aws-lambda": "^8.10.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.700.0"
+  }
+}
