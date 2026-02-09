@@ -31,12 +31,16 @@ export function getChangelogHTML(): string {
   // Sort dates descending (newest first)
   const sortedDates = Array.from(sessionsByDate.keys()).sort().reverse();
 
-  // Generate session HTML
+  // Generate session HTML with data attributes for searching
   const sessionHTML = sortedDates.map(date => {
     const dateSessions = sessionsByDate.get(date)!;
 
     const sessionsHTML = dateSessions.map(session => `
-      <div class="session">
+      <div class="session"
+           data-session-id="${escapeHTML(session.sessionId)}"
+           data-goal="${escapeHTML(session.goal)}"
+           data-author="${escapeHTML(session.author)}"
+           data-keywords="${session.keywords.join(' ')}">
         <div class="session-header">
           <span class="session-id">🎯 ${session.sessionId}</span>
         </div>
@@ -147,11 +151,80 @@ export function getChangelogHTML(): string {
       font-size: 3rem;
       margin-bottom: 1rem;
     }
+    .search-box {
+      position: sticky;
+      top: 0;
+      background: hsl(222.2 84% 4.9%);
+      padding: 1rem 0 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid hsl(217.2 32.6% 17.5%);
+      z-index: 10;
+    }
+    .search-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: hsl(217.2 32.6% 10%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      transition: border-color 0.2s;
+    }
+    .search-input-wrapper:focus-within {
+      border-color: hsl(142 76% 40%);
+    }
+    .search-icon {
+      font-size: 1.2rem;
+      color: hsl(215 20.2% 65.1%);
+    }
+    #searchInput {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: hsl(210 40% 90%);
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    #searchInput::placeholder {
+      color: hsl(215 20.2% 55%);
+    }
+    .search-results {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: hsl(215 20.2% 65.1%);
+    }
+    .session.hidden {
+      display: none;
+    }
+    .session.match {
+      border-left-color: hsl(142 76% 50%);
+      background: hsl(217.2 32.6% 12%);
+    }
+    mark {
+      background: hsl(142 76% 36% / 0.3);
+      color: hsl(142 76% 70%);
+      padding: 0.1em 0.2em;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
   <h1>📖 Project Memory Changelog</h1>
   <p class="subtitle">A timeline of all coding sessions and decisions</p>
+
+  <div class="search-box">
+    <div class="search-input-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search sessions... (try 'audio', 'bug', 'testing')"
+        autocomplete="off"
+      />
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
 
   ${sessions.length === 0 ? `
     <div class="empty-state">
@@ -159,6 +232,67 @@ export function getChangelogHTML(): string {
       <p>No sessions yet. Create your first session to get started!</p>
     </div>
   ` : sessionHTML}
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const allSessions = document.querySelectorAll('.session');
+    const totalSessions = allSessions.length;
+
+    function searchSessions() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      if (!query) {
+        // Show all sessions
+        allSessions.forEach(session => {
+          session.classList.remove('hidden', 'match');
+        });
+        searchResults.textContent = '';
+        return;
+      }
+
+      let matchCount = 0;
+
+      allSessions.forEach(session => {
+        const sessionId = session.dataset.sessionId.toLowerCase();
+        const goal = session.dataset.goal.toLowerCase();
+        const author = session.dataset.author.toLowerCase();
+        const keywords = session.dataset.keywords.toLowerCase();
+
+        const searchText = sessionId + ' ' + goal + ' ' + author + ' ' + keywords;
+        const matches = searchText.includes(query);
+
+        if (matches) {
+          session.classList.remove('hidden');
+          session.classList.add('match');
+          matchCount++;
+        } else {
+          session.classList.add('hidden');
+          session.classList.remove('match');
+        }
+      });
+
+      // Update results text
+      if (matchCount === 0) {
+        searchResults.textContent = '❌ No matches found';
+      } else if (matchCount === totalSessions) {
+        searchResults.textContent = \`✅ Showing all \${totalSessions} sessions\`;
+      } else {
+        searchResults.textContent = \`✅ Found \${matchCount} of \${totalSessions} sessions\`;
+      }
+    }
+
+    // Search on input
+    searchInput.addEventListener('input', searchSessions);
+
+    // Focus search on Ctrl+F or Cmd+F
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  </script>
 </body>
 </html>
 `;
