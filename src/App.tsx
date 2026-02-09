@@ -125,14 +125,17 @@ When answering:
 - Be concise but accurate`;
 
           // Generate response
-          const answerText = await llmEngine.generate({
+          let answerText = await llmEngine.generate({
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: query }
             ],
-            maxTokens: 256,
+            maxTokens: 512,
             temperature: 0.7
           });
+
+          // Strip thinking tags if present (some models output internal reasoning)
+          answerText = answerText.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
           // Send answer back
           channel.postMessage({
