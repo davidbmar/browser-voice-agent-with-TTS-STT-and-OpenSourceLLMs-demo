@@ -6,7 +6,8 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { generateDingBlob, generateHappyJingleBlob } from "@/lib/ding-tone.ts";
+import { startBootGreeting } from "@/lib/boot-greeting.ts";
+import type { BootGreetingHandle } from "@/lib/boot-greeting.ts";
 import { AppLayout } from "@/components/layout/app-layout.tsx";
 import { StageDiagram } from "@/components/loop/stage-diagram.tsx";
 import { LoopControls } from "@/components/loop/loop-controls.tsx";
@@ -74,78 +75,12 @@ function App() {
   }, [loadModel]);
 
   // --- Mobile boot greeting ---
-  const dingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const bootGreetingRef = useRef<BootGreetingHandle | null>(null);
 
-  /** Must be called synchronously from a click handler (iOS requires user gesture call stack). */
-  function startBootGreeting() {
-    function sayNative(text: string): Promise<void> {
-      return new Promise((resolve) => {
-        if (typeof speechSynthesis === "undefined") { resolve(); return; }
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 1.0;
-        utter.lang = "en-US";
-        utter.onend = () => resolve();
-        utter.onerror = () => resolve();
-        speechSynthesis.speak(utter);
-      });
-    }
-
-    // Queue first utterance synchronously in the tap call stack — this unlocks iOS audio
-    if (typeof speechSynthesis !== "undefined") {
-      const first = new SpeechSynthesisUtterance("Well, hello there! How are you doing?");
-      first.rate = 1.0;
-      first.lang = "en-US";
-      speechSynthesis.speak(first);
-
-      // Chain the rest after the first utterance finishes
-      first.onend = () => {
-        (async () => {
-          await sayNative("On first boot I have to load an LLM model so give me a second please.");
-
-          // Start ding interval while model loads
-          let blob: Blob | null = null;
-          try { blob = await generateDingBlob(); } catch {}
-
-          dingIntervalRef.current = setInterval(() => {
-            if (!blob) return;
-            const url = URL.createObjectURL(blob);
-            const audio = new Audio(url);
-            audio.volume = 0.3;
-            audio.play().catch(() => {});
-            audio.onended = () => URL.revokeObjectURL(url);
-          }, 2000);
-        })();
-      };
-    }
-  }
-
-  // Clear ding + play happy jingle + say "ready" when model loads
+  // Notify boot greeting when model finishes loading
   useEffect(() => {
     if (!mobileTapped || !state.modelConfig.isLoaded) return;
-    if (!dingIntervalRef.current) return;
-
-    clearInterval(dingIntervalRef.current);
-    dingIntervalRef.current = null;
-
-    // Play happy jingle then say "ready"
-    (async () => {
-      try {
-        const jingleBlob = await generateHappyJingleBlob();
-        const url = URL.createObjectURL(jingleBlob);
-        const audio = new Audio(url);
-        audio.volume = 0.5;
-        await audio.play().catch(() => {});
-        audio.onended = () => URL.revokeObjectURL(url);
-        // Wait for jingle to finish before speaking
-        await new Promise((r) => setTimeout(r, 900));
-      } catch {}
-
-      if (typeof speechSynthesis !== "undefined") {
-        const utter = new SpeechSynthesisUtterance("Ok ready, how can I help you?");
-        utter.lang = "en-US";
-        speechSynthesis.speak(utter);
-      }
-    })();
+    bootGreetingRef.current?.onModelLoaded();
   }, [mobileTapped, state.modelConfig.isLoaded]);
 
   const handleModelLoad = useCallback(async (modelId: string) => {
@@ -294,7 +229,7 @@ When answering:
         <div
           className="flex flex-col items-center justify-center bg-background text-foreground gap-6"
           style={{ height: "100dvh" }}
-          onClick={() => { startBootGreeting(); setMobileTapped(true); }}
+          onClick={() => { bootGreetingRef.current = startBootGreeting(); setMobileTapped(true); }}
         >
           <Bug className="h-16 w-16 text-primary animate-pulse" />
           <h1 className="text-2xl font-bold">Bug Loop</h1>
