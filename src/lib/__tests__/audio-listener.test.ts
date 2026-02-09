@@ -191,6 +191,53 @@ describe("AudioListener", () => {
   });
 
   // -----------------------------------------------------------------------
+  // getUserMedia skipped on Android/iOS (mic contention fix)
+  // -----------------------------------------------------------------------
+  it("does NOT call getUserMedia on Android (prevents mic steal from SpeechRecognition)", async () => {
+    // Simulate Android Z Fold 7 user agent
+    (navigator as unknown as Record<string, unknown>).userAgent =
+      "Mozilla/5.0 (Linux; Android 14; SM-F946B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36";
+
+    const listener = new AudioListener();
+    await listener.start();
+
+    expect(mockGetUserMedia).not.toHaveBeenCalled();
+    expect(listener.isActive()).toBe(true);
+
+    listener.stop();
+    // Restore
+    (navigator as unknown as Record<string, unknown>).userAgent = "vitest-desktop";
+  });
+
+  it("does NOT call getUserMedia on iOS (gesture context expiry fix)", async () => {
+    (navigator as unknown as Record<string, unknown>).userAgent =
+      "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
+
+    const listener = new AudioListener();
+    await listener.start();
+
+    expect(mockGetUserMedia).not.toHaveBeenCalled();
+    expect(listener.isActive()).toBe(true);
+
+    listener.stop();
+    (navigator as unknown as Record<string, unknown>).userAgent = "vitest-desktop";
+  });
+
+  it("DOES call getUserMedia on desktop for audio level monitoring", async () => {
+    (navigator as unknown as Record<string, unknown>).userAgent =
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
+    const listener = new AudioListener();
+    await listener.start();
+
+    expect(mockGetUserMedia).toHaveBeenCalledWith({ audio: true });
+    expect(listener.isActive()).toBe(true);
+
+    listener.stop();
+    (navigator as unknown as Record<string, unknown>).userAgent = "vitest-desktop";
+  });
+
+  // -----------------------------------------------------------------------
   // Diagnostics
   // -----------------------------------------------------------------------
   it("getDiagnostics() returns event log", async () => {
