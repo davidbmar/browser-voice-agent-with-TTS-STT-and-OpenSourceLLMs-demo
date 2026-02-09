@@ -10,11 +10,13 @@
   "memory": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "system": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "every": [
     "S-2026-02-08-1400-bootstrap-memory",
@@ -22,11 +24,13 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "coding": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "session": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "decision": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -37,7 +41,8 @@
   ],
   "citations": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "starting": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -54,7 +59,8 @@
   ],
   "need": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "way": [
     "S-2026-02-08-1400-bootstrap-memory",
@@ -65,7 +71,8 @@
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "code": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "changed": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -74,11 +81,13 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "find": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "context": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "any": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -115,7 +124,8 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "tracking": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "template": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -186,10 +196,12 @@
   ],
   "sessions": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "easy": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "grep": [
     "S-2026-02-08-1400-bootstrap-memory"
@@ -227,14 +239,17 @@
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "reasoning": [
-    "S-2026-02-08-1400-bootstrap-memory"
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "add": [
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-1430-migrate-project-memory",
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "visibility": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -246,7 +261,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "listener": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "pause": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -260,7 +276,9 @@
   "all": [
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "panels": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -269,10 +287,12 @@
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "audio": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "mute": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "toggle": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -284,7 +304,8 @@
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "comprehensive": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "test": [
     "S-2026-02-08-1400-listener-ui-mute",
@@ -315,7 +336,8 @@
   ],
   "show": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "paused": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -354,7 +376,8 @@
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "couldn": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "collapsed": [
     "S-2026-02-08-1400-listener-ui-mute",
@@ -364,10 +387,13 @@
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "output": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "infrastructure": [
-    "S-2026-02-08-1400-listener-ui-mute"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "existed": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -395,7 +421,8 @@
   ],
   "than": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "eliminated": [
     "S-2026-02-08-1400-listener-ui-mute"
@@ -514,7 +541,8 @@
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "existing": [
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "screenshots": [
     "S-2026-02-08-1430-migrate-project-memory"
@@ -576,7 +604,8 @@
   ],
   "panel": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "reduce": [
     "S-2026-02-08-1500-collapse-interims"
@@ -595,7 +624,8 @@
     "S-2026-02-08-1500-collapse-interims"
   ],
   "separate": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "creating": [
     "S-2026-02-08-1500-collapse-interims"
@@ -612,7 +642,8 @@
   ],
   "users": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "want": [
     "S-2026-02-08-1500-collapse-interims"
@@ -639,7 +670,8 @@
     "S-2026-02-08-1500-collapse-interims",
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "lib": [
     "S-2026-02-08-1500-collapse-interims",
@@ -652,7 +684,8 @@
   ],
   "added": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "formattimerange": [
     "S-2026-02-08-1500-collapse-interims"
@@ -668,7 +701,8 @@
   ],
   "components": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "trace": [
     "S-2026-02-08-1500-collapse-interims"
@@ -679,7 +713,8 @@
   "tsx": [
     "S-2026-02-08-1500-collapse-interims",
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "grouping": [
     "S-2026-02-08-1500-collapse-interims"
@@ -706,7 +741,8 @@
     "S-2026-02-08-1500-collapse-interims"
   ],
   "rendering": [
-    "S-2026-02-08-1500-collapse-interims"
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "layer": [
     "S-2026-02-08-1500-collapse-interims"
@@ -743,7 +779,8 @@
   ],
   "text": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "fix": [
     "S-2026-02-08-1500-fix-silence-counter",
@@ -756,7 +793,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "detection": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "causes": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -768,7 +806,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "first": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "word": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -776,7 +815,9 @@
   "only": [
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "captures": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -835,7 +876,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "between": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "utterances": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -851,7 +893,9 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "via": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "speechrecognition": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -869,7 +913,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "using": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "whatever": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -898,7 +943,8 @@
   ],
   "full": [
     "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "later": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -948,7 +994,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "problem": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "data": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -957,7 +1004,8 @@
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "window": [
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "model": [
     "S-2026-02-08-1515-fix-model-switch-cache",
@@ -973,7 +1021,8 @@
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "browser": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "cache": [
     "S-2026-02-08-1515-fix-model-switch-cache",
@@ -1024,11 +1073,13 @@
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "internal": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "error": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "unloadmodel": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1059,14 +1110,16 @@
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "then": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "fails": [
     "S-2026-02-08-1515-fix-model-switch-cache",
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "due": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "insufficient": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1080,7 +1133,8 @@
   ],
   "call": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "deletemodelallinfoincache": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1092,7 +1146,8 @@
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "loading": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "wrap": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1118,7 +1173,8 @@
   ],
   "app": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "pendingmodelid": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1133,7 +1189,8 @@
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "main": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "still": [
     "S-2026-02-08-1515-fix-model-switch-cache"
@@ -1150,31 +1207,36 @@
   ],
   "not": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "reload": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "same": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "graceful": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "handling": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "failures": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "quota": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "exceeded": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "generation": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "tokenizer": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1219,7 +1281,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "like": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "cannot": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1249,13 +1312,15 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "returns": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "true": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "exists": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "estimatestorage": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1270,7 +1335,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "generate": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "clearerror": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1300,7 +1366,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "use": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "entry": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1327,19 +1394,22 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "display": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "dismiss": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "button": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "calling": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "controller": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "non-fatal": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1363,7 +1433,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "directly": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "async": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1387,7 +1458,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "fsm": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
   "falls": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1402,7 +1474,8 @@
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "about": [
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "actions": [
     "S-2026-02-08-1600-graceful-error-handling"
@@ -1424,5 +1497,420 @@
   ],
   "recovery": [
     "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "replace": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "mocksearchprovider": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "real": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "web": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "search": [
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "aws": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "lambda": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "proxy": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "cascade": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "google": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "custom": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "free": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "day": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "brave": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "month": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "tavily": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "interface": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "formatting": [
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "integration": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "missing": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "piece": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "api": [
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "provider": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "apis": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "cors": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "key": [
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "security": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "filled": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "functionality": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "changelog": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "broadcastchannel": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "rag": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "pattern": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "displays": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "answer": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "questions": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "them": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "wanted": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "ask": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "get": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "answers": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "llm": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "actual": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "content": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "opens": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "access": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "twice": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "waste": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "2gb": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "accurate": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "hallucinations": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "solution": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "cross-window": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "communication": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "implement": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "retrieval": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "augmented": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "keyword": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "index": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "fast": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "top": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "relevant": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "read": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "disk": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "generates": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "llm-service": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "receives": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "query": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "sessionids": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "reads": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "markdown": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "files": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "fetch": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "uses": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "getllmengine": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "second": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "timeout": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "changelog-content": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "input": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "box": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "status": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "area": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "searches": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "sends": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "efficient": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "renders": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "marked": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "enter": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "support": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "states": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "prompt": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "updates": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "encourages": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "headings": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "bullet": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "points": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "blocks": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "bold": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "structured": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "scannable": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "bug": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "fixes": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "increased": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "maxtokens": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "truncated": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "strip": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "think": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "tags": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "shouldn": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "v11": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "cdn": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "css": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "styling": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "lists": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "quotes": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "professional": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "documentation-style": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "over": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "shared": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "worker": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "simpler": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "origin": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "acceptable": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "blind": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "guessing": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "scales": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "well": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "balance": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "token": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "limit": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "better": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "plain": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "scan": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "library": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "lightweight": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "popular": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "simple": [
+    "S-2026-02-08-2000-changelog-qa-rag"
   ]
 }
