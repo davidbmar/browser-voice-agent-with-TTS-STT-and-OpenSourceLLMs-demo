@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.tsx";
 import { Progress } from "@/components/ui/progress.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
+import { DebugReportButton } from "browser-mobile-debug-panel";
 import { Bug, Mic, Square, Loader2, Brain, MessageCircle, User, X, Info, Search } from "lucide-react";
 import { cn } from "@/lib/utils.ts";
 
@@ -25,6 +26,7 @@ interface MobileLayoutProps {
   selectedModelId: string | null;
   onModelLoad: (modelId: string) => void;
   onModelUnload: () => void;
+  onCollectDebugState?: () => Record<string, unknown>;
 }
 
 const STAGE_LABELS: Record<string, string> = {
@@ -116,7 +118,7 @@ function DebugPanel({ state }: { state: LoopState }) {
   );
 }
 
-export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId, onModelLoad, onModelUnload }: MobileLayoutProps) {
+export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId, onModelLoad, onModelUnload, onCollectDebugState }: MobileLayoutProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const [showDebug, setShowDebug] = useState(false);
@@ -204,7 +206,18 @@ export function MobileLayout({ state, dispatch, isLoadingModel, selectedModelId,
         <CapabilityBanner />
 
         {/* Debug panel (toggled via info icon) */}
-        {showDebug && <DebugPanel state={state} />}
+        {showDebug && (
+          <>
+            <DebugPanel state={state} />
+            {onCollectDebugState && __DEBUG_REPORT_PROXY_URL__ && (
+              <DebugReportButton config={{
+                proxyUrl: __DEBUG_REPORT_PROXY_URL__,
+                collectAppState: onCollectDebugState,
+                projectName: "bug-loop-voice-agent",
+              }} />
+            )}
+          </>
+        )}
 
         {/* Error */}
         {state.error && (

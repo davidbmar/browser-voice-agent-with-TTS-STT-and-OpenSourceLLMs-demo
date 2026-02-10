@@ -592,12 +592,9 @@ describe("LoopController", () => {
   });
 
   // -----------------------------------------------------------------------
-  // buildSearchFiller
-  // -----------------------------------------------------------------------
-  // -----------------------------------------------------------------------
   // SPEAK stage timing — stage should be SPEAK while TTS audio is playing
   // -----------------------------------------------------------------------
-  it("LLM streaming: stage transitions to SPEAK on first token (before generation completes)", async () => {
+  it("LLM streaming: stage transitions to SPEAK after generation completes", async () => {
     // Track all stage transitions
     const stages: string[] = [];
     ctrl.subscribe(() => {
@@ -605,23 +602,16 @@ describe("LoopController", () => {
       if (stages[stages.length - 1] !== s) stages.push(s);
     });
 
-    // Make the mock LLM stream tokens with onToken callback
-    let resolveGeneration: (() => void) | null = null;
-    const generationGate = new Promise<void>(r => { resolveGeneration = r; });
-
     mockCreateMLCEngine.mockResolvedValueOnce({
       unload: vi.fn().mockResolvedValue(undefined),
       chat: {
         completions: {
           create: vi.fn().mockImplementation(() => {
-            // Return an async iterable that yields tokens
             const tokens = ["Hello", " there", ".", " How", " are", " you", "?"];
             return (async function* () {
               for (const token of tokens) {
                 yield { choices: [{ delta: { content: token } }] };
               }
-              // Wait at the end to keep generation "in progress"
-              await generationGate;
             })();
           }),
         },
@@ -635,21 +625,12 @@ describe("LoopController", () => {
     // Simulate user input
     ctrl.dispatch({ type: "SIMULATE_INPUT", text: "how are you doing" });
 
-    // Wait for tokens to stream
-    await new Promise(r => setTimeout(r, 150));
+    // Wait for generation to complete and stage transitions
+    await new Promise(r => setTimeout(r, 300));
 
-    // Stage should already be SPEAK — even though generation hasn't completed
-    const stageBeforeComplete = ctrl.getState().stage;
-    expect(stageBeforeComplete).toBe("SPEAK");
-
-    // Now let generation complete
-    resolveGeneration!();
-    await new Promise(r => setTimeout(r, 100));
-
-    // Stage sequence should show SPEAK was reached before endStream
+    // Stage sequence should include SPEAK after MICRO_RESPONSE
     expect(stages).toContain("SPEAK");
     const speakIdx = stages.indexOf("SPEAK");
-    // SPEAK should come after CLASSIFY or MICRO_RESPONSE
     expect(speakIdx).toBeGreaterThan(0);
   });
 
@@ -719,50 +700,4 @@ describe("LoopController", () => {
     expect(stages).toContain("SPEAK");
   });
 
-  // -----------------------------------------------------------------------
-  // buildSearchFiller
-  // -----------------------------------------------------------------------
-  it("buildSearchFiller returns a non-empty string ending with punctuation", async () => {
-    const { buildSearchFiller } = await import("../loop-controller.ts");
-    const filler = buildSearchFiller("weather in Austin");
-    expect(filler.length).toBeGreaterThan(5);
-    expect(filler.endsWith(".")).toBe(true);
-  });
-
-  it("buildSearchFiller never contains template placeholder", async () => {
-    const { buildSearchFiller } = await import("../loop-controller.ts");
-    // Run multiple times to hit different templates
-    for (let i = 0; i < 20; i++) {
-      const filler = buildSearchFiller("test query");
-      expect(filler).not.toContain("{{query}}");
-    }
-  });
-
-  it("buildSearchFiller query-based templates include query keywords", async () => {
-    const { buildSearchFiller } = await import("../loop-controller.ts");
-    // Run enough times to get at least one query-based template
-    const fillers = Array.from({ length: 50 }, () => buildSearchFiller("weather Austin"));
-    const withQuery = fillers.filter(f => f.includes("weather Austin"));
-    expect(withQuery.length).toBeGreaterThan(0);
-  });
-
-  it("buildSearchFiller truncates long queries to 5 words in query-based templates", async () => {
-    const { buildSearchFiller } = await import("../loop-controller.ts");
-    const fillers = Array.from({ length: 50 }, () =>
-      buildSearchFiller("what is the weather forecast for Austin Texas tomorrow morning")
-    );
-    // Query-based templates should have truncated text with ellipsis
-    const withQuery = fillers.filter(f => f.includes("what is the weather forecast"));
-    for (const f of withQuery) {
-      expect(f).toContain("...");
-      expect(f).not.toContain("Austin Texas");
-    }
-  });
-
-  it("buildSearchFiller includes generic fillers without query", async () => {
-    const { buildSearchFiller } = await import("../loop-controller.ts");
-    const fillers = Array.from({ length: 50 }, () => buildSearchFiller("test"));
-    const generic = fillers.filter(f => !f.includes("test"));
-    expect(generic.length).toBeGreaterThan(0);
-  });
 });

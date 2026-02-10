@@ -24,6 +24,7 @@ import { DocsButton } from "@/components/docs/docs-button.tsx";
 import { ChangelogButton } from "@/components/changelog/changelog-button.tsx";
 import { CapabilityBanner } from "@/components/capabilities/capability-banner.tsx";
 import { MobileLayout } from "@/components/layout/mobile-layout.tsx";
+import { collectAppState } from "@/lib/debug-app-state.ts";
 import { ModelBrowser } from "@/components/model/model-browser.tsx";
 import { SearchResultsPanel } from "@/components/search/search-results-panel.tsx";
 import { SearchQuotaPanel } from "@/components/search/search-quota-panel.tsx";
@@ -253,6 +254,7 @@ When answering:
         selectedModelId={effectiveModelId}
         onModelLoad={handleModelLoad}
         onModelUnload={handleUnload}
+        onCollectDebugState={() => collectAppState(controller)}
       />
     );
   }

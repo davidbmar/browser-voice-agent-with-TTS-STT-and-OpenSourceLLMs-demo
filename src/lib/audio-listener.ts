@@ -150,9 +150,9 @@ export class AudioListener {
     // --- Set up AudioContext for level monitoring (async, after recognition started) ---
     // IMPORTANT: On Android, getUserMedia can steal the mic from SpeechRecognition,
     // causing recognition to receive silence. Skip audio level monitoring on Android.
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      this._log("Android detected — skipping getUserMedia (mic contention fix)");
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      this._log("Mobile detected — skipping getUserMedia (mic contention / gesture expiry fix)");
     } else {
       this._log("getUserMedia requesting...");
       try {

@@ -9,12 +9,14 @@ export default defineConfig({
   define: {
     __BUILD_NUMBER__: JSON.stringify(buildNumber),
     __SEARCH_PROXY_URL__: JSON.stringify(process.env.SEARCH_PROXY_URL || ""),
+    __DEBUG_REPORT_PROXY_URL__: JSON.stringify(process.env.DEBUG_REPORT_PROXY_URL || ""),
   },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    dedupe: ['react', 'react-dom'],
   },
   optimizeDeps: {
     exclude: ['@mlc-ai/web-llm'],

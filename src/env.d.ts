@@ -43,3 +43,5 @@ interface SpeechRecognitionErrorEvent extends Event {
   error: string;
   message: string;
 }
+
+declare const __DEBUG_REPORT_PROXY_URL__: string;
