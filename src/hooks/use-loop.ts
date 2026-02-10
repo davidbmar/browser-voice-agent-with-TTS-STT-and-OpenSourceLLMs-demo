@@ -80,6 +80,12 @@ export function useLoop() {
     [controller]
   );
 
+  // Internal monologue toggle
+  const setSpeakMonologue = useCallback(
+    (on: boolean) => controller.setSpeakMonologue(on),
+    [controller]
+  );
+
   return {
     state,
     traceEntries,
@@ -91,6 +97,7 @@ export function useLoop() {
     setBias,
     setSearchEnabled,
     setAudioMuted,
+    setSpeakMonologue,
     controller,
   };
 }

@@ -28,14 +28,19 @@ describe("DEFAULT_MODEL_CONFIG", () => {
   it("has all required fields with correct defaults", () => {
     expect(DEFAULT_MODEL_CONFIG.classifyWithLLM).toBe(false);
     expect(DEFAULT_MODEL_CONFIG.responseWithLLM).toBe(true);
-    expect(DEFAULT_MODEL_CONFIG.searchEnabled).toBe(false);
+    expect(DEFAULT_MODEL_CONFIG.searchEnabled).toBe(true);
+    expect(DEFAULT_MODEL_CONFIG.speakMonologue).toBe(false);
     expect(DEFAULT_MODEL_CONFIG.modelId).toBeNull();
     expect(DEFAULT_MODEL_CONFIG.isLoaded).toBe(false);
     expect(DEFAULT_MODEL_CONFIG.loadProgress).toBe(0);
   });
 
-  it("searchEnabled is false by default", () => {
-    expect(DEFAULT_MODEL_CONFIG.searchEnabled).toBe(false);
+  it("searchEnabled is true by default", () => {
+    expect(DEFAULT_MODEL_CONFIG.searchEnabled).toBe(true);
+  });
+
+  it("speakMonologue is false by default", () => {
+    expect(DEFAULT_MODEL_CONFIG.speakMonologue).toBe(false);
   });
 });
 

@@ -67,6 +67,7 @@ export interface ModelConfig {
   classifyWithLLM: boolean;
   responseWithLLM: boolean;
   searchEnabled: boolean;
+  speakMonologue: boolean;
   modelId: string | null;
   modelBId: string | null;
   isLoaded: boolean;
@@ -77,7 +78,8 @@ export interface ModelConfig {
 export const DEFAULT_MODEL_CONFIG: ModelConfig = {
   classifyWithLLM: false,
   responseWithLLM: true,
-  searchEnabled: false,
+  searchEnabled: true,
+  speakMonologue: false,
   modelId: null,
   modelBId: null,
   isLoaded: false,

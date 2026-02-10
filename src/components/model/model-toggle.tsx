@@ -4,11 +4,13 @@ interface ModelToggleProps {
   classifyWithLLM: boolean;
   responseWithLLM: boolean;
   searchEnabled: boolean;
+  speakMonologue: boolean;
   audioMuted: boolean;
   isModelLoaded: boolean;
   onClassifyChange: (on: boolean) => void;
   onResponseChange: (on: boolean) => void;
   onSearchChange: (on: boolean) => void;
+  onSpeakMonologueChange: (on: boolean) => void;
   onAudioMuteChange: (muted: boolean) => void;
 }
 
@@ -16,11 +18,13 @@ export function ModelToggle({
   classifyWithLLM,
   responseWithLLM,
   searchEnabled,
+  speakMonologue,
   audioMuted,
   isModelLoaded,
   onClassifyChange,
   onResponseChange,
   onSearchChange,
+  onSpeakMonologueChange,
   onAudioMuteChange,
 }: ModelToggleProps) {
   return (
@@ -61,6 +65,18 @@ export function ModelToggle({
             checked={searchEnabled}
             onCheckedChange={onSearchChange}
             disabled={!isModelLoaded}
+          />
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
+        <label className="text-xs text-muted-foreground">Internal Monologue</label>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-mono text-muted-foreground">
+            {speakMonologue ? "ON" : "OFF"}
+          </span>
+          <Switch
+            checked={speakMonologue}
+            onCheckedChange={onSpeakMonologueChange}
           />
         </div>
       </div>

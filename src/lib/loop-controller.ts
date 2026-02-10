@@ -524,8 +524,27 @@ export class LoopController {
             `Query: "${searchNeed.searchQuery}" (${searchNeed.reason})`);
           this.notifyListeners();
 
+          // Speak a filler phrase so the user hears something while search runs
+          const fillerPhrases = [
+            "Let me research this.",
+            "Hold on... give me a moment.",
+            "On it... searching.",
+            "Mosey on... hold on.",
+            "Let me look that up.",
+            "One moment while I search.",
+            "Searching for that now.",
+            "Give me a sec...",
+          ];
+          const filler = fillerPhrases[Math.floor(Math.random() * fillerPhrases.length)];
+          this.listener.pause();
+          this.trace.add("MICRO_RESPONSE", "search_filler", `Speaking filler: "${filler}"`);
+
           try {
-            const searchResponse = await this.searchProvider.search(searchNeed.searchQuery, 3);
+            // Speak filler and search in parallel
+            const [, searchResponse] = await Promise.all([
+              this.speaker.speak(filler),
+              this.searchProvider.search(searchNeed.searchQuery, 3),
+            ]);
 
             this.state.lastSearchQuery = searchNeed.searchQuery;
             this.state.lastSearchResults = searchResponse.results.map(r => ({
@@ -606,8 +625,8 @@ export class LoopController {
                 thinkBuffer = thinking;
                 this.state.lastThinking = thinking;
 
-                // Start streaming TTS with monologue spoken first
-                if (thinkBuffer) {
+                // Start streaming TTS — speak monologue only if toggle is on
+                if (thinkBuffer && this.state.modelConfig.speakMonologue) {
                   this.speaker.beginStreamWithMonologue(thinkBuffer);
                   this.trace.add("MICRO_RESPONSE", "stream_monologue", `Internal monologue queued: "${thinkBuffer.slice(0, 60)}..."`);
                 } else {
@@ -729,7 +748,7 @@ export class LoopController {
 
     // Integration point: Browser-Text-to-Speech-TTS-Realtime — TTS speak
     // See: https://github.com/davidbmar/Browser-Text-to-Speech-TTS-Realtime
-    if (lastThinking) {
+    if (lastThinking && this.state.modelConfig.speakMonologue) {
       this.trace.add("SPEAK", "dual_voice", `Internal monologue (soft female) then response (British voice)`);
       await this.speaker.speakWithMonologue(lastThinking, lastResponse);
     } else {
@@ -908,6 +927,11 @@ export class LoopController {
 
   setSearchEnabled(on: boolean) {
     this.state.modelConfig.searchEnabled = on;
+    this.notifyListeners();
+  }
+
+  setSpeakMonologue(on: boolean) {
+    this.state.modelConfig.speakMonologue = on;
     this.notifyListeners();
   }
 
