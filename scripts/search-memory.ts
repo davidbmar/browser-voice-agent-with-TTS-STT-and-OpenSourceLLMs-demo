@@ -20,6 +20,7 @@ interface KeywordIndex {
 
 interface SessionMetadata {
   sessionId: string;
+  title: string;
   file: string;
   date: string;
   author: string;

@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1400-listener-ui-mute
+Title: Add listener visibility, collapsible panels, and audio mute
 Date: 2026-02-08
 Author: Claude + dmar
 

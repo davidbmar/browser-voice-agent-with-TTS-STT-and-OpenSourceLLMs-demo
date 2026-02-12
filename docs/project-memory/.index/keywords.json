@@ -1,72 +1,48 @@
 {
+  "adr": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "adrs": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "architecture": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "because": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
   "bootstrap": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory"
   ],
-  "project": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "memory": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "system": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "every": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "coding": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "session": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "decision": [
+  "changed": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "searchable": [
+  "changes": [
     "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "chose": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "citations": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "starting": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "new": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "repo": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "need": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "way": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "track": [
+  "claude": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory"
   ],
@@ -74,28 +50,67 @@
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "changed": [
+  "coding": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "commit": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "commits": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "concurrent": [
     "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "context": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "create": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "created": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
   "decided": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "find": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "decision": [
+    "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "context": [
+  "decisions": [
     "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
     "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting",
+    "S-2026-02-11-0010-auto-index-hooks"
   ],
-  "any": [
+  "description": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "commit": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "created": [
+  "directory": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory"
   ],
@@ -103,299 +118,229 @@
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory"
   ],
-  "project-memory": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "structure": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "adr": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "templates": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "example": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "file": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "tracking": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "template": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "requiring": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "ids": [
+  "document": [
     "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "documented": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "format": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "s-yyyy-mm-dd-hhmm-": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "slug": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "established": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "message": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "sessionid": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "description": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "chose": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "because": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "sortable": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "time": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "human": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "readable": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "unique": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "enough": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "concurrent": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "sessions": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
   "easy": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "grep": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "commits": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "prefix": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "requirement": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "include": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "makes": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "git": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "log": [
-    "S-2026-02-08-1400-bootstrap-memory"
-  ],
-  "links": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
   "enables": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "tracing": [
+  "enough": [
     "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "reasoning": [
-    "S-2026-02-08-1400-bootstrap-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "established": [
+    "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "add": [
+  "example": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "file": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "files": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "find": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "format": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "git": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "goal": [
+    "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
     "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-11-0010-auto-index-hooks"
   ],
-  "visibility": [
-    "S-2026-02-08-1400-listener-ui-mute"
+  "grep": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
   ],
-  "into": [
-    "S-2026-02-08-1400-listener-ui-mute",
+  "human": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "ids": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "include": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "knows": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "links": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "log": [
+    "S-2026-02-08-1400-bootstrap-memory"
+  ],
+  "made": [
+    "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory",
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "listener": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "makes": [
+    "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "pause": [
-    "S-2026-02-08-1400-listener-ui-mute"
+  "memory": [
+    "S-2026-02-08-1400-bootstrap-memory",
+    "S-2026-02-08-1430-migrate-project-memory"
   ],
-  "resume": [
-    "S-2026-02-08-1400-listener-ui-mute"
+  "message": [
+    "S-2026-02-08-1400-bootstrap-memory"
   ],
-  "make": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "all": [
-    "S-2026-02-08-1400-listener-ui-mute",
+  "need": [
+    "S-2026-02-08-1400-bootstrap-memory",
     "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "panels": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "collapsible": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "audio": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "mute": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "toggle": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "build": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "number": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "comprehensive": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "test": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "suite": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "after": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "implementing": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "always-on": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "pipeline": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "didn": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "show": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "paused": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "echo": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "cancellation": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "stage": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "diagram": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "showed": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "listening": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "sequential": [
-    "S-2026-02-08-1400-listener-ui-mute"
+  "new": [
+    "S-2026-02-08-1400-bootstrap-memory"
   ],
   "actually": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "parallel": [
+  "add": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "added": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "after": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "always-on": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "some": [
+  "app": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "applied": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "audio": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "audiolistener": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "audiomuted": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "biassliders": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "build": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "callback": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "cancellation": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "card": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "class": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "collapsed": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "collapsible": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "component": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "comprehensive": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "concerns": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "config": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "core": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "couldn": [
     "S-2026-02-08-1400-listener-ui-mute",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "collapsed": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "there": [
+  "covering": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "output": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "datetime": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "infrastructure": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "declaration": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "existed": [
+  "define": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "diagram": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "didn": [
+    "S-2026-02-08-1400-listener-ui-mute"
+  ],
+  "displayed": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
   "during": [
@@ -403,300 +348,160 @@
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "speak": [
+  "echo": [
     "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "unavoidable": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "made": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "visible": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "rather": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "than": [
-    "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "eliminated": [
     "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "used": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "vits": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "silence": [
+  "event": [
     "S-2026-02-08-1400-listener-ui-mute",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "volume": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "skip": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "preserve": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "timing": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "two-row": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "separates": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "concerns": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "processing": [
-    "S-2026-02-08-1400-listener-ui-mute"
-  ],
-  "migrate": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "traceable": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "browser_question_loop": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "active": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "voice": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "agent": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "application": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "ongoing": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "development": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "decisions": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "future": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "changes": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "explainable": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "copied": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "directory": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "examples": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "claude": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "instructions": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "github": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "pull_request_template": [
-    "S-2026-02-08-1430-migrate-project-memory"
-  ],
-  "updated": [
-    "S-2026-02-08-1430-migrate-project-memory",
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "readme": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "existed": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "section": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "expose": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "document": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "exposed": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "s-2026-02-08-1430-migrate-project-memory": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "field": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "keep": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "format-time": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1500-collapse-interims"
   ],
-  "existing": [
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "formatting": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "screenshots": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "header": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "already": [
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+  "hook": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-11-0010-auto-index-hooks"
   ],
-  "lives": [
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
+  "implementing": [
+    "S-2026-02-08-1400-listener-ui-mute"
   ],
-  "alongside": [
-    "S-2026-02-08-1430-migrate-project-memory"
+  "infrastructure": [
+    "S-2026-02-08-1400-listener-ui-mute",
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "workflow": [
+  "active": [
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "additive": [
     "S-2026-02-08-1430-migrate-project-memory"
   ],
+  "agent": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "alongside": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "already": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "application": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "assistants": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "browser": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
   "continues": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "copied": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "copy": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "demonstrate": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "development": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "documentation": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "entire": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "examples": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "existing": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "explainable": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "future": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "github": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "instructions": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "into": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "keep": [
+    "S-2026-02-08-1430-migrate-project-memory",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "know": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "lives": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "loop": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "make": [
+    "S-2026-02-08-1430-migrate-project-memory"
+  ],
+  "migrate": [
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "normally": [
     "S-2026-02-08-1430-migrate-project-memory"
   ],
   "now": [
-    "S-2026-02-08-1430-migrate-project-memory",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "documentation": [
     "S-2026-02-08-1430-migrate-project-memory"
   ],
-  "collapse": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "consecutive": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "interim": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "speech": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "events": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "single": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "row": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "panel": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "reduce": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "noise": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "shows": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "individual": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "event": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "separate": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "creating": [
+  "100ms": [
     "S-2026-02-08-1500-collapse-interims"
   ],
   "15-20": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "lines": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "sentence": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "users": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "want": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
   "cleaner": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "view": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "interims": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "showing": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "range": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "count": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "src": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "lib": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "format-time": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "added": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "formattimerange": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "startms": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "endms": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "function": [
+  "collapse": [
     "S-2026-02-08-1500-collapse-interims"
   ],
   "components": [
@@ -704,97 +509,160 @@
     "S-2026-02-08-1600-graceful-error-handling",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "trace": [
+  "consecutive": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "speech-event-panel": [
+  "count": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "tsx": [
+  "creating": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "display": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "displayitem": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "end": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "endms": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "events": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "formattimerange": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "function": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "grouped": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "groupevents": [
+    "S-2026-02-08-1500-collapse-interims"
   ],
   "grouping": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "types": [
+  "helper": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "logic": [
+  "individual": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "render": [
-    "S-2026-02-08-1500-collapse-interims"
-  ],
-  "__tests__": [
+  "interim": [
     "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "tests": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "ui-only": [
+  "interims": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "rendering": [
-    "S-2026-02-08-1500-collapse-interims",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "items": [
+    "S-2026-02-08-1500-collapse-interims"
   ],
   "layer": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "speecheventlog": [
+  "lib": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "lines": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "unchanged": [
+  "logic": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "mmm": [
     "S-2026-02-08-1500-collapse-interims"
   ],
   "mmm-ss": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "mmm": [
+  "noise": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "open": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "otherwise": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "panel": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "parentheses": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "plan": [
+    "S-2026-02-08-1500-collapse-interims",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "questions": [
+    "S-2026-02-08-1500-collapse-interims"
+  ],
+  "range": [
     "S-2026-02-08-1500-collapse-interims"
   ],
   "ranges": [
     "S-2026-02-08-1500-collapse-interims"
   ],
-  "100ms": [
-    "S-2026-02-08-1500-collapse-interims"
+  "10s": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "timestamp": [
-    "S-2026-02-08-1500-collapse-interims"
+  "1500ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "otherwise": [
-    "S-2026-02-08-1500-collapse-interims"
+  "200ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "parentheses": [
-    "S-2026-02-08-1500-collapse-interims"
+  "213ms": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "end": [
-    "S-2026-02-08-1500-collapse-interims"
+  "406-420": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "text": [
-    "S-2026-02-08-1500-collapse-interims",
+  "accumulates": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "arrives": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "available": [
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "before": [
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-09-0040-mobile-boot-greeting",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "behavior": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "between": [
     "S-2026-02-08-1500-fix-silence-counter",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "fix": [
+  "captures": [
     "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "premature": [
+  "catches": [
     "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "turn-end": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "detection": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1700-real-search-proxy"
   ],
   "causes": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -802,129 +670,38 @@
   "clipped": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "just": [
+  "confidence": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "first": [
+  "counter": [
     "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "word": [
+  "crosses": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "only": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "captures": [
+  "currently": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "silence-based": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "turn": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "updatevadfromlevel": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "loop-controller": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "406-420": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "fires": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "synthetic": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "turn_end": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "silencedurationms": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "silencethresholdms": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "1500ms": [
+  "data": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "default": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "signal_detect": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "however": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "accumulates": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "long": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "silences": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "between": [
+  "deploy": [
     "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "utterances": [
+  "detect": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "never": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "reset": [
+  "detection": [
     "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "arrives": [
+  "discarded": [
     "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "via": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "speechrecognition": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "results": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "fire": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "within": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "200ms": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "using": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "whatever": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "partial": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "available": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "evidence": [
     "S-2026-02-08-1500-fix-silence-counter"
@@ -932,202 +709,50 @@
   "final": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "213ms": [
+  "fire": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "fires": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "first": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "fix": [
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "flips": [
+    "S-2026-02-08-1500-fix-silence-counter"
+  ],
+  "full": [
+    "S-2026-02-08-1500-fix-silence-counter",
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "gets": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
   "hardcoded": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "confidence": [
+  "however": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "full": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "isspeaking": [
+    "S-2026-02-08-1500-fix-silence-counter"
   ],
   "later": [
     "S-2026-02-08-1500-fix-silence-counter"
   ],
-  "micro_response": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "gets": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "queued": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "discarded": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "stale": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "10s": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "old": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "counter": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "transition": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "signal": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "detect": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "modifying": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "most": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "targeted": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "problem": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "data": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "persists": [
-    "S-2026-02-08-1500-fix-silence-counter"
-  ],
-  "window": [
-    "S-2026-02-08-1500-fix-silence-counter",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "model": [
+  "being": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
+    "S-2026-02-11-0010-auto-index-hooks"
   ],
-  "switching": [
+  "best-effort": [
     "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "failure": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "caused": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "browser": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1700-real-search-proxy"
   ],
   "cache": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "storage": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "being": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "previous": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "weights": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "models": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "one": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "loaded": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "user": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "sees": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "load": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "failed": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "execute": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "unexpected": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "internal": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "error": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "unloadmodel": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "frees": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "gpu": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "doesn": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "clear": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "webllm": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "stores": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "downloaded": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "download": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "then": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "fails": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "due": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "insufficient": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "space": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "llm-engine": [
     "S-2026-02-08-1515-fix-model-switch-cache",
     "S-2026-02-08-1600-graceful-error-handling"
   ],
@@ -1136,342 +761,106 @@
     "S-2026-02-08-1600-graceful-error-handling",
     "S-2026-02-08-1700-real-search-proxy"
   ],
-  "deletemodelallinfoincache": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "previousmodelid": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "before": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "loading": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "wrap": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "llmengine": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "loadmodel": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "try": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
   "catch": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "modelconfig": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "state": [
+  "caused": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "app": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "pendingmodelid": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
   "cleanup": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "best-effort": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "ignored": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "main": [
+  "clear": [
     "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "controller": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-08-1600-graceful-error-handling",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "still": [
-    "S-2026-02-08-1515-fix-model-switch-cache"
-  ],
-  "succeed": [
+  "delete": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "deleted": [
     "S-2026-02-08-1515-fix-model-switch-cache",
     "S-2026-02-08-1600-graceful-error-handling"
   ],
+  "deletemodelallinfoincache": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
   "different": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "doesn": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "not": [
-    "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "reload": [
+  "download": [
     "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "same": [
+  "downloaded": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
+  ],
+  "due": [
     "S-2026-02-08-1515-fix-model-switch-cache",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "graceful": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "handling": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "failures": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "quota": [
-    "S-2026-02-08-1600-graceful-error-handling",
     "S-2026-02-08-1700-real-search-proxy"
   ],
-  "exceeded": [
+  "error": [
+    "S-2026-02-08-1515-fix-model-switch-cache",
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "generation": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "execute": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "tokenizer": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "wasm": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "crash": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "pre-flight": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "check": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "auto-unload": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "fatal": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "errors": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "user-friendly": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "messages": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "dismissal": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "see": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "raw": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "strings": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "like": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "cannot": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "pass": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "object": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "pointer": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "type": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "leaves": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "engine": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "broken": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "isloaded": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "returns": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "true": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "exists": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "estimatestorage": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "static": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "method": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "disposed": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "generate": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "clearerror": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "public": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "friendlyerror": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "private": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "helper": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "translating": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "network": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "onerror": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "callbacks": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "use": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "entry": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "clears": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "model-selector": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "estimation": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "hook": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "low": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "badge": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "exceeding": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "display": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "dismiss": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "button": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "calling": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "controller": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "non-fatal": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "unavailable": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "notifies": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "passthrough": [
-    "S-2026-02-08-1600-graceful-error-handling"
-  ],
-  "null": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "failed": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "out": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "fails": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "modelid": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "failure": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "directly": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-1700-real-search-proxy"
+  "frees": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "async": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "gpu": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "unload": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "ignored": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "since": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "insufficient": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "corrupted": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "internal": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "return": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "llm-engine": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "false": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "llmengine": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "immediately": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "load": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "fsm": [
-    "S-2026-02-08-1600-graceful-error-handling",
-    "S-2026-02-08-1700-real-search-proxy"
+  "loaded": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "falls": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "loading": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "back": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "loadmodel": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "rule-based": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "loop-controller": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
-  "translation": [
-    "S-2026-02-08-1600-graceful-error-handling"
+  "main": [
+    "S-2026-02-08-1515-fix-model-switch-cache"
   ],
   "about": [
     "S-2026-02-08-1600-graceful-error-handling",
@@ -1480,314 +869,219 @@
   "actions": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "reports": [
+  "aggressively": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "async": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "auto-unload": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
   "avoid": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
+  "back": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "badge": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "broken": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "button": [
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "callbacks": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "calling": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "cannot": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "check": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
+  "clearerror": [
+    "S-2026-02-08-1600-graceful-error-handling"
+  ],
   "clearing": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "too": [
+  "clears": [
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "corrupted": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "aggressively": [
+  "crash": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "recovery": [
+  "directly": [
+    "S-2026-02-08-1600-graceful-error-handling",
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "dismiss": [
     "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "replace": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "dismissal": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "mocksearchprovider": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "disposed": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "real": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "engine": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "web": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "entering": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "search": [
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "entry": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "aws": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "errors": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "lambda": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "estimatestorage": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "proxy": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "estimation": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "cascade": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "exceeded": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
-  "google": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "custom": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "free": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "day": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "brave": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "month": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "tavily": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "interface": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "formatting": [
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "integration": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "missing": [
-    "S-2026-02-08-1700-real-search-proxy"
-  ],
-  "piece": [
-    "S-2026-02-08-1700-real-search-proxy"
+  "exceeding": [
+    "S-2026-02-08-1600-graceful-error-handling"
   ],
   "api": [
     "S-2026-02-08-1700-real-search-proxy",
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "provider": [
+  "apis": [
+    "S-2026-02-08-1700-real-search-proxy",
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "aws": [
     "S-2026-02-08-1700-real-search-proxy"
   ],
-  "apis": [
+  "brave": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "browser-side": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "build-time": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "cascade": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "cascading": [
     "S-2026-02-08-1700-real-search-proxy"
   ],
   "cors": [
     "S-2026-02-08-1700-real-search-proxy"
   ],
-  "key": [
-    "S-2026-02-08-1700-real-search-proxy",
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "cse": [
+    "S-2026-02-08-1700-real-search-proxy"
   ],
-  "security": [
+  "custom": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "day": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "dynamodb": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "exists": [
     "S-2026-02-08-1700-real-search-proxy"
   ],
   "filled": [
     "S-2026-02-08-1700-real-search-proxy"
   ],
-  "functionality": [
+  "free": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "fsm": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "gateway": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "google": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "integration": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "interface": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "key": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "keys": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "lambda": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "missing": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "mocksearchprovider": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "month": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "piece": [
+    "S-2026-02-08-1700-real-search-proxy"
+  ],
+  "2gb": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "changelog": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "broadcastchannel": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "rag": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "pattern": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "displays": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "answer": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "questions": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "them": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "wanted": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "ask": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "get": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "answers": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "llm": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "actual": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "content": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "opens": [
+  "acceptable": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "access": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "twice": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "waste": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "2gb": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
   "accurate": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "hallucinations": [
+  "actual": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "solution": [
+  "answer": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "cross-window": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "communication": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "implement": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "retrieval": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "augmented": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "keyword": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "index": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "fast": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "top": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "relevant": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "read": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "disk": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "generates": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "llm-service": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "receives": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "query": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "sessionids": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "reads": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "markdown": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "files": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "fetch": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "uses": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "getllmengine": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "second": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "timeout": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "changelog-content": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "input": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "box": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "status": [
+  "answers": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "area": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "searches": [
+  "ask": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "sends": [
+  "augmented": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "efficient": [
+  "balance": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "renders": [
+  "better": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "marked": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "enter": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "support": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "states": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "prompt": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "updates": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "encourages": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "headings": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "bullet": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "points": [
+  "blind": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "blocks": [
@@ -1796,121 +1090,235 @@
   "bold": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "structured": [
+  "box": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "scannable": [
+  "broadcastchannel": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "bug": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "fixes": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "increased": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "maxtokens": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "truncated": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "strip": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "think": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "tags": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "shouldn": [
-    "S-2026-02-08-2000-changelog-qa-rag"
-  ],
-  "v11": [
+  "bullet": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
   "cdn": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
+  "changelog": [
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "changelog-content": [
+    "S-2026-02-08-2000-changelog-qa-rag",
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "cites": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "cloudfront": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "communication": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "complete": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "content": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
+  "cross-window": [
+    "S-2026-02-08-2000-changelog-qa-rag"
+  ],
   "css": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "styling": [
+  "deployed": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "lists": [
+  "details": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "quotes": [
+  "disk": [
     "S-2026-02-08-2000-changelog-qa-rag"
   ],
-  "professional": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "adding": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "documentation-style": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "android": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "over": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "anywhere": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "shared": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "arpeggio": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "worker": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "ascending": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "simpler": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "auto-loads": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "origin": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "auto-play": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "acceptable": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "await": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "blind": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "bar": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "guessing": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "boot": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "scales": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "both": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "well": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "branding": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "balance": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "browsers": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "token": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "bumped": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "limit": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "c5-e5-g5-c6": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "better": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "cancelled": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "plain": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "cancels": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "scan": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "cases": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "library": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "chain": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "lightweight": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "chaining": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "popular": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "checks": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
   ],
-  "simple": [
-    "S-2026-02-08-2000-changelog-qa-rag"
+  "cleanly": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "completion": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "condition": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "conditions": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "corrupt": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "corruption": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "ding": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "ding-tone": [
+    "S-2026-02-09-0040-mobile-boot-greeting"
+  ],
+  "alternative": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "array": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "author": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "auto-index": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "auto-rebuilds": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "automatically": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "bash": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "bash-based": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "beyond": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "breaks": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "build-index": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "builder": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "concatenation": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "consistent": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "date": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "dependencies": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "depends": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "filtering": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "hooks": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "imports": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "index": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "initial": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "initially": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "install": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "installed": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "installs": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "instead": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "integrate": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "json": [
+    "S-2026-02-11-0010-auto-index-hooks"
+  ],
+  "kept": [
+    "S-2026-02-11-0010-auto-index-hooks"
   ]
 }

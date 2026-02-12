@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1430-migrate-project-memory
+Title: Migrate project memory to voice agent repo
 Date: 2026-02-08
 Author: dmar
 

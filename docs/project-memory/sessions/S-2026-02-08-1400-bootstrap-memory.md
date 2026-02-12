@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1400-bootstrap-memory
+Title: Bootstrap project memory system
 Date: 2026-02-08
 Author: dmar
 

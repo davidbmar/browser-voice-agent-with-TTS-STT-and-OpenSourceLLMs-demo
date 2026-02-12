@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1500-fix-silence-counter
+Title: Fix premature turn-end detection clipping speech
 Date: 2026-02-08
 Author: Claude + dmar
 

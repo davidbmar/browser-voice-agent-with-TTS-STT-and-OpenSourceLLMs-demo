@@ -1,6 +1,7 @@
 # Session S-2026-02-08-2000-changelog-qa-rag
 
 Session-ID: S-2026-02-08-2000-changelog-qa-rag
+Title: Add Q&A to changelog via BroadcastChannel and RAG
 Date: 2026-02-08
 Author: dmar
 

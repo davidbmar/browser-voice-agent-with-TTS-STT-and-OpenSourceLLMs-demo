@@ -13,6 +13,7 @@ import { join } from 'path';
 
 interface SessionMetadata {
   sessionId: string;
+  title: string;
   file: string;
   date: string;
   author: string;
@@ -58,10 +59,12 @@ function parseSession(content: string, filePath: string): SessionMetadata | null
   }
 
   const sessionId = sessionIdMatch[1];
+  const titleMatch = content.match(/Title:\s*(.+)/);
   const dateMatch = content.match(/Date:\s*([\d-]+)/);
   const authorMatch = content.match(/Author:\s*(.+)/);
   const goalMatch = content.match(/## Goal\n\n(.+?)(?:\n\n|$)/s);
 
+  const title = titleMatch?.[1]?.trim() || '';
   const date = dateMatch?.[1] || '';
   const author = authorMatch?.[1]?.trim() || '';
   const goal = goalMatch?.[1]?.trim() || '';
@@ -78,6 +81,7 @@ function parseSession(content: string, filePath: string): SessionMetadata | null
 
   return {
     sessionId,
+    title,
     file: filePath,
     date,
     author,

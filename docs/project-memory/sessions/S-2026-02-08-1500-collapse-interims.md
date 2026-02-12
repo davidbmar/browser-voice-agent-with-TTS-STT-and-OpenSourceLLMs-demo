@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1500-collapse-interims
+Title: Collapse consecutive interim speech events
 Date: 2026-02-08
 Author: Claude
 

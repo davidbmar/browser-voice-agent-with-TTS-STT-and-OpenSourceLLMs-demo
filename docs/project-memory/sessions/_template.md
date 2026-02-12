@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-YYYY-MM-DD-HHMM-slug
+Title: Short human-readable title for this session
 Date: YYYY-MM-DD
 Author:
 
@@ -31,7 +32,7 @@ What's still unclear or needs follow-up?
 ## Links
 
 Commits:
-- `commit-hash` [SessionID] description
+- `commit-hash` description
 
 PRs:
 - #123 - PR title

@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1600-graceful-error-handling
+Title: Add graceful error handling for model failures
 Date: 2026-02-08
 Author: Claude
 

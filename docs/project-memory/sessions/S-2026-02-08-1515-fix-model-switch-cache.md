@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1515-fix-model-switch-cache
+Title: Fix model switching failure from full Cache Storage
 Date: 2026-02-08
 Author: Claude
 

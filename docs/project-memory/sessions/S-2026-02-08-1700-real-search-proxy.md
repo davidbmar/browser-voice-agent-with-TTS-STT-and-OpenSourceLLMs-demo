@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-08-1700-real-search-proxy
+Title: Replace mock search with real web search via Lambda proxy
 Date: 2026-02-08
 Author: Claude
 

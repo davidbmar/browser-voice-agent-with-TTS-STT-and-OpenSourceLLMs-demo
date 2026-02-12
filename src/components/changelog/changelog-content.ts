@@ -3,13 +3,28 @@
  *
  * Reads from docs/project-memory/.index/metadata.json and displays sessions
  * as a timeline. Self-contained HTML with inline styles.
+ * Click a session card to expand and view the full session document.
  */
 
 import metadata from '../../../docs/project-memory/.index/metadata.json';
 import keywordIndex from '../../../docs/project-memory/.index/keywords.json';
 
+// Import all session markdown files as raw text at build time
+const sessionFiles = import.meta.glob(
+  '../../../docs/project-memory/sessions/S-*.md',
+  { eager: true, query: '?raw', import: 'default' }
+) as Record<string, string>;
+
+// Build a map of sessionId → raw markdown content
+const sessionContent: Record<string, string> = {};
+for (const [path, content] of Object.entries(sessionFiles)) {
+  const filename = path.split('/').pop()?.replace('.md', '') ?? '';
+  sessionContent[filename] = content;
+}
+
 interface SessionMetadata {
   sessionId: string;
+  title: string;
   file: string;
   date: string;
   author: string;
@@ -33,29 +48,41 @@ export function getChangelogHTML(): string {
   const sortedDates = Array.from(sessionsByDate.keys()).sort().reverse();
 
   // Generate session HTML with data attributes for searching
+  // HHMM in session IDs is UTC — timezone conversion happens client-side
   const sessionHTML = sortedDates.map(date => {
     const dateSessions = sessionsByDate.get(date)!;
 
-    const sessionsHTML = dateSessions.map(session => `
+    const sessionsHTML = dateSessions.map(session => {
+      const rawContent = sessionContent[session.sessionId] ?? '';
+      const displayTitle = session.title || session.goal;
+      return `
       <div class="session"
            data-session-id="${escapeHTML(session.sessionId)}"
+           data-title="${escapeHTML(session.title)}"
            data-goal="${escapeHTML(session.goal)}"
            data-author="${escapeHTML(session.author)}"
            data-keywords="${session.keywords.join(' ')}">
         <div class="session-header">
-          <span class="session-id">🎯 ${session.sessionId}</span>
+          <span class="session-title">${escapeHTML(displayTitle)}</span>
+          <span class="session-time"></span>
+          <span class="expand-hint">click to expand</span>
         </div>
-        <div class="session-goal">${escapeHTML(session.goal)}</div>
+        <div class="session-id-line">${escapeHTML(session.sessionId)}</div>
         <div class="session-meta">
           <span class="meta-item">👤 ${escapeHTML(session.author)}</span>
           ${session.keywords.length > 0 ? `<span class="meta-item">🏷️ ${session.keywords.slice(0, 5).join(', ')}</span>` : ''}
         </div>
+        <div class="session-detail" style="display:none;">
+          <script type="text/markdown">${escapeHTML(rawContent)}</script>
+          <div class="session-detail-content"></div>
+        </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     return `
-      <div class="date-group">
-        <h2 class="date-header">📅 ${formatDate(date)}</h2>
+      <div class="date-group" data-date="${date}">
+        <h2 class="date-header"></h2>
         <div class="sessions">${sessionsHTML}</div>
       </div>
     `;
@@ -212,10 +239,23 @@ export function getChangelogHTML(): string {
       margin-bottom: 0.5rem;
       color: hsl(142 76% 50%);
     }
+    .subtitle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      gap: 1rem;
+    }
     .subtitle {
       color: hsl(215 20.2% 65.1%);
       font-size: 1rem;
-      margin-bottom: 2.5rem;
+    }
+    .session-time {
+      font-size: 0.8rem;
+      color: hsl(215 20.2% 65.1%);
+      margin-left: 0.75rem;
+      font-family: inherit;
+      font-weight: 400;
     }
     .date-group {
       margin-bottom: 3rem;
@@ -239,26 +279,126 @@ export function getChangelogHTML(): string {
       border-radius: 8px;
       padding: 1.25rem 1.5rem;
       transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
     }
     .session:hover {
       background: hsl(217.2 32.6% 12%);
       border-left-color: hsl(142 76% 50%);
     }
-    .session-header {
-      margin-bottom: 0.75rem;
+    .session.expanded {
+      border-left-color: hsl(142 76% 50%);
+      background: hsl(217.2 32.6% 12%);
     }
-    .session-id {
+    .expand-hint {
+      float: right;
+      font-size: 0.75rem;
+      color: hsl(215 20.2% 50%);
+      font-family: inherit;
+      font-weight: 400;
+    }
+    .session.expanded .expand-hint::after {
+      content: ' (click to collapse)';
+    }
+    .session:not(.expanded) .expand-hint::after {
+      content: '';
+    }
+    .session-detail {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid hsl(217.2 32.6% 20%);
+    }
+    .session-detail-content {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: hsl(210 40% 85%);
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+    .session-detail-content h1,
+    .session-detail-content h2,
+    .session-detail-content h3 {
+      color: hsl(142 76% 50%);
+      margin-top: 1.2em;
+      margin-bottom: 0.4em;
+      font-weight: 600;
+    }
+    .session-detail-content h1 { font-size: 1.3em; }
+    .session-detail-content h2 { font-size: 1.1em; }
+    .session-detail-content h3 { font-size: 1em; }
+    .session-detail-content p {
+      margin-bottom: 0.6em;
+    }
+    .session-detail-content ul, .session-detail-content ol {
+      margin-left: 1.5em;
+      margin-bottom: 0.6em;
+    }
+    .session-detail-content li {
+      margin-bottom: 0.25em;
+    }
+    .session-detail-content code {
+      background: hsl(217.2 32.6% 15%);
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.85rem;
+      font-size: 0.88em;
+      color: hsl(142 76% 60%);
+    }
+    .session-detail-content pre {
+      background: hsl(217.2 32.6% 8%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 6px;
+      padding: 0.75rem;
+      overflow-x: auto;
+      margin-bottom: 0.6em;
+    }
+    .session-detail-content pre code {
+      background: transparent;
+      padding: 0;
+      color: hsl(210 40% 85%);
+    }
+    .session-detail-content strong {
+      color: hsl(210 40% 95%);
+      font-weight: 600;
+    }
+    .session-detail-content hr {
+      border: none;
+      border-top: 1px solid hsl(217.2 32.6% 20%);
+      margin: 1em 0;
+    }
+    .session-header {
+      margin-bottom: 0.5rem;
+    }
+    .session-title {
+      font-size: 1rem;
       font-weight: 600;
       color: hsl(210 40% 98%);
-      letter-spacing: -0.02em;
+    }
+    .session-id-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: hsl(215 20.2% 55%);
+      margin-bottom: 0.5rem;
     }
     .session-goal {
       font-size: 0.95rem;
       line-height: 1.5;
       color: hsl(210 40% 85%);
       margin-bottom: 0.75rem;
+    }
+    #tzSelect {
+      background: hsl(217.2 32.6% 10%);
+      border: 1px solid hsl(217.2 32.6% 17.5%);
+      border-radius: 6px;
+      padding: 0.4rem 0.6rem;
+      color: hsl(210 40% 90%);
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    #tzSelect:focus {
+      border-color: hsl(142 76% 40%);
+      outline: none;
     }
     .session-meta {
       display: flex;
@@ -341,7 +481,12 @@ export function getChangelogHTML(): string {
 </head>
 <body>
   <h1>📖 Project Memory Changelog</h1>
-  <p class="subtitle">A timeline of all coding sessions and decisions</p>
+  <div class="subtitle-row">
+    <p class="subtitle">A timeline of all coding sessions and decisions</p>
+    <select id="tzSelect" title="Display timezone">
+      <option value="UTC">UTC</option>
+    </select>
+  </div>
 
   <div class="qa-box">
     <h3>💬 Ask Questions</h3>
@@ -379,6 +524,73 @@ export function getChangelogHTML(): string {
   ` : sessionHTML}
 
   <script>
+    // --- Timezone selector and date/time formatting ---
+    // HHMM in session IDs is UTC. We parse it as UTC and convert to selected timezone.
+    const tzSelect = document.getElementById('tzSelect');
+
+    // Populate timezone selector with common timezones + browser local
+    (function populateTimezones() {
+      const common = [
+        'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+        'America/Sao_Paulo', 'Europe/London', 'Europe/Paris', 'Europe/Berlin',
+        'Asia/Tokyo', 'Asia/Shanghai', 'Asia/Kolkata', 'Australia/Sydney'
+      ];
+      const local = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const zones = [local, ...common.filter(z => z !== local)];
+      // Clear default UTC option, rebuild with Local first then UTC then others
+      tzSelect.innerHTML = '';
+      const localOpt = document.createElement('option');
+      localOpt.value = local;
+      localOpt.textContent = local.replace(/_/g, ' ') + ' (local)';
+      tzSelect.appendChild(localOpt);
+      const utcOpt = document.createElement('option');
+      utcOpt.value = 'UTC';
+      utcOpt.textContent = 'UTC';
+      tzSelect.appendChild(utcOpt);
+      for (const tz of common.filter(z => z !== local)) {
+        const opt = document.createElement('option');
+        opt.value = tz;
+        opt.textContent = tz.replace(/_/g, ' ');
+        tzSelect.appendChild(opt);
+      }
+    })();
+
+    function formatAllTimes() {
+      const tz = tzSelect.value;
+
+      // Format date headers
+      document.querySelectorAll('.date-group').forEach(group => {
+        const dateStr = group.dataset.date;
+        if (!dateStr) return;
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const dt = new Date(Date.UTC(y, m - 1, d, 12));
+        const formatted = dt.toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+        });
+        group.querySelector('.date-header').textContent = '\\u{1F4C5} ' + formatted;
+      });
+
+      // Format session times — parse HHMM as UTC, convert to selected timezone
+      document.querySelectorAll('.session').forEach(session => {
+        const sid = session.dataset.sessionId;
+        const timeEl = session.querySelector('.session-time');
+        if (!sid || !timeEl) return;
+        const match = sid.match(/^S-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})(\\d{2})/);
+        if (!match) { timeEl.textContent = ''; return; }
+        const [, yr, mo, dy, hr, mn] = match;
+        const utcDate = new Date(Date.UTC(
+          parseInt(yr), parseInt(mo) - 1, parseInt(dy),
+          parseInt(hr), parseInt(mn)
+        ));
+        timeEl.textContent = utcDate.toLocaleTimeString('en-US', {
+          hour: 'numeric', minute: '2-digit', timeZone: tz
+        });
+      });
+    }
+
+    tzSelect.addEventListener('change', formatAllTimes);
+    formatAllTimes();
+
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
     const allSessions = document.querySelectorAll('.session');
@@ -426,6 +638,28 @@ export function getChangelogHTML(): string {
         searchResults.textContent = \`✅ Found \${matchCount} of \${totalSessions} sessions\`;
       }
     }
+
+    // Click to expand/collapse session detail (renders markdown on first expand)
+    allSessions.forEach(session => {
+      session.addEventListener('click', (e) => {
+        // Don't toggle if user is selecting text
+        if (window.getSelection().toString()) return;
+        const detail = session.querySelector('.session-detail');
+        const hint = session.querySelector('.expand-hint');
+        if (!detail) return;
+        const isExpanded = session.classList.toggle('expanded');
+        detail.style.display = isExpanded ? 'block' : 'none';
+        if (hint) hint.textContent = isExpanded ? 'click to collapse' : 'click to expand';
+
+        // Render markdown on first expand
+        const contentEl = detail.querySelector('.session-detail-content');
+        const mdSource = detail.querySelector('script[type="text/markdown"]');
+        if (isExpanded && contentEl && mdSource && !contentEl.dataset.rendered) {
+          contentEl.innerHTML = marked.parse(mdSource.textContent || '');
+          contentEl.dataset.rendered = 'true';
+        }
+      });
+    });
 
     // Search on input
     searchInput.addEventListener('input', searchSessions);
@@ -551,14 +785,6 @@ export function getChangelogHTML(): string {
 `;
 }
 
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
 
 function escapeHTML(str: string): string {
   return str

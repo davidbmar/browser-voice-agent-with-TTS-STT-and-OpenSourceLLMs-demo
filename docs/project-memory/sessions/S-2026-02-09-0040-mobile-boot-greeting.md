@@ -1,6 +1,7 @@
 # Session
 
 Session-ID: S-2026-02-09-0040-mobile-boot-greeting
+Title: Add mobile voice greeting and fix model load race condition
 Date: 2026-02-09
 Author: Claude
 
